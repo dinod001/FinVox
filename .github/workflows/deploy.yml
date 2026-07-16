@@ -17,9 +17,18 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: "3.11"
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
         
     - name: Compile Python files (Check for syntax errors)
       run: |
         # This will compile all .py files in the project and fail if there are syntax errors.
-        # Tests are currently ignored as requested.
         python -m compileall -q .
+
+    - name: Run Pipeline Tests
+      run: |
+        python tests/test_ingest.py

@@ -17,6 +17,7 @@ langchain-core>=0.1.0             # Core abstractions (prompts, runnables)
 langchain-community>=0.0.20       # Community integrations (includes Chroma)
 langchain-openai>=0.0.5           # OpenAI LangChain integration (Chat + Embeddings)
 langchain-text-splitters>=0.2.0   # Text chunking utilities (semantic & fixed)
+pymupdf4llm>=1.28.0               # High quality PDF to Markdown & Table extraction
 langgraph>=0.0.30                 # State-based agent orchestration
 
 # ========================================
@@ -83,6 +84,8 @@ matplotlib>=3.7.0                 # Plotting (notebook 03 VAD probability plot)
 scipy>=1.11.0                     # WAV encoding for the recording widget
 requests>=2.31.0                  # HTTP requests for API calls
 aiohttp>=3.9.0                    # Async HTTP for concurrent operations
+chardet>=5.2.0                    # File encoding detection for ingestion
+openpyxl>=3.1.0                   # Excel file support for pandas
 
 # ========================================
 # Memory & Reminders (Week 02) - Supabase

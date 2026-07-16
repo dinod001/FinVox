@@ -7,12 +7,12 @@
 - **Voice & Chat Interface:** Communicate naturally via text or voice (powered by OpenAI Whisper / Deepgram STT and ElevenLabs TTS). Built with support for code-mixed Sri Lankan English.
 - **Multi-Agent AI Core:** Powered by LangGraph, coordinating specialized AI agents:
   - 🧠 *Orchestrator Agent:* Routes queries to the appropriate specialist.
-  - 📄 *Document Parser Agent:* Extracts structured data from CSV, Excel, and PDF invoices.
+  - 📄 *Document Parser Agent:* Extracts structured data from CSV, Excel, and PDF invoices. (Utilizes `pymupdf4llm` for highly accurate, zero-latency Markdown table extraction from borderless PDFs without relying on LLMs).
   - 📈 *Cash Flow Forecast Agent:* Predicts 30/60/90-day liquidity and cash flow.
   - 🌍 *Market Research Agent:* Fetches real-time market data (Yahoo Finance, CSE, CBSL).
   - 💼 *Investment Advisor Agent:* Recommends allocations for surplus capital.
   - 📑 *Report Generator Agent:* Creates downloadable PDF financial health summaries.
-- **Data Intelligence (RAG):** Securely processes uploaded financial documents using Retrieval-Augmented Generation, anchored by a Qdrant Vector Database.
+- **Data Intelligence (RAG):** Securely processes uploaded financial documents using Retrieval-Augmented Generation, anchored by a Qdrant Vector Database. Features Markdown-aware chunking to preserve table structures.
 - **Real-Time Responsiveness:** Designed for ultra-low latency voice interactions using WebRTC via LiveKit.
 
 ## 🛠️ Technology Stack
