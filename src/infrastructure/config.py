@@ -203,6 +203,14 @@ QDRANT_URL = os.getenv("QDRANT_URL", None)
 QDRANT_COLLECTION_NAME = os.getenv("QDRANT_COLLECTION_NAME", "finvox")
 
 # ========================================
+# Data Ingestion Configuration
+# ========================================
+
+INGESTION_NULL_THRESHOLD = _get_nested(_PARAMS, "ingestion", "null_threshold", default=0.3)
+INGESTION_MAX_FILE_SIZE_MB = _get_nested(_PARAMS, "ingestion", "max_file_size_mb", default=50)
+INGESTION_SUPPORTED_FORMATS = _get_nested(_PARAMS, "ingestion", "supported_formats", default=["csv", "xlsx", "xls", "pdf"])
+
+# ========================================
 # FAQ Loading
 # ========================================
 

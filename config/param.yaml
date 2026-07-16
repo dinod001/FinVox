@@ -89,3 +89,12 @@ voice:
   min_endpointing_delay: 0.3
   interruption_enabled: true
   sample_rate: 16000
+
+ingestion:
+  null_threshold: 0.3
+  max_file_size_mb: 50
+  supported_formats:
+    - csv
+    - xlsx
+    - xls
+    - pdf
