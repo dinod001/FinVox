@@ -1,0 +1,1078 @@
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 1 of 27 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+PROJECT PROPOSAL 
+ 
+AI-Powered SME Financial Advisory System 
+A Conversational Voice & Chat Multi-Agent Platform for 
+Small and Medium Enterprises in Sri Lanka 
+ 
+Domain: Finance & Business Technology 
+Technology: Multi-Agent AI | Voice Agent | LLMs | RAG 
+Project Type: Individual / Solo Project | Duration: 5 Months 
+ 
+Submitted in partial fulfilment of the requirements for the 
+Bachelor of Science (Hons) in Software Engineering 
+ 
+Submitted by: Dinod Imanjith Withanawasam 
+Student ID: KD/BSCSD/21/28 
+Cardiff Met ID: st20312099 
+Date: May 2026 
+  
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 2 of 27 
+ 
+Table of Contents 
+1. Title .................................................................................................................................................... 4 
+2. Introduction ..................................................................................................................................... 5 
+3. Current Situation Leading to Problem Identification ........................................................... 6 
+3.1 The SME Financial Management Crisis in Sri Lanka ..................................................... 6 
+3.2 Key Statistics and Evidence of the Problem .................................................................... 7 
+3.3 Why Existing Tools Fail SMEs ............................................................................................. 7 
+3.4 The Voice Interface Gap ......................................................................................................... 8 
+3.5 Problem Statement ................................................................................................................. 8 
+4. Proposed Technique to Solve the Current Problem ........................................................... 10 
+4.1 Architectural Overview......................................................................................................... 10 
+4.2 Voice Agent Design ............................................................................................................... 10 
+4.3 Multi-Agent Architecture Detail ......................................................................................... 12 
+4.4 RAG Pipeline for Financial Data ........................................................................................ 12 
+4.5 Novelty and Innovation ........................................................................................................ 13 
+5. Feasibility....................................................................................................................................... 14 
+5.1 Technical Feasibility ............................................................................................................. 14 
+5.2 Financial Feasibility .............................................................................................................. 14 
+5.3 Time Feasibility ...................................................................................................................... 15 
+5.4 Legal and Ethical Feasibility .............................................................................................. 15 
+6. Project Description ..................................................................................................................... 15 
+6.1 User Journey .......................................................................................................................... 15 
+6.2 Core Modules ......................................................................................................................... 16 
+6.2.1 Voice + Chat Interface ................................................................................................... 16 
+6.2.2 Financial Data Upload and Analysis ......................................................................... 16 
+6.2.3 Cash Flow Forecasting ................................................................................................. 16 
+6.2.4 Investment and Market Intelligence .......................................................................... 16 
+6.2.5 Monthly Financial Health Report ................................................................................ 16 
+6.3 Resources Required ............................................................................................................. 17 
+7. Deliverables................................................................................................................................... 18 
+7.1 Primary Artefact — Working Web Application ............................................................... 18 
+7.2 Research and Evaluation Results ..................................................................................... 18 
+7.3 SDLC-Based Implementation Plan ....................................... Error! Bookmark not defined. 
+8. Expected Output and Outcome................................................................................................ 23 
+8.1 Technical Performance Targets ......................................................................................... 23 
+8.2 Academic Contribution ........................................................................................................ 24 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 3 of 27 
+ 
+8.3 Real-World and Societal Impact ........................................................................................ 24 
+9. Limitations ..................................................................................................................................... 24 
+9.1 Regulatory Limitation ........................................................................................................... 24 
+9.2 Voice Recognition Accuracy .............................................................................................. 25 
+9.3 Data Format Dependencies ................................................................................................ 25 
+9.4 LLM Hallucination Risk ........................................................................................................ 25 
+9.5 Scope Boundaries ................................................................................................................. 25 
+References ......................................................................................................................................... 26 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 4 of 27 
+ 
+1. Title 
+ 
+AI-Powered SME Financial Advisory System with Conversational Voice Agent Using 
+Multi-Agent Architecture  
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 5 of 27 
+ 
+2. Introduction 
+ 
+Small and Medium Enterprises (SMEs) are at the heart of the Sri Lankan economy and make 
+up more than 75% of all registered businesses in the country, providing around 45% of total 
+employment (IFC, 2026). Despite their pivotal economic role, the majority of SME owners run 
+their businesses without expert financial counseling, relying solely on their intuition, 
+calculations, or advice from their business associates when dealing with money management 
+issues, investments, and credit arrangements (Thathsarani, 2023). 
+The implications of this issue are disastrous. As research demonstrates, poor management of 
+finances is the key factor in the downfall of many businesses, with as much as 80% of SMEs 
+being shut down within the first few years (Herath, 2026) . A separate study by Nations Trust 
+Bank confirmed that 75% of SMEs close down within seven years, with financial inadequacy 
+cited as a primary driver  (Jayathilake, 2018). The cost of hiring an expert CFO or financial 
+counselor would be somewhere between LKR 50,000 and LKR 200,000 per month, which is 
+too high for the majority of small business owners. 
+The proposed AI-powered solution in this project is a SME Financial Advisory system that 
+works by enabling a SME owner to upload their financial data (Excel/CSV format, invoices 
+and bank statements) and communicating with an AI system using natural language to provide 
+personalized insights into cash flow management, budget management, investment analysis, 
+and financial health assessment. 
+This AI-powered advisory system will offer a more sophisticated approach to SME owners 
+than the existing accounting software tools such as QuickBooks, Xero, and Zoho Books since 
+it enables users to make informed decisions based on their financial data as o pposed to being 
+used for mere accounting purposes. Furthermore, having a voice assistant enables any user to 
+interact with the system without needing to know how to operate traditional software 
+applications. (Broby, 2022) 
+This project directly demonstrates the following graduate -level competencies as required by 
+the programme: 
+• Skills: LLMs, multi-agent systems, voice AI, RAG pipelines, and REST APIs used 
+in this project have been studied. 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 6 of 27 
+ 
+• Innovation: V oice-based multi -agent financial advisory system created for the 
+unique context of small businesses in Sri Lanka 
+• Integration of ideas and methods: Combining techniques from NLP, speech 
+processing, finance analysis, and agency-based AI systems 
+• Relevance to the real world: Solving the well -established problem of financial 
+advisory services shortage for 75% of Sri Lankan companies 
+• Autonomy: Undertaking a significant software development and research 
+assignment as an independent learner over five months 
+• Critical self-reflection: User testing and evaluation, systematic evaluation pipeline 
+design, and honest assessment of limitations 
+3. Current Situation Leading to Problem Identification 
+ 
+ 
+3.1 The SME Financial Management Crisis in Sri Lanka 
+The economic problems encountered in Sri Lanka in 2022, where there were inflation rates of 
+more than 70% as well as a shortage of foreign currency, and the country had its first sovereign 
+debt default  (lanka, 2022) , brought about a number of challenges within the operations of 
+SMEs. The firms which did not adequately plan their cash flows and were not properly invested 
+found themselves in difficult situations as most of them were collapsing because of poor 
+management practices in finance (IFC, 2026). 
+The World Bank confirmed that approximately 68% of Sri Lankan SMEs struggle with access 
+to finance as a core operational challenge (worldbank, 2023), while research by (Thathsarani, 
+2023)found that 65% of SMEs in Sri Lanka face significant difficulties in accessing credit from 
+the formal financial sector one of the highest rates in South Asia (Thathsarani, 2023) 
+ 
+It is apparent from the above discussion that there is an urgent need for financial advice in Sri 
+Lanka. The problem facing the SME owners now is how to access such services. 
+ 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 7 of 27 
+ 
+3.2 Key Statistics and Evidence of the Problem 
+Problem Area Evidence / Impact Source 
+SMEs share of 
+businesses 
+Over 75% of all registered businesses 
+in Sri Lanka; 45% of total 
+employment 
+(IFC, 2026) 
+SME failure rate Up to 80% of newly started SMEs fail 
+within the first few years; financial 
+mismanagement is the primary cause 
+(Herath, 2026) 
+SME closure rate 75% of SMEs close within seven 
+years; financial inadequacy cited as a 
+key driver 
+(Jayathilake, 2018) 
+Access to finance gap 68% of SMEs struggle with access to 
+finance as a core operational challenge 
+(worldbank, 2023) 
+Formal credit 
+difficulty 
+65% of Sri Lankan SMEs face 
+difficulty accessing credit from formal 
+financial sector 
+(Thathsarani, 
+2023) 
+2022 economic crisis Inflation exceeded 70%; sovereign 
+debt default; SMEs without financial 
+planning disproportionately impacted 
+(lanka, 2022) 
+ 
+3.3 Why Existing Tools Fail SMEs 
+Several financial software products are available to Sri Lankan businesses. However, they 
+consistently fail to address the core advisory need. Tools such as QuickBooks, Xero, and Zoho 
+Books were designed for bookkeeping in Western markets and lack localization for Sri Lanka's 
+financial instruments, tax structure, and banking ecosystem (Broby, 2022) 
+ 
+Tool What It Does What It Cannot Do Sri Lanka Fit 
+QuickBooks Bookkeeping, 
+invoicing, payroll 
+Advisory, forecasting, 
+voice, local market 
+data 
+Poor -USD 
+pricing, no 
+LKR/CSE 
+integration 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 8 of 27 
+ 
+Tool What It Does What It Cannot Do Sri Lanka Fit 
+Xero Cloud accounting, 
+bank reconciliation 
+Decision intelligence, 
+NL queries, voice 
+interface 
+Poor - no local 
+bank feeds 
+Zoho Books GST invoicing, 
+expense tracking 
+AI advisory, 
+investment analysis, 
+voice agent 
+Partial - English 
+only, no CSE data 
+Wave (free) Basic accounting, 
+receipt scanning 
+Forecasting, AI 
+insights, portfolio 
+tracking 
+Poor - US-centric, 
+no local data 
+Local bank 
+apps 
+Balance, transfers, 
+statements 
+Analysis, advice, 
+cross-bank 
+aggregation, voice 
+Partial - siloed, no 
+intelligence layer 
+ 
+This gap is clear: all current solutions provide an answer to the question "What happened?" – 
+they track transactions and create reports. None of them provide an answer to the question 
+"What should I do now?", the strategic advisory question that determine s whether an SME 
+survives or fails. 
+3.4 The Voice Interface Gap 
+An important issue related to the problem of adopting technology among SMEs is interface 
+design. Many SME owners in Sri Lanka especially those in the retail, manufacturing, and 
+agricultural sectors have difficulty with typical software interfaces. They use voice interactions 
+on the phone, such as WhatsApp voice messages and telephone calls, to access their mobile 
+devices. (Radford, et al., 2023) 
+There is no current financial application in Sri Lanka where the owner could simply speak and 
+ask for a solution. For example, there is no application that would allow the owner to ask, "Can 
+I afford to hire two more employees next month?" Such a feature i s what makes our system 
+innovative. 
+3.5 Problem Statement 
+How can an intelligent, voice -driven multiagent system deliver accessible, personalized, and 
+real-time financial decision -making advice to SMEs in Sri Lanka by analyzing their current 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 9 of 27 
+ 
+financial records (in Excel format, CSV format, and invoices) based on voice and text queries 
+without needing the financial knowledge of the user? 
+  
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 10 of 27 
+ 
+4. Proposed Technique to Solve the Current Problem 
+ 
+ 
+4.1 Architectural Overview 
+ 
+This solution consists of three interacting technology layers that contribute to an intelligent 
+financial adviser which engages in conversations with users: 
+• V oice Agent Layer: Speech to Text and Text to Speech pipelines that allow SME 
+owners to communicate with the system not only through text but also through 
+verbal speech 
+• Multi-Agent AI Core: Consists of five specialized AI agents responsible for 
+different financial areas controlled by a centralized Orchestrator Agent designed 
+with the help of the LangGraph framework 
+• Data Intelligence Layer: Retrieval Augmented Generation (RAG) pipeline for 
+processing uploaded Excel/CSV files and extracting relevant financial information 
+4.2 Voice Agent Design 
+V oice agent is one of the most significant features of the current project. It allows users, who 
+own small and medium -sized enterprises, to operate the system using only their voice, 
+
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 11 of 27 
+ 
+eliminating issues with literacy and familiarity with technology. The voice module works in 
+the following way: 
+1. The user asks a financial question in English via the web application interface. 
+2. Speech gets transcribed into text using the latest Whisper model created by OpenAI, 
+which can accurately recognize Sri Lankan English accent and code-mixed speech 
+3. The transcribed text then gets processed in the same manner as a text message 
+through Orchestrator Agent 
+4. Orchestrator synthesizes the output of agents into one coherent advice message 
+tailored to be spoken aloud (brief sentences, non -use of markdown, actionable 
+language) 
+5. The synthesized output then gets turned back into speech either with the use of 
+ElevenLabs text -to-speech model or built -in text -to-speech service of the web 
+browser 
+Sample voices supported by the system include: 
+• "What was my largest spending category last month?" - Budget Analyst Agent 
+activated using uploaded CSV file 
+• "Can I manage to restock inventories worth LKR 500,000?" – Cash Flow Forecast 
+Agent activated 
+• "What is the current NSB fixed deposit rate, and should I invest my surplus funds 
+in them?" – Market Research Agent + Investment Agent activated 
+• "Give me my financial health status for the present quarter." – Report Generator 
+Agent activated 
+ 
+ 
+ 
+ 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 12 of 27 
+ 
+4.3 Multi-Agent Architecture Detail 
+Agent Trigger Condition Tools Used Output 
+Orchestrator 
+Agent 
+All user queries — 
+routes and 
+synthesises 
+Intent classifier, 
+LangGraph StateGraph, 
+memory store 
+Delegated 
+subtasks + final 
+unified response 
+Document 
+Parser Agent 
+File upload (Excel, 
+CSV , PDF invoice) 
+Pandas, tabula-py, 
+OpenAI file parser, RAG 
+indexer 
+Structured 
+financial data 
+stored in vector 
+DB 
+Cash Flow 
+Forecast Agent 
+Queries about 
+liquidity, expenses, 
+affordability 
+Python calculator, time-
+series model, DB query 
+tool 
+Monthly cash 
+flow projection + 
+afford/not 
+analysis 
+Market 
+Research Agent 
+Queries about 
+investment, rates, 
+market conditions 
+Yahoo Finance API, CSE 
+scraper, CBSL data feed, 
+web search 
+Real-time rates, 
+CSE data, news 
+sentiment 
+summary 
+Investment 
+Advisor Agent 
+Queries about 
+where to invest 
+surplus capital 
+Portfolio optimiser, risk 
+scoring rubric, FD rate 
+fetcher 
+Asset allocation 
+recommendation 
+with rationale 
+Report 
+Generator 
+Agent 
+Explicit report 
+request or end-of-
+month trigger 
+Matplotlib charts, PDF 
+templating (ReportLab), 
+data aggregator 
+Downloadable 
+PDF financial 
+health report with 
+visuals 
+ 
+4.4 RAG Pipeline for Financial Data 
+When the SME owner submits a file such as an Excel or CSV spreadsheet (for example, the 
+monthly P&L report, the bank statement, the cost of inventory), the Document Parser Agent 
+runs the file through this pipeline: 
+1. The file is parsed using Pandas (CSV/Excel) or tabula-py (PDF tables), resulting 
+in structured rows and columns of data 
+2. The parsed data is broken down into semantically sensible chunks (monthly totals, 
+breakdown per category, specific transactions) 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 13 of 27 
+ 
+3. Each chunk is embedded via OpenAI text-embedding-3-small and then stored in a 
+Chroma vector database with metadata (date, category, amount, file source) 
+4. The agent running the query retrieves the top-k most relevant chunks of financial 
+information based on the cosine similarity 
+5. These chunks are then used to inject prompts into the LLM prompt context 
+4.5 Novelty and Innovation 
+These are the innovative technical elements unique to this proposed project: 
+Voice-based financial advisory for small & medium enterprises : There exists no financial 
+advisory solution which uses voice agents to process uploaded data and offer strategic financial 
+advice using voice interaction. 
+Local financial intelligence based on CSE share information : Incorporation of equity 
+market information along with national savings bank interest rates of various banks, central 
+bank's monetary policies, as well as EPF/ETF contributions is a novel feature of local financial 
+intelligence that is not offered by any global finance software. 
+Multi-agents & Retrieval -Augmented Generation on uploaded financial data:  
+Combination of agents and retrieval augmented generation for offering insights based on 
+uploaded financial files is not explored within the academic community yet. 
+English language speech processing: Whisper will incorporate a novel dataset of Sri Lankan 
+English speech processing capabilities.  
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 14 of 27 
+ 
+5. Feasibility 
+ 
+5.1 Technical Feasibility 
+All core technologies are mature, well -documented, and already in use in real applications. 
+Hands-on familiarity with Python, LLM APIs, and web programming is derived from courses. 
+V oice pipeline implementation is the most innovative technical part that uses Whisper. The 
+technology offers a simple Python API interface and has been extensively implemented in 
+comparable systems before. 
+5.2 Financial Feasibility 
+Resource Cost Notes 
+LLM API (Claude / 
+OpenAI) 
+~USD 15–
+40/month 
+Free tier available; small during 
+development 
+Whisper STT USD 
+0.006/minute 
+Well within budget for testing; ~3 USD 
+for 500 min of testing 
+ElevenLabs TTS 
+(optional) 
+Free tier 
+(10,000 
+chars/month) 
+Browser Speech Synthesis API as free 
+fallback 
+Supabase + Chroma DB Free tier Sufficient for development and 
+evaluation 
+Render / Railway 
+deployment 
+Free tier Adequate for demo and panel 
+presentation 
+Yahoo Finance / CSE data Free Open APIs; CSE website scraping as 
+fallback 
+Development tools Free VS Code, Git, Docker — all open 
+source 
+Total over 5 months < USD 100 
+total 
+Fully within a student project budget 
+ 
+ 
+ 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 15 of 27 
+ 
+ 
+5.3 Time Feasibility 
+The project design follows a phased 5 -month individual project plan. The most challenging 
+part, which involves multi-agent collaboration and RAG pipeline, is scheduled for Month 2 to 
+Month 3, as the underlying architecture will have been established by the n. The voice agent, 
+although innovative, is modular in design and can be built and tested separately. 
+5.4 Legal and Ethical Feasibility 
+The system will have a clear disclaimer stating that it is an informational system for decision 
+support and not an advisory service governed by the SEC of Sri Lanka. No user data will be 
+shared with any third party. All voice recordings will be transcribed  and then deleted without 
+being stored. 
+6. Project Description 
+AI-Powered SME Financial Advisory System is a web -based software that acts like a smart, 
+real-time financial consultant for SMEs. An SME business owner accesses the web -based 
+application, and starts conversing with the software either through typing in the chat box or by 
+pressing the microphone icon to speak. 
+6.1 User Journey 
+1. Owner uploads last month's bank statement (CSV from internet banking) or P&L 
+spreadsheet (Excel) 
+2. Document Parser Agent processes the file within seconds, extracting categories, 
+totals, and trends 
+3. Owner asks by voice or text “Did I make a profit last month?" or "Where am I 
+overspending?" 
+4. The system responds with a clear, conversational answer grounded in the uploaded 
+data 
+5. Owner asks a forward-looking question: "Can I afford a LKR 2 million equipment 
+loan next quarter?" 
+6. Cash Flow Forecast Agent runs a 90-day projection and gives a clear yes/no with 
+supporting analysis 
+7. At month end, the Report Generator Agent automatically prepares a one-page 
+financial health summary as a downloadable PDF 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 16 of 27 
+ 
+ 
+6.2 Core Modules 
+6.2.1 Voice + Chat Interface 
+React.js-based web application that has a dual -purpose interface: text chat (always enabled) 
+and voice mode (voice button). When the voice mode is activated, the user utters the query, 
+which is answered in two ways – first, via the text displayed on the sc reen, and second, via 
+text-to-speech functionality. This web application can run on the smartphone browser, which 
+is used by most SME owners in Sri Lanka. 
+6.2.2 Financial Data Upload and Analysis 
+Users upload Excel or CSV files through a simple drag -and-drop interface. The Document 
+Parser Agent supports multiple file formats including bank statement CSVs from major Sri 
+Lankan banks (BOC, Sampath, HNB, Commercial Bank), standard P&L Excel templates, and 
+inventory cost sheets. The system automatically identifies and categorises financial data 
+without requiring any manual formatting from the user. 
+6.2.3 Cash Flow Forecasting 
+The Cash Flow Forecasting Agent, utilizing historical data from uploads, generates a cash flow 
+forecast for 30, 60, and 90 days into the future based on time series pattern recognition and 
+context-based adjustments by an LLM. The reasoning about future exp enses (rent, salaries, 
+loan payments) and income (seasonal effects, outstanding bills) is explicit. 
+6.2.4 Investment and Market Intelligence 
+Market Research Agent collects real -time information about financial markets from Yahoo 
+Finance (international equities, gold, USD/LKR foreign exchange), Colombo Stock Exchange 
+(CSE best-performers, dividend information), and publications of Central Bank o f Sri Lanka 
+(policy interest rates, inflation rate). Investment Advisor Agent utilizes this information along 
+with cash holdings of SMEs in order to advise suitable investment for excess cash funds either 
+FDs, T-Bills, or shares at CSE blue chip companies. 
+6.2.5 Monthly Financial Health Report 
+Report Generator Agent produces an informative one -to-two-page PDF report containing a 
+graphical representation of income vs. expenses (using Matplotlib), the top 5 items that 
+constitute expenses, the path that cash flow is on via a graph, the performance of the 
+investments, and three practical suggestions for the next month. 
+ 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 17 of 27 
+ 
+6.3 Resources Required 
+The following resources are required to develop and deploy the system: 
+Category Resource Purpose Cost 
+AI / LLM Claude API (claude-
+sonnet-4) 
+Core LLM reasoning for 
+all agents 
+~USD 15/month 
+V oice STT OpenAI Whisper API 
+(Radford, 2023) 
+Speech-to-text 
+transcription 
+~USD 3–8/month 
+V oice TTS Browser Speech 
+Synthesis / ElevenLabs 
+Text-to-speech response 
+playback 
+Free / Free tier 
+Agent Framework LangGraph (Python) 
+(langchain, 2026) 
+Multi-agent orchestration 
+and state 
+Free (open-
+source) 
+Vector Database Qdrant (qdrant.tech, 
+2026) 
+RAG storage for financial 
+file chunks 
+Free Tier 
+Relational DB Supabase 
+(PostgreSQL) 
+User accounts, session 
+data, file metadata 
+Free tier 
+Backend FastAPI (Python) REST API connecting 
+frontend to agents 
+Free (open-
+source) 
+Frontend React.js + Tailwind 
+CSS 
+Chat/voice web interface 
+and dashboard 
+Free (open-
+source) 
+File Parsing Pandas, tabula-py, 
+openpyxl 
+Excel / CSV / PDF invoice 
+processing 
+Free (open-
+source) 
+Market Data Yahoo Finance API, 
+CBSL website 
+(finance.yahoo, 2026) 
+Live financial rates and 
+market data 
+Free 
+Evaluation RAGAS library (ragas, 
+2026) 
+Automated LLM response 
+quality metrics 
+Free (open-
+source) 
+Deployment Render / Railway (free 
+tier) 
+Cloud hosting for demo 
+environment 
+Free tier 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 18 of 27 
+ 
+Category Resource Purpose Cost 
+Hardware Personal laptop (8GB+ 
+RAM) 
+Development and local 
+testing 
+Already available 
+ 
+7. Deliverables 
+The project will produce the following outputs across two categories: a primary software 
+artefact and research and evaluation results. 
+7.1 Primary Artefact — Working Web Application 
+The main output of this project is a fully functional, deployed web application that SME owners 
+can use via browser on desktop or mobile. The system includes: 
+• A voice and chat interface: users can speak or type financial queries and receive real -
+time AI-generated advice 
+• An Excel/CSV file upload module : the system reads and analyses the SME's own 
+financial data using a RAG pipeline 
+• A multi-agent AI backend (LangGraph) with six specialised agents: Document Parser, 
+Cash Flow Forecaster, Market Research, Investment Advisor, Orchestrator, and Report 
+Generator 
+• An automated monthly financial health report exported as a downloadable PDF with 
+charts and prioritised recommendations 
+• Full source code on GitHub with documentation, setup guide, and Docker container for 
+reproducible deployment 
+7.2 Research and Evaluation Results 
+The following results will be generated to prove the efficiency of the system and meet the 
+research objective: 
+• AI response evaluation – using RAGAS framework on an SME financial QA 
+benchmark with 100 questions, assessing faithfulness, relevance of answers, and 
+hallucination 
+• V oice accuracy assessment – Word Error Rate (WER) of Whisper speech recognition 
+model on the code -mixed audio input in Sri Lankan English and Sinhala -English 
+languages for real users 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 19 of 27 
+ 
+• System comparison – the advice provided by the system on 10 common financial 
+problems faced by SMEs against the recommendations by a chartered accountant, 
+evaluated independently 
+• User testing – structured user test involving 10 SME owner -users in Sri Lanka, 
+generating SUS scores and qualitative feedback on the voice advisory process 
+ 
+7.3 SDLC-Based Implementation Plan 
+The table below structures the project across the standard SDLC phases, mapping each phase’s 
+key activities (Task) to its expected outputs (Deliverable) and timeline. 
+Task  (SDLC Phase & Key 
+Activities) Deliverable Time Plan 
+Phase 1: Requirements 
+Gathering 
+• Stakeholder interviews 
+with SME owners to 
+identify pain points 
+• Literature review — 
+multi-agent systems, 
+RAG, voice AI, SME 
+finance 
+• Functional & non -
+functional requirements 
+documentation 
+• Technology stack 
+evaluation and 
+finalisation 
+• API feasibility testing — 
+Claude, Whisper, Yahoo 
+Finance, CBSL 
+• Software Requirements Specification 
+(SRS) document 
+• Stakeholder needs report 
+• Technology stack justification 
+document 
+• Verified API access and integration 
+feasibility report 
+Month 1  
+(Weeks 1–2) 
+Phase 2: System Design 
+• High-level system 
+architecture design — 
+multi-agent, RAG, voice 
+pipeline 
+• Database schema design 
+— Supabase 
+• System architecture diagram 
+• Database schema design document 
+• UI/UX wireframes and user flow 
+diagrams 
+• LangGraph agent interaction flow 
+diagram 
+Month 1  
+(Weeks 3–4) 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 20 of 27 
+ 
+Task  (SDLC Phase & Key 
+Activities) Deliverable Time Plan 
+(PostgreSQL) and Qdrant 
+vector DB 
+• UI/UX wireframes for 
+voice + chat web 
+interface 
+• Agent interaction flow 
+design using LangGraph 
+StateGraph 
+• GitHub repository setup 
+with CI/CD pipeline 
+• Initialised GitHub repository with 
+project structure 
+Phase 3: Development 
+• Document Parser Agent 
+— Pandas/Excel/CSV + 
+Qdrant RAG pipeline 
+• Cash Flow Forecast 
+Agent with 30/60/90-day 
+time-series logic 
+• Market Research Agent 
+— Yahoo Finance, CSE 
+scraper, CBSL data feed 
+• Investment Advisor 
+Agent — portfolio 
+optimizer and risk 
+scoring 
+• Orchestrator Agent — 
+multi-agent coordination 
+via LangGraph 
+• Report Generator Agent 
+— PDF output with 
+Matplotlib charts 
+• Whisper STT and 
+ElevenLabs/Browser 
+TTS voice pipeline 
+integration 
+• React.js voice/chat 
+frontend with drag -and-
+drop file upload 
+• Six functional AI agents with unit 
+tests passing 
+• End-to-end voice pipeline (STT → 
+Agents → TTS) 
+• RAG pipeline processing real SME 
+Excel/CSV files 
+• Functional React.js web application 
+(desktop + mobile browser) 
+• FastAPI REST backend fully 
+integrated with agent framework 
+• Preliminary working demo of full 
+system 
+Month 2–3 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 21 of 27 
+ 
+Task  (SDLC Phase & Key 
+Activities) Deliverable Time Plan 
+• FastAPI backend 
+connecting frontend to all 
+agents 
+Phase 4: Testing & 
+Evaluation 
+• Unit testing per agent — 
+input/output validation 
+• Integration testing — full 
+pipeline end-to-end 
+• RAGAS evaluation on 
+100-item SME financial 
+QA benchmark 
+• V oice accuracy testing — 
+WER on Sri Lankan 
+English / Sinhala-English 
+• System comparison — 
+AI advice vs  chartered 
+accountant on 10 SME 
+scenarios 
+• Structured user study 
+with 10 SME owner -
+users (SUS scoring + 
+feedback) 
+• Performance testing — 
+response latency, 
+document parsing 
+accuracy 
+• Bug fixing and 
+refinements based on test 
+findings 
+• Unit and integration test reports 
+• RAGAS evaluation report — 
+faithfulness, relevance, hallucination 
+metrics 
+• V oice WER assessment report on 
+code-mixed Sri Lankan English 
+• System comparison report — AI vs 
+chartered accountant 
+recommendations 
+• User study report with SUS scores 
+and qualitative feedback 
+• Performance benchmarking report 
+(latency, accuracy targets) Month 4 
+Phase 5: Deployment 
+• Cloud deployment on 
+Render/Railway (free 
+tier) 
+• Docker containerization 
+for reproducible 
+deployment 
+• Live deployed web application 
+(public URL) 
+• Docker container with full setup 
+guide 
+• Full source code on GitHub with 
+README and documentation 
+Month 5  
+(Week 1–2) 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 22 of 27 
+ 
+Task  (SDLC Phase & Key 
+Activities) Deliverable Time Plan 
+• Final UI polish and cross-
+browser/mobile 
+compatibility checks 
+• Security review — data 
+handling, voice recording 
+deletion, disclaimer 
+• User documentation and 
+setup guide authoring 
+• Security and privacy compliance 
+checklist 
+Phase 6: Monitoring & 
+Finalization 
+• Post-deployment 
+monitoring — uptime, 
+error logs, API usage 
+tracking 
+• Final bug fixes based on 
+live system observations 
+• FYP dissertation write -
+up (~80 pages) 
+• Research poster design 
+and 5-minute video demo 
+recording 
+• Viva preparation and 
+presentation slide deck 
+• Optional: Sinhala 
+language voice extension 
+if time permits 
+• Monitoring report — post-
+deployment observations and fixes 
+• Complete FYP dissertation 
+• Research poster and video demo 
+• Viva presentation slide deck 
+• Deployed and stable live demo URL 
+Month 5  
+(Week 3–4) 
+ 
+Note: A buffer of 3 –5 days is included at the end of each phase. Critical path: RAG pipeline 
+and multi-agent coordination (Phase 3, Development) must be complete before testing and 
+evaluation (Phase 4) can proceed. 
+ 
+ 
+ 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 23 of 27 
+ 
+ 
+ 
+ 
+ 
+8. Expected Output and Outcome 
+ 
+8.1 Technical Performance Targets 
+Metric Measurement Method Target 
+Response accuracy 
+(financial advice) 
+RAGAS faithfulness score 
+vs. ground truth 
+> 85% 
+V oice transcription accuracy 
+(WER) 
+Whisper output vs. manual 
+transcription on 100 test 
+samples 
+< 15% WER 
+End-to-end voice response 
+latency 
+Time from end of speech to 
+start of audio reply 
+< 10 seconds 
+Document parsing accuracy Extracted totals vs. 
+manually verified ground 
+truth 
+> 95% 
+Hallucination rate Fact-checking agent + 
+manual review on 50 
+samples 
+< 5% 
+System Usability Scale 
+(SUS) 
+Post-study survey with 20 
+SME owner participants 
+> 75 / 100 
+Financial recommendation 
+quality 
+Expert accountant scoring 
+on 10 standard scenarios 
+> 4.0 / 5.0 
+ 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 24 of 27 
+ 
+8.2 Academic Contribution 
+• A first -of-kind evaluation framework for voice -enabled financial AI systems 
+applicable beyond this specific project to any domain -specific conversational 
+advisor 
+• Empirical evidence comparing multi -agent AI advisory quality against human 
+accountant advice in an emerging market context a gap in the existing literature 
+• Demonstration that hierarchical multi-agent coordination substantially outperforms 
+a single monolithic LLM on complex, multi-faceted financial advisory tasks 
+ 
+8.3 Real-World and Societal Impact 
+• Prototype product ready for use by SME assistance organizations, microfinance 
+organizations, and enterprise development organizations in government 
+departments of Sri Lanka 
+• Conclusively demonstrating that quality personalized financial advisory services, 
+which were once limited to financially capable corporations, could now be provided 
+to any owner of a SME who owned a smartphone. 
+• Creating a model for deployment of voice -based AI advisory solutions in other 
+emerging economies 
+9. Limitations 
+ 
+The following limitations are acknowledged and will be clearly documented in the final 
+dissertation. They do not undermine the academic or practical value of the project but define 
+its appropriate scope of use. 
+9.1 Regulatory Limitation 
+This tool offers decision -making data and financial analysis training. This is not regulated 
+financial advice under the Securities and Exchange Commission of Sri Lanka Act and the 
+Banking Act. There will be an obligatory warning in the software that clarifies this point to all 
+users. The system should not be relied on as the sole source for important financial decisions 
+without seeking professional help. 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 25 of 27 
+ 
+9.2 Voice Recognition Accuracy 
+While OpenAI Whisper has strong multilingual capability, its accuracy on heavily accented Sri 
+Lankan English or dense Sinhala -English code-mixed speech may be lower than on standard 
+English.  
+9.3 Data Format Dependencies 
+The Document Parser Agent is designed to work with typical CSV and Excel files from some 
+leading banks in Sri Lanka, as well as accounting forms. Nevertheless, it might not be able to 
+work properly with files that have unusual structures, passwords, or con sist solely of scans. 
+The user will be informed of this failure and shown how to format the document appropriately. 
+PDF invoice parsing with tabula-py operates better on digital files. 
+9.4 LLM Hallucination Risk 
+While the RAG pipeline ensures that the response is grounded in actual data uploaded by users, 
+Large Language Models might still produce some statements that are believable but not 
+necessarily true, especially when projecting future finances involving many  steps. A special 
+layer that does fact -checking will cross -reference the numbers against the raw data before 
+presenting it to the user. 
+9.5 Scope Boundaries 
+• “Tax calculation and tax return preparation” is not a part of MVP - the MVP system 
+will have generic advice on taxation but will not generate calculated tax returns 
+• Brokerage accounts integration as well as API for banks is not considered within 
+MVP scope because there are no publicly available broker APIs from Sri Lanka 
+• The system is optimized for small - and medium-sized businesses; it is not meant 
+for large corporations with complicated multi-entity accounting 
+ 
+ 
+ 
+ 
+ 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 26 of 27 
+ 
+References 
+Broby, D., 2022. The use of predictive analytics in finance. [Online]  
+Available at: https://www.sciencedirect.com/science/article/pii/S2405918822000071?via%3Dihub 
+[Accessed 9 5 2026]. 
+finance.yahoo, 2026. [Online]  
+Available at: https://finance.yahoo.com/ 
+[Accessed 25 5 2026]. 
+Herath, H. M. A., 2026. A strategic approach for management assures stability in the market for 
+Small and Medium scale Enterprises (SMEs) in Sri Lanka. [Online]  
+Available at: 
+https://www.academia.edu/47866650/A_strategic_approach_for_management_assures_stability_in
+_the_market_for_Small_and_Medium_scale_Enterprises_SMEs_in_Sri_Lanka 
+[Accessed 9 5 2026]. 
+IFC, 2026. FC Invests $166 Million to Support Sri Lankan Businesses and Drive Economic Growth. 
+[Online]  
+Available at: https://www.ifc.org/en/pressroom/2025/ifc-invests-166-million-to-support-sri-lankan-
+businesses-and-drive-economic-growth 
+[Accessed 9 5 2026]. 
+Jayathilake, B., 2018. ‘Over 85% Lankan businesses are SME’. [Online]  
+Available at: https://archives1.dailynews.lk/2018/07/09/business/156212/%E2%80%98over-85-
+lankan-businesses-are-sme%E2%80%99 
+[Accessed 9 5 2026]. 
+langchain, 2026. How does LangGraph help?. [Online]  
+Available at: https://www.langchain.com/langgraph 
+[Accessed 25 5 2026]. 
+lanka, C. b. o. s., 2022. Annual Report 2022. [Online]  
+Available at: https://www.cbsl.gov.lk/en/publications/economic-and-financial-reports/annual-
+reports/annual-report-2022 
+[Accessed 9 5 2026]. 
+qdrant.tech, 2026. Qdrant Documentation. [Online]  
+Available at: https://qdrant.tech/documentation/ 
+[Accessed 25 5 2026]. 
+Radford, A., 2023. Robust Speech Recognition via Large-Scale Weak Supervision. [Online]  
+Available at: https://proceedings.mlr.press/v202/radford23a.html 
+[Accessed 25 5 2026]. 
+Radford, A. et al., 2023. Robust Speech Recognition via Large-Scale Weak Supervision. [Online]  
+Available at: https://proceedings.mlr.press/v202/radford23a.html 
+[Accessed 9 5 2026]. 
+ragas, 2026. ragas. [Online]  
+Available at: https://www.ragas.io/ 
+[Accessed 25 5 2026]. 
+Project Proposal | AI-Powered SME Financial Advisory System with Voice Agent 
+ 
+Page 27 of 27 
+ 
+Thathsarani, S., 2023. How Do Demand, Supply, and Institutional Factors Influence SME Financial 
+Inclusion: A Developing Country Perspective. [Online]  
+Available at: https://journals.sagepub.com/doi/10.1177/21582440231187603 
+[Accessed 9 5 2026]. 
+worldbank, 2023. Sri Lanka: World Bank Approves $150 Million to Strengthen Financial Sector. 
+[Online]  
+Available at: https://www.worldbank.org/en/news/press-release/2023/11/09/sri-lanka-world-bank-
+approves-150-million-to-strengthen-financial-sector 
+[Accessed 9 5 2026]. 
+ 
+ 

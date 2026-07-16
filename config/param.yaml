@@ -1,0 +1,91 @@
+provider:
+  default: openai # Recommended: openrouter or openai
+  tier: general
+  openrouter_base_url: https://openrouter.ai/api/v1
+
+llm:
+  temperature: 0.0
+  max_tokens: 2000
+  streaming: false
+
+embedding:
+  tier: small # Note: Supabase pgvector max is 2000 dims, use "small" (1536d)
+  batch_size: 100
+  show_progress: false
+
+chunking:
+  fixed:
+    chunk_size: 800
+    chunk_overlap: 100
+  
+  semantic:
+    max_chunk_size: 1000
+    min_chunk_size: 200
+  
+  sliding:
+    window_size: 512
+    stride_size: 256
+  
+  parent_child:
+    parent_size: 1200
+    child_size: 250
+    child_overlap: 50
+  
+  late:
+    base_size: 1000
+    split_size: 300
+    context_window: 150
+
+retrieval:
+  top_k: 4
+  similarity_threshold: 0.35 # Minimum cosine similarity for RAG matches
+
+cag: # Cache-Augmented Generation using Qdrant
+  collection_name: cag_cache
+  similarity_threshold: 0.65
+  cache_ttl: 86400 # 24h TTL
+  max_cache_size: 1000
+
+crag: # Corrective RAG settings
+  confidence_threshold: 0.6
+  expanded_k: 8
+
+crawling:
+  max_depth: 3
+  delay_seconds: 2.0
+  max_pages: 100
+
+paths:
+  data_dir: data
+  kb_dir: data/knowledge_base
+  markdown_dir: data/finvox_markdown
+  logs_dir: logs
+
+logging:
+  enabled: true
+  level: INFO # Options: DEBUG, INFO, WARNING, ERROR
+  log_tokens: true
+  log_latency: true
+
+observability:
+  enabled: true # Enable/disable LangFuse Tracing
+
+qdrant:
+  collection_name: finvox
+
+voice:
+  # STT: Requires LIVEKIT and DEEPGRAM environment variables
+  stt_provider: deepgram
+  stt_model: nova-3
+  stt_language: en
+
+  # TTS: Deepgram or ElevenLabs
+  tts_provider: deepgram
+  tts_model: aura-2-andromeda-en
+
+  # VAD + Endpointing Policy (Tuned for low latency interruptions)
+  vad_threshold: 0.5
+  silence_threshold_ms: 300
+  min_endpointing_delay: 0.3
+  interruption_enabled: true
+  sample_rate: 16000
