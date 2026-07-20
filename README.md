@@ -12,17 +12,47 @@
   - 🌍 *Market Research Agent:* Fetches real-time market data (Yahoo Finance, CSE, CBSL).
   - 💼 *Investment Advisor Agent:* Recommends allocations for surplus capital.
   - 📑 *Report Generator Agent:* Creates downloadable PDF financial health summaries.
-- **Data Intelligence (RAG):** Securely processes uploaded financial documents using Retrieval-Augmented Generation, anchored by a Qdrant Vector Database. Features Markdown-aware chunking to preserve table structures.
-- **Real-Time Responsiveness:** Designed for ultra-low latency voice interactions using WebRTC via LiveKit.
+- **Data Intelligence & Data Privacy (RAG):** Securely processes uploaded financial documents using an advanced RAG pipeline:
+  - **Privacy-First Embeddings:** Uses 100% local, free Sentence Transformers (`BAAI/bge-large-en-v1.5`) so sensitive SME financial data never leaves the network for embedding generation.
+  - **Advanced Chunking Strategies:** Employs *Parent-Child Chunking* for Markdown PDFs (preserving semantic hierarchies) and *JSON Row-Level Chunking* for CSVs and tabular data to ensure zero data loss.
+  - **Vector Storage:** Anchored by Qdrant Cloud for ultra-fast cosine similarity search.
+## 🏗️ System Architecture
 
+```mermaid
+graph TD
+    User([SME User]) <--> |Voice / Text| Frontend[React / Tailwind]
+    Frontend <--> |WebRTC / HTTP API| Backend[FastAPI Backend]
+    
+    subgraph Data Ingestion Pipeline
+        RawFiles[PDF / CSV Invoices] --> Ingester[Ingester]
+        Ingester --> |pymupdf4llm| Chunker[Semantic Chunkers]
+        Chunker --> |JSON / Parent-Child| Embedder[HuggingFace Embeddings]
+        Embedder --> |1024d Vectors| Qdrant[(Qdrant Cloud)]
+    end
+    
+    subgraph AI Brain
+        Backend --> Orchestrator[LangGraph Orchestrator]
+        Orchestrator <--> |OpenRouter| LLM[LLM: GPT-4o/Claude]
+        
+        Orchestrator <--> Agent1[Document Parser Agent]
+        Orchestrator <--> Agent2[Cash Flow Forecast Agent]
+        Orchestrator <--> Agent3[Market Research Agent]
+        Orchestrator <--> Agent4[Investment Advisor Agent]
+    end
+    
+    Agent1 <--> Qdrant
+    Agent2 <--> Supabase[(Supabase PostgreSQL)]
+    Agent3 <--> ExternalAPIs[External APIs: Yahoo/CSE]
+    
 ## 🛠️ Technology Stack
 
 - **Frontend:** React.js + Tailwind CSS
 - **Backend:** FastAPI (Python)
-- **AI Framework:** LangGraph
+- **AI Framework:** LangChain & LangGraph
 - **Vector Database:** Qdrant Cloud
 - **State Database:** Supabase (PostgreSQL)
 - **LLM Routing:** OpenRouter (OpenAI, Anthropic, Groq)
+- **Embeddings:** HuggingFace Sentence Transformers (`bge-large-en-v1.5`)
 - **Voice Pipeline:** LiveKit, Deepgram, ElevenLabs
 
 ## 🎓 Academic Context
