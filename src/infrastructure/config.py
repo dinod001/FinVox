@@ -8,6 +8,10 @@ from typing import Any, Dict, Optional
 import os
 import yaml
 from loguru import logger
+from dotenv import load_dotenv
+
+# Load .env file globally
+load_dotenv()
 
 # ========================================
 # Project Paths
@@ -60,11 +64,12 @@ def get_chat_model(provider: Optional[str] = None, tier: Optional[str] = None) -
         provider = "google"
     return _get_nested(_MODELS, provider, "chat", tier, default="openai/gpt-4o-mini")
 
+EMBEDDING_PROVIDER = _get_nested(_PARAMS, "embedding", "provider", default=PROVIDER)
 EMBEDDING_TIER = _get_nested(_PARAMS, "embedding", "tier", default="default")
 
 def get_embedding_model(provider: Optional[str] = None, tier: Optional[str] = None) -> str:
     """Get embedding model name for specified provider and tier."""
-    provider = provider or PROVIDER
+    provider = provider or EMBEDDING_PROVIDER
     tier = tier or EMBEDDING_TIER
     if provider in ["google", "gemini"]:
         provider = "google"
@@ -92,8 +97,12 @@ OPENAI_CHAT_MODEL = CHAT_MODEL
 # ========================================
 
 EMBEDDING_DIM = 1536
-if "large" in EMBEDDING_MODEL.lower():
+if "large" in EMBEDDING_MODEL.lower() and "openai" in EMBEDDING_MODEL.lower():
     EMBEDDING_DIM = 3072
+elif "bge-large" in EMBEDDING_MODEL.lower():
+    EMBEDDING_DIM = 1024
+elif "minilm" in EMBEDDING_MODEL.lower():
+    EMBEDDING_DIM = 384
 elif "small" in EMBEDDING_MODEL.lower() or "ada" in EMBEDDING_MODEL.lower():
     EMBEDDING_DIM = 1536
 

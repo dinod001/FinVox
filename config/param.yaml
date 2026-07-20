@@ -9,9 +9,9 @@ llm:
   streaming: false
 
 embedding:
-  tier: small # Note: Supabase pgvector max is 2000 dims, use "small" (1536d)
+  provider: huggingface
+  tier: default
   batch_size: 100
-  show_progress: false
 
 chunking:
   fixed:
