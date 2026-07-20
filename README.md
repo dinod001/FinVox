@@ -43,6 +43,7 @@ graph TD
     Agent1 <--> Qdrant
     Agent2 <--> Supabase[(Supabase PostgreSQL)]
     Agent3 <--> ExternalAPIs[External APIs: Yahoo/CSE]
+```
     
 ## 🛠️ Technology Stack
 
