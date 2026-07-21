@@ -24,32 +24,29 @@
 graph TD
     User([SME User]) <--> |Voice / Text| Frontend[React / Tailwind]
     Frontend <--> |WebRTC / HTTP API| Backend[FastAPI Backend]
-    
+
     subgraph Data Ingestion Pipeline
         RawFiles[PDF / CSV Invoices] --> Ingester[Ingester]
         Ingester --> |pymupdf4llm| Chunker[Semantic Chunkers]
         Chunker --> |JSON / Parent-Child| Embedder[HuggingFace Embeddings]
         Embedder --> |1024d Vectors| Qdrant[(Qdrant Cloud)]
     end
-    
+
     subgraph AI Brain
         Backend --> Orchestrator[LangGraph Orchestrator]
         Orchestrator <--> |OpenRouter| LLM[LLM: GPT-4o/Claude]
-        
         Orchestrator <--> Agent1[Document Agent: CAG + CRAG]
         Orchestrator <--> Agent2[Cash Flow Forecast Agent]
         Orchestrator <--> Agent3[Market Research Agent]
         Orchestrator <--> Agent4[Investment Advisor Agent]
-        
         Agent1 --> |Cache Hit| CAGCache[(Qdrant: CAG Cache)]
         Agent1 --> |Cache Miss| Qdrant
     end
-    
+
     Agent1 <--> Qdrant
     Agent2 <--> Supabase[(Supabase PostgreSQL)]
     Agent3 <--> ExternalAPIs[External APIs: Yahoo/CSE]
 ```
-    
 ## 🛠️ Technology Stack
 
 - **Frontend:** React.js + Tailwind CSS
@@ -66,4 +63,5 @@ graph TD
 This project is developed by **Dinod Imanjith Withanawasam** (Student ID: KD/BSCSD/21/28 | Cardiff Met ID: st20312099) as part of the BSc (Hons) in Software Engineering program.
 
 ---
+
 *Empowering Sri Lankan SMEs with accessible, real-time decision intelligence.*
