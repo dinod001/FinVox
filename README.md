@@ -16,7 +16,8 @@
   - **Privacy-First Embeddings:** Uses 100% local, free Sentence Transformers (`BAAI/bge-large-en-v1.5`) so sensitive SME financial data never leaves the network for embedding generation.
   - **Advanced Chunking Strategies:** Employs *Parent-Child Chunking* for Markdown PDFs (preserving semantic hierarchies) and *JSON Row-Level Chunking* for CSVs and tabular data to ensure zero data loss.
   - **Vector Storage:** Anchored by Qdrant Cloud for ultra-fast cosine similarity search.
-
+  - **CAG (Cache-Augmented Generation):** Implements a zero-latency semantic cache using Qdrant to store and instantly serve identical or highly similar queries, significantly reducing latency and LLM API costs.
+  - **CRAG (Corrective RAG):** Employs confidence-gated self-correction using a fast extractor model. If initial retrieved documents lack context, it automatically restructures the query and fetches better context before generating the answer.
 ## 🏗️ System Architecture
 
 ```mermaid
@@ -34,18 +35,18 @@ graph TD
     subgraph AI Brain
         Backend --> Orchestrator[LangGraph Orchestrator]
         Orchestrator <--> |OpenRouter| LLM[LLM: GPT-4o/Claude]
-
-        Orchestrator <--> Agent1[Document Parser Agent]
+        Orchestrator <--> Agent1[Document Agent: CAG + CRAG]
         Orchestrator <--> Agent2[Cash Flow Forecast Agent]
         Orchestrator <--> Agent3[Market Research Agent]
         Orchestrator <--> Agent4[Investment Advisor Agent]
+        Agent1 --> |Cache Hit| CAGCache[(Qdrant: CAG Cache)]
+        Agent1 --> |Cache Miss| Qdrant
     end
 
     Agent1 <--> Qdrant
     Agent2 <--> Supabase[(Supabase PostgreSQL)]
     Agent3 <--> ExternalAPIs[External APIs: Yahoo/CSE]
 ```
-
 ## 🛠️ Technology Stack
 
 - **Frontend:** React.js + Tailwind CSS
