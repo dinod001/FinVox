@@ -6,11 +6,12 @@ import sys
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from scripts.ingest_file import IngestFile
+from src.services.ingest_service.pipeline import IngestionPipeline
+import uuid
 
 
 def main():
-    ingestor = IngestFile()
+    pipeline = IngestionPipeline()
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
     test_csv = os.path.join(current_dir, "sample_test.csv")
@@ -20,25 +21,19 @@ def main():
     print("Testing CSV Ingestion Pipeline...")
     print("=" * 50)
 
-    result_csv = ingestor.process_file(test_csv)
-    print("\n--- CSV Final JSON Output ---")
+    # Pass metadata describing the table
+    csv_meta = {"description": "Sample test data containing SME sales figures"}
+    result_csv = pipeline.run(test_csv, document_id=str(uuid.uuid4()), base_metadata=csv_meta)
+    print("\n--- CSV Pipeline Output ---")
     print(json.dumps(result_csv, indent=2, default=str))
 
     print("\n" + "=" * 50)
     print("Testing PDF Ingestion Pipeline...")
     print("=" * 50)
 
-    result_pdf = ingestor.process_file(test_pdf)
-    
-    # We truncate the page content for display purposes so the console doesn't overflow
-    print("\n--- PDF Final JSON Output (Truncated Content) ---")
-    if isinstance(result_pdf, dict) and "error" not in result_pdf:
-        for key in result_pdf:
-            if isinstance(result_pdf[key], dict) and "page_content" in result_pdf[key]:
-                content = result_pdf[key]["page_content"]
-                # Truncate content to 100 characters for terminal output readability
-                result_pdf[key]["page_content"] = content[:100].replace('\n', ' ') + "... [TRUNCATED]"
-                
+    pdf_meta = {"description": "AXZIO AI B2B Strategy Report"}
+    result_pdf = pipeline.run(test_pdf, document_id=str(uuid.uuid4()), base_metadata=pdf_meta)
+    print("\n--- PDF Pipeline Output ---")
     print(json.dumps(result_pdf, indent=2, default=str))
 
 
