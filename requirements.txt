@@ -33,6 +33,11 @@ langchain-mcp-adapters>=0.2.2     # Bridge MCP tools into LangChain/LangGraph
 tavily-python>=0.3.0              # Tavily real-time web search API
 
 # ========================================
+# Market Data (Yahoo Finance)
+# ========================================
+yfinance>=0.2.0                   # Yahoo Finance API for market data and rates
+
+# ========================================
 # Web Crawling and Content Extraction
 # ========================================
 playwright>=1.40.0                # Browser automation for JS-rendered sites

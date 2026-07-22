@@ -212,6 +212,14 @@ QDRANT_URL = os.getenv("QDRANT_URL", None)
 QDRANT_COLLECTION_NAME = os.getenv("QDRANT_COLLECTION_NAME", "finvox")
 
 # ========================================
+# Supabase Configuration
+# ========================================
+
+SUPABASE_DB_URL = os.getenv("SUPABASE_DB_URL", None)
+SUPABASE_URL = os.getenv("SUPABASE_URL", None)
+SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_SERVICE_KEY", None)
+
+# ========================================
 # Data Ingestion Configuration
 # ========================================
 
@@ -237,6 +245,19 @@ def load_faqs() -> list:
     return all_faqs
 
 KNOWN_FAQS = load_faqs()
+
+# ========================================
+# Investment Advisor Configuration
+# ========================================
+
+# Allowed domains for Tavily search to ensure high-quality investment advice
+INVESTMENT_DOMAINS = _get_nested(_PARAMS, "investment", "allowed_domains", default=[
+    "cbsl.gov.lk",              # Central Bank of Sri Lanka (T-Bills, Bonds, Rates)
+    "cse.lk",                   # Colombo Stock Exchange
+    "lankabusinessonline.com",  # LBO - Financial news and analysis
+    "ft.lk",                    # Daily FT - Financial news
+    "economynext.com"           # Economy Next - Financial news
+])
 
 # ========================================
 # Helper Functions
