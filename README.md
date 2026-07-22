@@ -12,10 +12,11 @@
   - 🌍 *Market Research Agent:* Fetches real-time market data (Yahoo Finance, CSE, CBSL).
   - 💼 *Investment Advisor Agent:* Recommends allocations for surplus capital.
   - 📑 *Report Generator Agent:* Creates downloadable PDF financial health summaries.
-- **Data Intelligence & Data Privacy (RAG):** Securely processes uploaded financial documents using an advanced RAG pipeline:
+- **Data Intelligence & Data Privacy (RAG + Text-to-SQL):** Securely processes uploaded financial documents using advanced architectures:
+  - **Dynamic SQL Tables (Text-to-SQL):** Automatically converts structured tabular data (CSV/Excel) into native dynamic PostgreSQL tables in Supabase. By passing vector similarity entirely, this enables the AI to execute 100% accurate native SQL queries on user-uploaded data.
   - **Privacy-First Embeddings:** Uses 100% local, free Sentence Transformers (`BAAI/bge-large-en-v1.5`) so sensitive SME financial data never leaves the network for embedding generation.
-  - **Advanced Chunking Strategies:** Employs *Parent-Child Chunking* for Markdown PDFs (preserving semantic hierarchies) and *JSON Row-Level Chunking* for CSVs and tabular data to ensure zero data loss.
-  - **Vector Storage:** Anchored by Qdrant Cloud for ultra-fast cosine similarity search.
+  - **Advanced Chunking Strategies:** Employs *Parent-Child Chunking* for Markdown PDFs (preserving semantic hierarchies) and *JSON Row-Level Chunking* for unstructured extraction.
+  - **Vector Storage:** Anchored by Qdrant Cloud for ultra-fast cosine similarity search for PDF reports.
   - **CAG (Cache-Augmented Generation):** Implements a zero-latency semantic cache using Qdrant to store and instantly serve identical or highly similar queries, significantly reducing latency and LLM API costs.
   - **CRAG (Corrective RAG):** Employs confidence-gated self-correction using a fast extractor model. If initial retrieved documents lack context, it automatically restructures the query and fetches better context before generating the answer.
 ## 🏗️ System Architecture

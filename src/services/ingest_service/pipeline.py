@@ -1,4 +1,5 @@
 import os
+import pandas as pd
 from typing import Dict, Any, List
 
 from src.infrastructure.log import log
@@ -7,6 +8,7 @@ from src.services.ingest_service.chunkers import chunk_json_rows, chunk_markdown
 from src.infrastructure.llm.embeddings import get_embeddings
 from src.infrastructure.db.qdrant_client import upsert_chunks, ensure_collection
 from src.infrastructure.config import QDRANT_COLLECTION_NAME
+from src.infrastructure.db.table_manager import save_dataframe_to_supabase
 
 class IngestionPipeline:
     def __init__(self):
@@ -64,14 +66,32 @@ class IngestionPipeline:
                 )
                 chunks.extend(table_chunks)
         else:
-            # Handle CSV/Excel (Pure Tables)
-            table_chunks = chunk_json_rows(
-                data=extracted_data,
-                document_id=document_id,
-                source_name=source_name,
-                base_metadata=base_meta
-            )
-            chunks.extend(table_chunks)
+            # Handle CSV/Excel (Pure Tables) -> Save dynamically to Supabase
+            
+            # Reconstruct the DataFrame from the extracted JSON rows
+            # IngestFile returns a dict with row indices as keys: {"0": {...}, "1": {...}}
+            if isinstance(extracted_data, dict):
+                df = pd.DataFrame.from_dict(extracted_data, orient='index')
+            else:
+                df = pd.DataFrame(extracted_data)
+            
+            # Use base_metadata to get the description (or default to a generic one)
+            description = base_meta.get("description", f"Table uploaded from {source_name}")
+            
+            log.info("Step 2 & 3 & 4: Saving CSV data directly to Supabase as a native table...")
+            result = save_dataframe_to_supabase(df, filename=source_name, description=description)
+            
+            if not result.get("success"):
+                return {"success": False, "error": result.get("error")}
+                
+            return {
+                "success": True,
+                "document_id": document_id,
+                "chunks_processed": 0,
+                "upserted_count": 0,
+                "supabase_table": result.get("table_name"),
+                "rows_inserted": result.get("rows_inserted")
+            }
             
         if not chunks:
             log.warning("No chunks were generated from the document.")

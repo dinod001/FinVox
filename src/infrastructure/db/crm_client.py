@@ -5,8 +5,8 @@ Includes support for pgvector (embeddings).
 
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, declarative_base
-from infrastructure.config import SUPABASE_DB_URL
-from infrastructure.log import log
+from src.infrastructure.config import SUPABASE_DB_URL
+from src.infrastructure.log import log
 
 # Initialize the Base for ORM models
 Base = declarative_base()
