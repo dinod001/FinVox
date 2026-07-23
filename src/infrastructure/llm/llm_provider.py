@@ -10,7 +10,7 @@ Three specialised LLMs for different tasks:
 from typing import Optional, Any
 from langchain_openai import ChatOpenAI
 
-from infrastructure.config import (
+from src.infrastructure.config import (
     ROUTER_MODEL,
     ROUTER_PROVIDER,
     EXTRACTOR_MODEL,

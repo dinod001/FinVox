@@ -19,6 +19,10 @@
   - **Vector Storage:** Anchored by Qdrant Cloud for ultra-fast cosine similarity search for PDF reports.
   - **CAG (Cache-Augmented Generation):** Implements a zero-latency semantic cache using Qdrant to store and instantly serve identical or highly similar queries, significantly reducing latency and LLM API costs.
   - **CRAG (Corrective RAG):** Employs confidence-gated self-correction using a fast extractor model. If initial retrieved documents lack context, it automatically restructures the query and fetches better context before generating the answer.
+- **Advanced Memory Subsystem:** Equips the AI with human-like memory capabilities:
+  - **Short-Term Memory (Working Memory):** High-speed ring buffer maintaining immediate conversation context (last 30 turns).
+  - **Long-Term Memory (Factual Recall):** Extracts and persists core user facts seamlessly into Supabase `pgvector` using a hyper-efficient Vector-First Overwrite logic (0 LLM overhead for updates).
+  - **Episodic Memory (Session Summaries):** Distills complete conversations into semantic episodes with automatic time-decay (TTL).
 ## 🏗️ System Architecture
 
 ```mermaid
@@ -35,7 +39,15 @@ graph TD
 
     subgraph AI Brain
         Backend --> Orchestrator[LangGraph Orchestrator]
-        Orchestrator <--> |OpenRouter| LLM[LLM: GPT-4o/Claude]
+        
+        subgraph Memory Subsystem
+            Orchestrator --> MemManager[Memory Manager]
+            MemManager --> ST[(Supabase: st_turns)]
+            MemManager --> LT[(pgvector: mem_vectors)]
+            MemManager --> Episodic[(pgvector: mem_episodes)]
+        end
+        
+        Orchestrator <--> |OpenRouter| LLM[LLM: Llama 3.3 / GPT-4o]
         Orchestrator <--> Agent1[Document Agent: CAG + CRAG]
         Orchestrator <--> Agent2[Cash Flow Forecast Agent]
         Orchestrator <--> Agent3[Market Research Agent]
