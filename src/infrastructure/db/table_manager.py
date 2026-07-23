@@ -3,6 +3,7 @@ from sqlalchemy import text
 import uuid
 import re
 from datetime import datetime
+import json
 
 from src.infrastructure.db.crm_client import engine, SessionLocal
 from src.infrastructure.log import log
@@ -35,12 +36,18 @@ def ensure_table_registry():
         id UUID PRIMARY KEY,
         table_name TEXT UNIQUE NOT NULL,
         description TEXT,
+        schema_info TEXT,
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
+    """
+    
+    alter_table_sql = """
+    ALTER TABLE table_registry ADD COLUMN IF NOT EXISTS schema_info TEXT;
     """
     try:
         with engine.begin() as conn:
             conn.execute(text(create_table_sql))
+            conn.execute(text(alter_table_sql))
         log.info("✓ table_registry checked/created successfully.")
     except Exception as e:
         log.error(f"Failed to ensure table_registry: {e}")
@@ -63,24 +70,28 @@ def save_dataframe_to_supabase(df: pd.DataFrame, filename: str, description: str
         log.info(f"Saving dataframe to Supabase table: '{table_name}'")
         df.to_sql(name=table_name, con=engine, if_exists='replace', index=False)
         
-        # 2. Register in table_registry
+        # 2. Extract schema (column names and types)
+        schema_dict = {col: str(dtype) for col, dtype in df.dtypes.items()}
+        schema_json = json.dumps(schema_dict)
+        
+        # 3. Register in table_registry
         with SessionLocal() as db:
             # Check if exists
             result = db.execute(text("SELECT id FROM table_registry WHERE table_name = :t"), {"t": table_name})
             exists = result.fetchone()
             
             if exists:
-                # Update description
+                # Update description and schema
                 db.execute(
-                    text("UPDATE table_registry SET description = :d WHERE table_name = :t"),
-                    {"d": description, "t": table_name}
+                    text("UPDATE table_registry SET description = :d, schema_info = :s WHERE table_name = :t"),
+                    {"d": description, "s": schema_json, "t": table_name}
                 )
             else:
                 # Insert new
                 table_id = str(uuid.uuid4())
                 db.execute(
-                    text("INSERT INTO table_registry (id, table_name, description) VALUES (:id, :t, :d)"),
-                    {"id": table_id, "t": table_name, "d": description}
+                    text("INSERT INTO table_registry (id, table_name, description, schema_info) VALUES (:id, :t, :d, :s)"),
+                    {"id": table_id, "t": table_name, "d": description, "s": schema_json}
                 )
             db.commit()
             
