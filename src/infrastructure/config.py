@@ -76,15 +76,15 @@ def get_embedding_model(provider: Optional[str] = None, tier: Optional[str] = No
     return _get_nested(_MODELS, provider, "embedding", tier, default="openai/text-embedding-3-small")
 
 # Models for specific tasks
-ROUTER_MODEL = "gpt-4o-mini"
-ROUTER_PROVIDER = "openai"
+ROUTER_MODEL = "llama-3.3-70b-versatile"
+ROUTER_PROVIDER = "groq"
 
 EXTRACTOR_MODEL = "gpt-4o-mini"
 EXTRACTOR_PROVIDER = "openai"
 GROQ_BASE_URL = "https://api.groq.com/openai/v1"
 
-CHAT_MODEL = "gpt-4o-mini"
-CHAT_PROVIDER = "openai"
+CHAT_MODEL = "llama-3.3-70b-versatile"
+CHAT_PROVIDER = "groq"
 
 FAST_CHAT_MODEL = "llama-3.3-70b-versatile"
 FAST_CHAT_PROVIDER = "groq"
