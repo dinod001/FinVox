@@ -9,12 +9,12 @@ Pipeline:
                     --> Return answer
 """
 
-from infrastructure.log import log
+from src.infrastructure.log import log
 from typing import Any, Dict
 import time
 
-from services.chat_service.cag_cache import CAGCache
-from services.chat_service.crag_service import CRAGService
+from src.services.chat_service.cag_cache import CAGCache
+from src.services.chat_service.crag_service import CRAGService
 
 
 class CAGService:

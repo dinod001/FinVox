@@ -5,13 +5,15 @@
 ## 🚀 Key Features
 
 - **Voice & Chat Interface:** Communicate naturally via text or voice (powered by OpenAI Whisper / Deepgram STT and ElevenLabs TTS). Built with support for code-mixed Sri Lankan English.
-- **Multi-Agent AI Core:** Powered by LangGraph, coordinating specialized AI agents:
-  - 🧠 *Orchestrator Agent:* Routes queries to the appropriate specialist.
-  - 📄 *Document Parser Agent:* Extracts structured data from CSV, Excel, and PDF invoices. (Utilizes `pymupdf4llm` for highly accurate, zero-latency Markdown table extraction from borderless PDFs without relying on LLMs).
-  - 📈 *Cash Flow Forecast Agent:* Predicts 30/60/90-day liquidity and cash flow.
-  - 🌍 *Market Research Agent:* Fetches real-time market data (Yahoo Finance, CSE, CBSL).
-  - 💼 *Investment Advisor Agent:* Recommends allocations for surplus capital.
-  - 📑 *Report Generator Agent:* Creates downloadable PDF financial health summaries.
+- **Multi-Agent AI Core (Fan-Out Architecture):** Powered by a custom LangGraph state machine supporting parallel execution for compound queries:
+  - 🧠 *Router Node:* Analyzes user intent, splits compound queries into multiple routes, and injects memory context.
+  - ⚙️ *Parallel Sub-Agents:* Executes specialized agents simultaneously based on routing decisions:
+    - 📄 *Document RAG Agent:* Analyzes internal knowledge and extracts data from uploaded documents.
+    - 📈 *Cash Flow Agent:* Analyzes past and present cashflow using dynamic SQL queries.
+    - 🌍 *Market Agent:* Fetches real-time stock market data (e.g., CSE) via API.
+    - 💼 *Investment Agent:* Provides targeted financial advice for surplus capital.
+    - 💬 *General Agent:* Handles natural conversation and fallback queries.
+  - 🔄 *Merge Responses (Fan-In):* Automatically synthesizes parallel agent outputs into a single, cohesive user response.
 - **Data Intelligence & Data Privacy (RAG + Text-to-SQL):** Securely processes uploaded financial documents using advanced architectures:
   - **Dynamic SQL Tables (Text-to-SQL):** Automatically converts structured tabular data (CSV/Excel) into native dynamic PostgreSQL tables in Supabase. By passing vector similarity entirely, this enables the AI to execute 100% accurate native SQL queries on user-uploaded data.
   - **Privacy-First Embeddings:** Uses 100% local, free Sentence Transformers (`BAAI/bge-large-en-v1.5`) so sensitive SME financial data never leaves the network for embedding generation.

@@ -8,7 +8,7 @@ import time
 import uuid
 from typing import Any, Dict, Optional
 
-from infrastructure.log import log
+from src.infrastructure.log import log
 from qdrant_client.http.models import Distance, VectorParams, PointStruct
 
 from src.infrastructure.config import (
