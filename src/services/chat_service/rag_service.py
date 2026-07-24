@@ -5,7 +5,7 @@ Backed by Qdrant Cloud for vector retrieval.
 
 import time
 from typing import Any, Dict, List, Optional
-from infrastructure.log import log
+from src.infrastructure.log import log
 
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
@@ -14,10 +14,10 @@ from langchain_core.documents import Document
 from langchain_core.callbacks import CallbackManagerForRetrieverRun
 from langchain_core.retrievers import BaseRetriever
 
-from infrastructure.config import TOP_K_RESULTS, SIMILARITY_THRESHOLD
-from services.chat_service.rag_templates import RAG_TEMPLATE
-from infrastructure.db.qdrant_client import search_chunks
-from infrastructure.utils import format_docs
+from src.infrastructure.config import TOP_K_RESULTS, SIMILARITY_THRESHOLD
+from src.services.chat_service.rag_templates import RAG_TEMPLATE
+from src.infrastructure.db.qdrant_client import search_chunks
+from src.infrastructure.utils import format_docs
 
 
 class QdrantRetriever(BaseRetriever):

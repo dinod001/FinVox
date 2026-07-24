@@ -3,7 +3,7 @@ CRAG (Corrective RAG) service with self-correcting retrieval.
 Automatically expands search scope if initial retrieval confidence is low.
 """
 
-from infrastructure.log import log
+from src.infrastructure.log import log
 from typing import Any, Dict
 import time
 
@@ -11,14 +11,14 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.retrievers import BaseRetriever
 
-from infrastructure.config import (
+from src.infrastructure.config import (
     CRAG_CONFIDENCE_THRESHOLD,
     CRAG_EXPANDED_K,
     TOP_K_RESULTS
 )
-from services.chat_service.rag_templates import RAG_TEMPLATE
-from services.chat_service.rag_service import QdrantRetriever
-from infrastructure.utils import format_docs, calculate_confidence
+from src.services.chat_service.rag_templates import RAG_TEMPLATE
+from src.services.chat_service.rag_service import QdrantRetriever
+from src.infrastructure.utils import format_docs, calculate_confidence
 
 
 class CRAGService:
