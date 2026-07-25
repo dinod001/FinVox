@@ -29,9 +29,9 @@ import pymupdf4llm
 
 # Pre-compiled regex patterns (module-level for performance)
 _DATE_PATTERN = re.compile(r'^\d{1,4}[-/]\d{1,2}[-/]\d{1,4}')
-_CURRENCY_PATTERN = re.compile(r'Rs\.?|LKR|\$', re.IGNORECASE)
+_CURRENCY_PATTERN = re.compile(r'\bRs\.?|\bLKR\b|\$', re.IGNORECASE)
 _DIGIT_PATTERN = re.compile(r'\d')
-_CLEAN_CURRENCY_PATTERN = re.compile(r'Rs\.?|LKR|[$,\s]', re.IGNORECASE)
+_CLEAN_CURRENCY_PATTERN = re.compile(r'\bRs\.?|\bLKR\b|[$,\s]', re.IGNORECASE)
 
 # Supported file extensions
 _EXCEL_EXTENSIONS = {'.xlsx', '.xls'}
@@ -99,7 +99,7 @@ class IngestFile:
              sample_vals.str.contains('LKR', case=False, regex=False).any():
             detected_currency = "lkr"
 
-        cleaned = series.astype(str).apply(lambda x: _CLEAN_CURRENCY_PATTERN.sub('', x))
+        cleaned = series.astype(str).apply(lambda x: _CLEAN_CURRENCY_PATTERN.sub('', str(x)))
         cleaned = cleaned.replace('', np.nan)
         return pd.to_numeric(cleaned, errors='coerce'), detected_currency
 
@@ -213,7 +213,7 @@ class IngestFile:
                 sample = df[col].dropna().head(10).astype(str)
                 if sample.empty:
                     continue
-                if sample.apply(lambda x: bool(_DATE_PATTERN.match(x))).any():
+                if sample.apply(lambda x: bool(_DATE_PATTERN.match(str(x)))).any():
                     try:
                         df[col] = pd.to_datetime(df[col], errors='coerce', dayfirst=True)
                         log.info(f"Parsed date column: '{col}'")
@@ -228,8 +228,8 @@ class IngestFile:
                 if sample.empty:
                     continue
 
-                has_currency = sample.apply(lambda x: bool(_CURRENCY_PATTERN.search(x))).any()
-                has_digits = sample.apply(lambda x: bool(_DIGIT_PATTERN.search(x))).any()
+                has_currency = sample.apply(lambda x: bool(_CURRENCY_PATTERN.search(str(x)))).any()
+                has_digits = sample.apply(lambda x: bool(_DIGIT_PATTERN.search(str(x)))).any()
 
                 if has_currency and has_digits:
                     log.info(f"Currency detected in '{col}'. Sample: {sample.head(3).tolist()}")

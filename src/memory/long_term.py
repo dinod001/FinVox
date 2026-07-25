@@ -32,7 +32,7 @@ class PostgresLongTermStore(LongTermStore):
         create_table_sql = f"""
         CREATE TABLE IF NOT EXISTS mem_vectors (
             id TEXT PRIMARY KEY,
-            user_id TEXT NOT NULL,
+            user_id VARCHAR(50) NOT NULL REFERENCES users(username) ON DELETE CASCADE,
             text TEXT NOT NULL,
             embedding VECTOR({EMBEDDING_DIM}),
             score DOUBLE PRECISION DEFAULT 1.0,

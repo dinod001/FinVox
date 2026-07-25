@@ -31,8 +31,8 @@ class PostgresEpisodicStore(EpisodicStore):
         create_table_sql = f"""
         CREATE TABLE IF NOT EXISTS mem_episodes (
             id TEXT PRIMARY KEY,
-            user_id TEXT NOT NULL,
-            session_id TEXT NOT NULL,
+            user_id VARCHAR(50) NOT NULL REFERENCES users(username) ON DELETE CASCADE,
+            session_id UUID NOT NULL REFERENCES chat_sessions(id) ON DELETE CASCADE,
             summary TEXT NOT NULL,
             embedding VECTOR({EMBEDDING_DIM}),
             topic_tags JSONB DEFAULT '[]'::jsonb,
@@ -78,7 +78,7 @@ class PostgresEpisodicStore(EpisodicStore):
         # 2. Upsert into database
         upsert_sql = """
         INSERT INTO mem_episodes (id, user_id, session_id, summary, embedding, topic_tags, turns, start_at, end_at, turn_count, ttl_at)
-        VALUES (:id, :uid, :sid, :sum, :emb, :tags, :turns, :start, :end, :count, :ttl)
+        VALUES (:id, :uid, CAST(:sid AS UUID), :sum, :emb, :tags, :turns, :start, :end, :count, :ttl)
         ON CONFLICT (id) DO UPDATE SET
             summary = EXCLUDED.summary,
             embedding = EXCLUDED.embedding,
@@ -140,7 +140,7 @@ class PostgresEpisodicStore(EpisodicStore):
         max_distance = 1.0 - threshold
 
         search_sql = """
-        SELECT id, user_id, session_id, summary, topic_tags, turns, start_at, end_at, turn_count, ttl_at,
+        SELECT id, user_id, CAST(session_id AS TEXT), summary, topic_tags, turns, start_at, end_at, turn_count, ttl_at,
                1 - (embedding <=> :q_emb) AS similarity
         FROM mem_episodes
         WHERE user_id = :uid 

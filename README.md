@@ -44,12 +44,12 @@ graph TD
         
         subgraph Memory Subsystem
             Orchestrator --> MemManager[Memory Manager]
-            MemManager --> ST[(Supabase: st_turns)]
+            MemManager --> ST[(Supabase: chat_messages)]
             MemManager --> LT[(pgvector: mem_vectors)]
             MemManager --> Episodic[(pgvector: mem_episodes)]
         end
         
-        Orchestrator <--> |OpenRouter| LLM[LLM: Llama 3.3 / GPT-4o]
+        Orchestrator <--> |OpenAI| LLM[LLM: GPT-4o / GPT-4o-mini]
         Orchestrator <--> Agent1[Document Agent: CAG + CRAG]
         Orchestrator <--> Agent2[Cash Flow Forecast Agent]
         Orchestrator <--> Agent3[Market Research Agent]
@@ -69,7 +69,7 @@ graph TD
 - **AI Framework:** LangChain & LangGraph
 - **Vector Database:** Qdrant Cloud
 - **State Database:** Supabase (PostgreSQL)
-- **LLM Routing:** OpenRouter (OpenAI, Anthropic, Groq)
+- **LLM Routing:** OpenAI (GPT-4o, GPT-4o-mini)
 - **Embeddings:** HuggingFace Sentence Transformers (`bge-large-en-v1.5`)
 - **Voice Pipeline:** LiveKit, Deepgram, ElevenLabs
 

@@ -23,23 +23,24 @@ class PostgresShortTermStore(ShortTermStore):
             return
 
         create_table_sql = """
-        CREATE TABLE IF NOT EXISTS st_turns (
-            id SERIAL PRIMARY KEY,
-            user_id TEXT NOT NULL,
-            session_id TEXT NOT NULL,
+        CREATE TABLE IF NOT EXISTS chat_messages (
+            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+            session_id UUID NOT NULL,
+            user_id VARCHAR(50) NOT NULL,
             role TEXT NOT NULL,
             content TEXT NOT NULL,
-            ts DOUBLE PRECISION NOT NULL
+            ts DOUBLE PRECISION NOT NULL,
+            created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
         );
         -- Index for fast retrieval of recent messages for a specific session
-        CREATE INDEX IF NOT EXISTS idx_st_turns_session_ts ON st_turns(session_id, ts DESC);
+        CREATE INDEX IF NOT EXISTS idx_chat_messages_session_ts ON chat_messages(session_id, ts DESC);
         """
         try:
             with engine.begin() as conn:
                 conn.execute(text(create_table_sql))
-            log.info("✓ st_turns table checked/created successfully.")
+            log.info("✓ chat_messages table checked/created successfully.")
         except Exception as e:
-            log.error(f"Failed to ensure st_turns table: {e}")
+            log.error(f"Failed to ensure chat_messages table: {e}")
 
     def append(
         self,
@@ -48,8 +49,8 @@ class PostgresShortTermStore(ShortTermStore):
         ttl_seconds: int,
     ) -> None:
         """
-        Add a new turn to the short term memory.
-        Also handles pruning older messages (keeping only max_turns or based on TTL).
+        Add a new turn to the chat_messages table.
+        (Pruning has been removed to preserve full chat history for the frontend).
         """
         if not engine:
             return
@@ -61,8 +62,8 @@ class PostgresShortTermStore(ShortTermStore):
             with engine.begin() as conn:
                 # 1. Insert the new turn
                 insert_sql = """
-                INSERT INTO st_turns (user_id, session_id, role, content, ts)
-                VALUES (:u, :s, :r, :c, :t)
+                INSERT INTO chat_messages (user_id, session_id, role, content, ts)
+                VALUES (:u, CAST(:s AS UUID), :r, :c, :t)
                 """
                 conn.execute(
                     text(insert_sql),
@@ -76,25 +77,10 @@ class PostgresShortTermStore(ShortTermStore):
                 )
 
                 # 2. Delete messages older than the TTL for this session
-                delete_ttl_sql = """
-                DELETE FROM st_turns 
-                WHERE session_id = :s AND ts < :exp
-                """
-                conn.execute(text(delete_ttl_sql), {"s": turn.session_id, "exp": expiry_ts})
-
+                # [REMOVED]: We no longer delete messages because chat_messages acts as permanent chat history.
+                
                 # 3. Prune to keep only max_turns (Ring Buffer logic)
-                # Keep the newest `max_turns` rows, delete the rest
-                delete_excess_sql = """
-                DELETE FROM st_turns
-                WHERE id NOT IN (
-                    SELECT id FROM st_turns
-                    WHERE session_id = :s
-                    ORDER BY ts DESC
-                    LIMIT :m
-                )
-                AND session_id = :s
-                """
-                conn.execute(text(delete_excess_sql), {"s": turn.session_id, "m": max_turns})
+                # [REMOVED]: The LLM context is kept small safely because `recent()` uses `LIMIT K`.
                 
         except Exception as e:
             log.error(f"Failed to append to ShortTermStore: {e}")
@@ -117,9 +103,9 @@ class PostgresShortTermStore(ShortTermStore):
                 # Fetch newest K messages, but we order by DESC to limit, 
                 # then we must reverse them to return in normal conversational order (ASC).
                 select_sql = """
-                SELECT user_id, session_id, role, content, ts
-                FROM st_turns
-                WHERE session_id = :s AND user_id = :u
+                SELECT user_id, CAST(session_id AS TEXT), role, content, ts
+                FROM chat_messages
+                WHERE session_id = CAST(:s AS UUID) AND user_id = :u
                 ORDER BY ts DESC
                 LIMIT :k
                 """

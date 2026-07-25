@@ -76,4 +76,4 @@ def get_chat_llm(temperature: float = 0, **kwargs: Any) -> ChatOpenAI:
     Model: gemini-2.0-flash via OpenRouter.
     High quality, generous context window, natural tone.
     """
-    return _build_llm(CHAT_MODEL, CHAT_PROVIDER, temperature=temperature, **kwargs)
+    return _build_llm(CHAT_MODEL, CHAT_PROVIDER, temperature=temperature, max_tokens=2048, **kwargs)
