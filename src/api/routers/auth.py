@@ -2,7 +2,7 @@ import asyncio
 import time
 import os
 import jwt
-from passlib.context import CryptContext
+import bcrypt
 from fastapi import APIRouter, HTTPException
 from sqlalchemy import text
 
@@ -10,10 +10,6 @@ from src.infrastructure.db.crm_client import engine
 from src.api.schemas import UserRegisterRequest, UserLoginRequest, AuthResponse
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
-
-# Password hashing setup
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-
 # JWT configuration
 # In production, this should be loaded from .env (os.getenv("JWT_SECRET_KEY"))
 SECRET_KEY = os.getenv("JWT_SECRET_KEY", "super_secret_finvox_key_change_me_in_prod")
@@ -23,10 +19,16 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7 # 7 days expiry
 # ── Helpers ─────────────────────────────────────────────────────────
 
 def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
+    return bcrypt.checkpw(
+        plain_password.encode('utf-8'), 
+        hashed_password.encode('utf-8')
+    )
 
 def get_password_hash(password):
-    return pwd_context.hash(password)
+    return bcrypt.hashpw(
+        password.encode('utf-8'), 
+        bcrypt.gensalt()
+    ).decode('utf-8')
 
 def create_access_token(data: dict):
     to_encode = data.copy()

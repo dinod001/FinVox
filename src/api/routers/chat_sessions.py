@@ -149,3 +149,31 @@ async def delete_session(session_id: str) -> dict:
         raise HTTPException(status_code=404, detail="Session not found")
 
     return {"deleted": True, "session_id": session_id}
+
+
+@router.get("/{session_id}/messages")
+async def get_session_messages(session_id: str, limit: int = Query(100, ge=1, le=500)):
+    """Fetch chat history for a session."""
+    def _query():
+        with engine.connect() as conn:
+            sql = """
+                SELECT id, role, content, ts, created_at
+                FROM chat_messages
+                WHERE session_id = CAST(:sid AS UUID)
+                ORDER BY ts ASC
+                LIMIT :limit
+            """
+            result = conn.execute(text(sql), {"sid": session_id, "limit": limit})
+            # Convert to dict list for JSON serialization
+            return [dict(r._mapping) for r in result]
+
+    try:
+        rows = await asyncio.to_thread(_query)
+        # Convert timestamp to string if needed
+        for row in rows:
+            if hasattr(row['id'], '__str__'): row['id'] = str(row['id'])
+            if hasattr(row['created_at'], 'isoformat'): row['created_at'] = row['created_at'].isoformat()
+        return rows
+    except Exception as e:
+        logger.error(f"Failed to fetch messages for session {session_id}: {e}")
+        raise HTTPException(status_code=500, detail="Database error")

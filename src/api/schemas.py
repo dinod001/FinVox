@@ -111,6 +111,8 @@ class IngestionResponse(BaseModel):
     """Schema for the response after a file is ingested."""
     success: bool = Field(..., description="Whether ingestion was successful")
     document_id: str = Field(..., description="Unique ID assigned to this document/dataset")
+    file_name: Optional[str] = Field(None, description="Original file name")
+    time_taken_ms: Optional[int] = Field(None, description="Processing time in milliseconds")
     message: str = Field(..., description="Status message")
     
     # Specific to Vector DB (PDFs)
