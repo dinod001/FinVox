@@ -1,0 +1,1018 @@
+transaction_id,date,description,category,amount_lkr,transaction_type,notes
+TXN0008,2026-01-01,"Office Rent — Colombo 3, Level 4",Rent,-121840.04,Debit,Monthly office lease payment
+TXN0060,2026-01-01,Monthly Retainer — Dialog Axiata PLC,Retainer Fee,116845.62,Credit,Fixed monthly support retainer from Dialog Axiata PLC
+TXN0061,2026-01-01,Monthly Retainer — Sampath Bank,Retainer Fee,145163.93,Credit,Fixed monthly support retainer from Sampath Bank
+TXN0062,2026-01-01,Monthly Retainer — MAS Holdings,Retainer Fee,63572.23,Credit,Fixed monthly support retainer from MAS Holdings
+TXN0063,2026-01-01,Monthly Retainer — SLT-Mobitel,Retainer Fee,126013.92,Credit,Fixed monthly support retainer from SLT-Mobitel
+TXN0017,2026-01-02,Staff Overtime Meal Allowance,Meals & Entertainment,-3790.9,Debit,Petty cash expense
+TXN0046,2026-01-02,Grab / PickMe — Staff Transport,Transport,-4591.71,Debit,Petty cash expense
+TXN0077,2026-01-02,Fuel — Company Vehicle,Transport,-4335.61,Debit,Company vehicle fuel top-up
+TXN0080,2026-01-02,Fuel — Company Vehicle,Transport,-5717.99,Debit,Company vehicle fuel top-up
+TXN0042,2026-01-04,Courier — Document Delivery,Logistics,-1361.21,Debit,Petty cash expense
+TXN0021,2026-01-05,Parking Fee — Colombo Office,Transport,-555.28,Debit,Petty cash expense
+TXN0050,2026-01-06,Grab / PickMe — Staff Transport,Transport,-877.68,Debit,Petty cash expense
+TXN0001,2026-01-07,Invoice Payment — Browns & Company,Sales Revenue,407762.24,Credit,Project milestone payment from Browns & Company
+TXN0025,2026-01-07,Grab / PickMe — Staff Transport,Transport,-3855.07,Debit,Petty cash expense
+TXN0072,2026-01-07,Ceylinco Insurance — Business Property & Liability,Insurance,-47260.73,Debit,Quarterly business insurance premium
+TXN0075,2026-01-07,Fuel — Company Vehicle,Transport,-11224.51,Debit,Company vehicle fuel top-up
+TXN0079,2026-01-07,Fuel — Company Vehicle,Transport,-6055.48,Debit,Company vehicle fuel top-up
+TXN0038,2026-01-08,Printer Ink & Paper Restock,Office Supplies,-2281.56,Debit,Petty cash expense
+TXN0049,2026-01-08,Printer Ink & Paper Restock,Office Supplies,-3886.83,Debit,Petty cash expense
+TXN0051,2026-01-08,Grab / PickMe — Staff Transport,Transport,-2364.77,Debit,Petty cash expense
+TXN0065,2026-01-08,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-7963.73,Debit,Petty cash fund replenishment
+TXN0083,2026-01-08,Printcare PLC — Stationery Order,Office Supplies,-22120.46,Debit,Vendor invoice payment
+TXN0015,2026-01-09,Staff Overtime Meal Allowance,Meals & Entertainment,-3311.5,Debit,Petty cash expense
+TXN0039,2026-01-09,Team Lunch — Client Meeting,Meals & Entertainment,-4921.38,Debit,Petty cash expense
+TXN0071,2026-01-09,Overpayment Refund — SLT,Refunds,6973.41,Credit,Miscellaneous income
+TXN0078,2026-01-09,Fuel — Company Vehicle,Transport,-7726.74,Debit,Company vehicle fuel top-up
+TXN0086,2026-01-09,Printcare PLC — Stationery Order,Office Supplies,-18860.34,Debit,Vendor invoice payment
+TXN0009,2026-01-10,Lanka Electricity Board — Office Bill,Electricity Bill,-32459.89,Debit,Monthly electricity consumption
+TXN0052,2026-01-10,Photocopy & Binding — Reports,Office Supplies,-1802.59,Debit,Petty cash expense
+TXN0057,2026-01-10,Freelancer Payment — Nimali Fernando,Freelancer Fees,-49454.52,Debit,Contract work — Nimali Fernando
+TXN0058,2026-01-10,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-47651.25,Debit,Contract work — Shanuki Rathnayake
+TXN0067,2026-01-10,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-23974.38,Debit,Petty cash fund replenishment
+TXN0084,2026-01-10,Printcare PLC — Stationery Order,Office Supplies,-16838.13,Debit,Vendor invoice payment
+TXN0073,2026-01-11,Fuel — Company Vehicle,Transport,-3923.74,Debit,Company vehicle fuel top-up
+TXN0010,2026-01-12,SLT Fiber — Office Broadband (1Gbps),Internet Bill,-8672.08,Debit,Monthly ISP subscription
+TXN0040,2026-01-12,Courier — Document Delivery,Logistics,-1108.64,Debit,Petty cash expense
+TXN0054,2026-01-12,Freelancer Payment — Ravindu Silva,Freelancer Fees,-71823.95,Debit,Contract work — Ravindu Silva
+TXN0068,2026-01-12,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-18831.53,Debit,Petty cash fund replenishment
+TXN0004,2026-01-13,Invoice Payment — Hatton National Bank,Sales Revenue,153011.94,Credit,Project milestone payment from Hatton National Bank
+TXN0031,2026-01-13,Staff Overtime Meal Allowance,Meals & Entertainment,-2842.18,Debit,Petty cash expense
+TXN0074,2026-01-13,Fuel — Company Vehicle,Transport,-10985.02,Debit,Company vehicle fuel top-up
+TXN0018,2026-01-14,Photocopy & Binding — Reports,Office Supplies,-2068.19,Debit,Petty cash expense
+TXN0081,2026-01-14,Keells Super — Office Pantry,Petty Cash,-5454.31,Debit,Vendor invoice payment
+TXN0087,2026-01-14,DIMO — Vehicle Service,Transport,-39601.48,Debit,Vendor invoice payment
+TXN0012,2026-01-15,Lanka Advertising Agency — Digital Campaign,Marketing,-60800.04,Debit,Online ads & social media campaign — month 1
+TXN0014,2026-01-15,Bank of Ceylon — Business Loan Disbursement,Bank Loan,3600000,Credit,3-year business expansion loan @ 14% p.a.
+TXN0026,2026-01-15,Printer Ink & Paper Restock,Office Supplies,-6483.31,Debit,Petty cash expense
+TXN0066,2026-01-15,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-14353.27,Debit,Petty cash fund replenishment
+TXN0002,2026-01-16,Invoice Payment — John Keells Holdings,Sales Revenue,114712.83,Credit,Project milestone payment from John Keells Holdings
+TXN0034,2026-01-16,Tea/Coffee & Office Refreshments,Petty Cash,-2076.22,Debit,Petty cash expense
+TXN0011,2026-01-17,CloudHosting.lk — Server & Hosting,Cloud & Software,-65295.49,Debit,Monthly cloud infrastructure
+TXN0045,2026-01-17,Printer Ink & Paper Restock,Office Supplies,-6647.69,Debit,Petty cash expense
+TXN0053,2026-01-17,Freelancer Payment — Ravindu Silva,Freelancer Fees,-31465.32,Debit,Contract work — Ravindu Silva
+TXN0016,2026-01-18,Team Lunch — Client Meeting,Meals & Entertainment,-8190.06,Debit,Petty cash expense
+TXN0020,2026-01-18,Parking Fee — Colombo Office,Transport,-670.27,Debit,Petty cash expense
+TXN0076,2026-01-18,Fuel — Company Vehicle,Transport,-4766.55,Debit,Company vehicle fuel top-up
+TXN0082,2026-01-18,Abans PLC — IT Equipment Maintenance,Equipment Maintenance,-46900.0,Debit,Vendor invoice payment
+TXN0013,2026-01-19,Office Mart Colombo — Stationery & Equipment,Office Supplies,-7992.64,Debit,Office consumables and equipment
+TXN0035,2026-01-19,Tea/Coffee & Office Refreshments,Petty Cash,-911.56,Debit,Petty cash expense
+TXN0064,2026-01-19,Sampath Bank — Monthly Account Maintenance,Bank Charges,-2308.81,Debit,Monthly bank service charge
+TXN0005,2026-01-20,Invoice Payment — Ceylinco Insurance,Sales Revenue,220989.69,Credit,Project milestone payment from Ceylinco Insurance
+TXN0027,2026-01-20,Grab / PickMe — Staff Transport,Transport,-3927.77,Debit,Petty cash expense
+TXN0069,2026-01-21,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-6497.47,Debit,Petty cash fund replenishment
+TXN0059,2026-01-22,Freelancer Payment — Tharushi Jayasinghe,Freelancer Fees,-56510.53,Debit,Contract work — Tharushi Jayasinghe
+TXN0085,2026-01-23,Dialog — Mobile Bills (Staff),Telephone,-17983.77,Debit,Vendor invoice payment
+TXN0003,2026-01-24,Invoice Payment — SLT-Mobitel,Sales Revenue,230393.47,Credit,Project milestone payment from SLT-Mobitel
+TXN0023,2026-01-24,Printer Ink & Paper Restock,Office Supplies,-7995.51,Debit,Petty cash expense
+TXN0029,2026-01-24,Courier — Document Delivery,Logistics,-994.27,Debit,Petty cash expense
+TXN0007,2026-01-25,Staff Salaries — 12 Employees,Salaries,-1006727.88,Debit,Monthly payroll run
+TXN0030,2026-01-25,Grab / PickMe — Staff Transport,Transport,-4826.32,Debit,Petty cash expense
+TXN0036,2026-01-25,Courier — Document Delivery,Logistics,-738.45,Debit,Petty cash expense
+TXN0044,2026-01-25,Team Lunch — Client Meeting,Meals & Entertainment,-9680.98,Debit,Petty cash expense
+TXN0006,2026-01-26,Invoice Payment — Aitken Spence,Sales Revenue,350852.57,Credit,Project milestone payment from Aitken Spence
+TXN0022,2026-01-26,Grab / PickMe — Staff Transport,Transport,-2367.97,Debit,Petty cash expense
+TXN0041,2026-01-26,Parking Fee — Colombo Office,Transport,-241.39,Debit,Petty cash expense
+TXN0055,2026-01-26,Freelancer Payment — Ravindu Silva,Freelancer Fees,-94849.99,Debit,Contract work — Ravindu Silva
+TXN0032,2026-01-27,Tea/Coffee & Office Refreshments,Petty Cash,-2465.62,Debit,Petty cash expense
+TXN0047,2026-01-27,Photocopy & Binding — Reports,Office Supplies,-522.74,Debit,Petty cash expense
+TXN0033,2026-01-28,Courier — Document Delivery,Logistics,-1068.62,Debit,Petty cash expense
+TXN0043,2026-01-28,Grab / PickMe — Staff Transport,Transport,-2545.26,Debit,Petty cash expense
+TXN0048,2026-01-28,Photocopy & Binding — Reports,Office Supplies,-2227.09,Debit,Petty cash expense
+TXN0056,2026-01-28,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-49127.6,Debit,Contract work — Shanuki Rathnayake
+TXN0028,2026-01-29,Staff Overtime Meal Allowance,Meals & Entertainment,-3427.79,Debit,Petty cash expense
+TXN0024,2026-01-30,Grab / PickMe — Staff Transport,Transport,-4857.68,Debit,Petty cash expense
+TXN0070,2026-01-30,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-22762.4,Debit,Petty cash fund replenishment
+TXN0019,2026-01-31,Team Lunch — Client Meeting,Meals & Entertainment,-4991.35,Debit,Petty cash expense
+TXN0037,2026-01-31,Tea/Coffee & Office Refreshments,Petty Cash,-1960.09,Debit,Petty cash expense
+TXN0095,2026-02-01,"Office Rent — Colombo 3, Level 4",Rent,-118058.03,Debit,Monthly office lease payment
+TXN0130,2026-02-01,Photocopy & Binding — Reports,Office Supplies,-1581.38,Debit,Petty cash expense
+TXN0146,2026-02-01,Monthly Retainer — Dialog Axiata PLC,Retainer Fee,88164.26,Credit,Fixed monthly support retainer from Dialog Axiata PLC
+TXN0147,2026-02-01,Monthly Retainer — Sampath Bank,Retainer Fee,132822.49,Credit,Fixed monthly support retainer from Sampath Bank
+TXN0148,2026-02-01,Monthly Retainer — MAS Holdings,Retainer Fee,116094.99,Credit,Fixed monthly support retainer from MAS Holdings
+TXN0149,2026-02-01,Monthly Retainer — SLT-Mobitel,Retainer Fee,130128.85,Credit,Fixed monthly support retainer from SLT-Mobitel
+TXN0158,2026-02-01,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-24221.22,Debit,Petty cash fund replenishment
+TXN0123,2026-02-02,Courier — Document Delivery,Logistics,-378.67,Debit,Petty cash expense
+TXN0152,2026-02-02,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-14481.44,Debit,Petty cash fund replenishment
+TXN0125,2026-02-03,Parking Fee — Colombo Office,Transport,-213.99,Debit,Petty cash expense
+TXN0132,2026-02-03,Staff Overtime Meal Allowance,Meals & Entertainment,-3332.96,Debit,Petty cash expense
+TXN0112,2026-02-04,Grab / PickMe — Staff Transport,Transport,-3726.04,Debit,Petty cash expense
+TXN0127,2026-02-04,Photocopy & Binding — Reports,Office Supplies,-1694.89,Debit,Petty cash expense
+TXN0161,2026-02-04,Fuel — Company Vehicle,Transport,-4752.26,Debit,Company vehicle fuel top-up
+TXN0101,2026-02-05,Bank of Ceylon — Business Loan EMI,Loan Repayment,-75000,Debit,Monthly EMI for LKR 3.6M business loan
+TXN0107,2026-02-05,Grab / PickMe — Staff Transport,Transport,-3885.05,Debit,Petty cash expense
+TXN0137,2026-02-05,Parking Fee — Colombo Office,Transport,-587.55,Debit,Petty cash expense
+TXN0128,2026-02-06,Tea/Coffee & Office Refreshments,Petty Cash,-1678.85,Debit,Petty cash expense
+TXN0092,2026-02-07,Invoice Payment — Dipped Products,Sales Revenue,226183.23,Credit,Project milestone payment from Dipped Products
+TXN0103,2026-02-07,Tea/Coffee & Office Refreshments,Petty Cash,-2255.44,Debit,Petty cash expense
+TXN0131,2026-02-07,Team Lunch — Client Meeting,Meals & Entertainment,-8881.62,Debit,Petty cash expense
+TXN0160,2026-02-07,Fuel — Company Vehicle,Transport,-10818.23,Debit,Company vehicle fuel top-up
+TXN0109,2026-02-08,Tea/Coffee & Office Refreshments,Petty Cash,-1114.87,Debit,Petty cash expense
+TXN0116,2026-02-08,Parking Fee — Colombo Office,Transport,-392.85,Debit,Petty cash expense
+TXN0153,2026-02-08,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-22969.7,Debit,Petty cash fund replenishment
+TXN0156,2026-02-08,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-8546.64,Debit,Petty cash fund replenishment
+TXN0157,2026-02-08,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-24950.85,Debit,Petty cash fund replenishment
+TXN0171,2026-02-08,Keells Super — Office Pantry,Petty Cash,-3337.95,Debit,Vendor invoice payment
+TXN0099,2026-02-09,Lanka Advertising Agency — Digital Campaign,Marketing,-32600.97,Debit,Online ads & social media campaign — month 2
+TXN0119,2026-02-09,Parking Fee — Colombo Office,Transport,-455.48,Debit,Petty cash expense
+TXN0120,2026-02-09,Printer Ink & Paper Restock,Office Supplies,-2471.4,Debit,Petty cash expense
+TXN0093,2026-02-10,Invoice Payment — Hatton National Bank,Sales Revenue,132526.06,Credit,Project milestone payment from Hatton National Bank
+TXN0096,2026-02-10,Lanka Electricity Board — Office Bill,Electricity Bill,-23063.13,Debit,Monthly electricity consumption
+TXN0139,2026-02-10,Parking Fee — Colombo Office,Transport,-637.35,Debit,Petty cash expense
+TXN0166,2026-02-10,Fuel — Company Vehicle,Transport,-9977.03,Debit,Company vehicle fuel top-up
+TXN0089,2026-02-11,Invoice Payment — Access Engineering,Sales Revenue,132520.47,Credit,Project milestone payment from Access Engineering
+TXN0104,2026-02-11,Courier — Document Delivery,Logistics,-1076.09,Debit,Petty cash expense
+TXN0106,2026-02-11,Tea/Coffee & Office Refreshments,Petty Cash,-2293.79,Debit,Petty cash expense
+TXN0124,2026-02-11,Parking Fee — Colombo Office,Transport,-457.35,Debit,Petty cash expense
+TXN0097,2026-02-12,SLT Fiber — Office Broadband (1Gbps),Internet Bill,-8775.84,Debit,Monthly ISP subscription
+TXN0114,2026-02-12,Team Lunch — Client Meeting,Meals & Entertainment,-9737.31,Debit,Petty cash expense
+TXN0159,2026-02-12,Fuel — Company Vehicle,Transport,-10577.51,Debit,Company vehicle fuel top-up
+TXN0105,2026-02-13,Staff Overtime Meal Allowance,Meals & Entertainment,-5760.74,Debit,Petty cash expense
+TXN0136,2026-02-13,Tea/Coffee & Office Refreshments,Petty Cash,-1115.58,Debit,Petty cash expense
+TXN0155,2026-02-13,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-8182.41,Debit,Petty cash fund replenishment
+TXN0170,2026-02-13,DIMO — Vehicle Service,Transport,-23268.0,Debit,Vendor invoice payment
+TXN0098,2026-02-14,CloudHosting.lk — Server & Hosting,Cloud & Software,-41998.69,Debit,Monthly cloud infrastructure
+TXN0100,2026-02-16,Office Mart Colombo — Stationery & Equipment,Office Supplies,-19703.08,Debit,Office consumables and equipment
+TXN0113,2026-02-16,Grab / PickMe — Staff Transport,Transport,-3456.69,Debit,Petty cash expense
+TXN0141,2026-02-16,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-109997.99,Debit,Contract work — Shanuki Rathnayake
+TXN0111,2026-02-17,Printer Ink & Paper Restock,Office Supplies,-6056.15,Debit,Petty cash expense
+TXN0135,2026-02-17,Grab / PickMe — Staff Transport,Transport,-4971.18,Debit,Petty cash expense
+TXN0090,2026-02-18,Invoice Payment — Browns & Company,Sales Revenue,243481.85,Credit,Project milestone payment from Browns & Company
+TXN0121,2026-02-18,Staff Overtime Meal Allowance,Meals & Entertainment,-3339.1,Debit,Petty cash expense
+TXN0133,2026-02-18,Printer Ink & Paper Restock,Office Supplies,-4872.38,Debit,Petty cash expense
+TXN0154,2026-02-19,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-12278.5,Debit,Petty cash fund replenishment
+TXN0165,2026-02-19,Fuel — Company Vehicle,Transport,-7120.21,Debit,Company vehicle fuel top-up
+TXN0088,2026-02-20,Invoice Payment — Hayleys PLC,Sales Revenue,117968.95,Credit,Project milestone payment from Hayleys PLC
+TXN0091,2026-02-21,Invoice Payment — Local Startup B,Sales Revenue,150345.94,Credit,Project milestone payment from Local Startup B
+TXN0145,2026-02-21,Freelancer Payment — Tharushi Jayasinghe,Freelancer Fees,-28895.05,Debit,Contract work — Tharushi Jayasinghe
+TXN0169,2026-02-21,Dialog — Mobile Bills (Staff),Telephone,-19260.89,Debit,Vendor invoice payment
+TXN0117,2026-02-22,Printer Ink & Paper Restock,Office Supplies,-4557.59,Debit,Petty cash expense
+TXN0138,2026-02-23,Staff Overtime Meal Allowance,Meals & Entertainment,-1568.8,Debit,Petty cash expense
+TXN0151,2026-02-23,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-19178.91,Debit,Petty cash fund replenishment
+TXN0164,2026-02-23,Fuel — Company Vehicle,Transport,-8842.18,Debit,Company vehicle fuel top-up
+TXN0167,2026-02-23,Dialog — Mobile Bills (Staff),Telephone,-9419.55,Debit,Vendor invoice payment
+TXN0115,2026-02-24,Courier — Document Delivery,Logistics,-708.56,Debit,Petty cash expense
+TXN0168,2026-02-24,Printcare PLC — Stationery Order,Office Supplies,-39095.88,Debit,Vendor invoice payment
+TXN0094,2026-02-25,Staff Salaries — 12 Employees,Salaries,-1020181.93,Debit,Monthly payroll run
+TXN0122,2026-02-25,Tea/Coffee & Office Refreshments,Petty Cash,-2343.06,Debit,Petty cash expense
+TXN0126,2026-02-25,Parking Fee — Colombo Office,Transport,-277.24,Debit,Petty cash expense
+TXN0150,2026-02-25,Sampath Bank — Monthly Account Maintenance,Bank Charges,-2385.17,Debit,Monthly bank service charge
+TXN0110,2026-02-26,Team Lunch — Client Meeting,Meals & Entertainment,-11758.88,Debit,Petty cash expense
+TXN0134,2026-02-26,Printer Ink & Paper Restock,Office Supplies,-3326.59,Debit,Petty cash expense
+TXN0142,2026-02-26,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-62859.35,Debit,Contract work — Shanuki Rathnayake
+TXN0143,2026-02-26,Freelancer Payment — Tharushi Jayasinghe,Freelancer Fees,-31392.13,Debit,Contract work — Tharushi Jayasinghe
+TXN0102,2026-02-27,Photocopy & Binding — Reports,Office Supplies,-1238.18,Debit,Petty cash expense
+TXN0108,2026-02-27,Parking Fee — Colombo Office,Transport,-381.42,Debit,Petty cash expense
+TXN0118,2026-02-27,Tea/Coffee & Office Refreshments,Petty Cash,-1985.66,Debit,Petty cash expense
+TXN0140,2026-02-27,Parking Fee — Colombo Office,Transport,-508.14,Debit,Petty cash expense
+TXN0144,2026-02-27,Freelancer Payment — Ravindu Silva,Freelancer Fees,-102365.37,Debit,Contract work — Ravindu Silva
+TXN0129,2026-02-28,Staff Overtime Meal Allowance,Meals & Entertainment,-3131.09,Debit,Petty cash expense
+TXN0162,2026-02-28,Fuel — Company Vehicle,Transport,-11702.41,Debit,Company vehicle fuel top-up
+TXN0163,2026-02-28,Fuel — Company Vehicle,Transport,-5967.79,Debit,Company vehicle fuel top-up
+TXN0177,2026-03-01,"Office Rent — Colombo 3, Level 4",Rent,-120065.39,Debit,Monthly office lease payment
+TXN0211,2026-03-01,Photocopy & Binding — Reports,Office Supplies,-1083.83,Debit,Petty cash expense
+TXN0231,2026-03-01,Monthly Retainer — Dialog Axiata PLC,Retainer Fee,134337.46,Credit,Fixed monthly support retainer from Dialog Axiata PLC
+TXN0232,2026-03-01,Monthly Retainer — Sampath Bank,Retainer Fee,69014.29,Credit,Fixed monthly support retainer from Sampath Bank
+TXN0233,2026-03-01,Monthly Retainer — MAS Holdings,Retainer Fee,123288.42,Credit,Fixed monthly support retainer from MAS Holdings
+TXN0234,2026-03-01,Monthly Retainer — SLT-Mobitel,Retainer Fee,88220.35,Credit,Fixed monthly support retainer from SLT-Mobitel
+TXN0250,2026-03-02,Fuel — Company Vehicle,Transport,-6376.19,Debit,Company vehicle fuel top-up
+TXN0190,2026-03-03,Printer Ink & Paper Restock,Office Supplies,-3024.68,Debit,Petty cash expense
+TXN0236,2026-03-03,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-10964.59,Debit,Petty cash fund replenishment
+TXN0187,2026-03-04,Courier — Document Delivery,Logistics,-1362.88,Debit,Petty cash expense
+TXN0220,2026-03-04,Grab / PickMe — Staff Transport,Transport,-4320.05,Debit,Petty cash expense
+TXN0183,2026-03-05,Bank of Ceylon — Business Loan EMI,Loan Repayment,-75000,Debit,Monthly EMI for LKR 3.6M business loan
+TXN0184,2026-03-05,Microsoft Sri Lanka — Office 365 Annual License,Software License,-180000,Debit,Annual Microsoft 365 Business license — 12 seats
+TXN0207,2026-03-05,Photocopy & Binding — Reports,Office Supplies,-1563.19,Debit,Petty cash expense
+TXN0256,2026-03-05,Dialog — Mobile Bills (Staff),Telephone,-15574.26,Debit,Vendor invoice payment
+TXN0189,2026-03-06,Grab / PickMe — Staff Transport,Transport,-4486.72,Debit,Petty cash expense
+TXN0209,2026-03-06,Staff Overtime Meal Allowance,Meals & Entertainment,-5464.46,Debit,Petty cash expense
+TXN0197,2026-03-07,Grab / PickMe — Staff Transport,Transport,-4724.73,Debit,Petty cash expense
+TXN0213,2026-03-07,Tea/Coffee & Office Refreshments,Petty Cash,-2797.57,Debit,Petty cash expense
+TXN0246,2026-03-07,Fuel — Company Vehicle,Transport,-8840.77,Debit,Company vehicle fuel top-up
+TXN0252,2026-03-07,Dialog — Mobile Bills (Staff),Telephone,-23456.4,Debit,Vendor invoice payment
+TXN0199,2026-03-09,Printer Ink & Paper Restock,Office Supplies,-3645.38,Debit,Petty cash expense
+TXN0219,2026-03-09,Tea/Coffee & Office Refreshments,Petty Cash,-1819.1,Debit,Petty cash expense
+TXN0245,2026-03-09,Fuel — Company Vehicle,Transport,-7649.43,Debit,Company vehicle fuel top-up
+TXN0178,2026-03-10,Lanka Electricity Board — Office Bill,Electricity Bill,-24169.69,Debit,Monthly electricity consumption
+TXN0237,2026-03-10,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-6440.93,Debit,Petty cash fund replenishment
+TXN0214,2026-03-11,Tea/Coffee & Office Refreshments,Petty Cash,-2072.99,Debit,Petty cash expense
+TXN0218,2026-03-11,Courier — Document Delivery,Logistics,-1138.18,Debit,Petty cash expense
+TXN0239,2026-03-11,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-22279.34,Debit,Petty cash fund replenishment
+TXN0251,2026-03-11,Printcare PLC — Stationery Order,Office Supplies,-29287.73,Debit,Vendor invoice payment
+TXN0172,2026-03-12,Invoice Payment — MAS Holdings,Sales Revenue,364652.77,Credit,Project milestone payment from MAS Holdings
+TXN0179,2026-03-12,SLT Fiber — Office Broadband (1Gbps),Internet Bill,-9833.96,Debit,Monthly ISP subscription
+TXN0215,2026-03-12,Printer Ink & Paper Restock,Office Supplies,-4441.28,Debit,Petty cash expense
+TXN0238,2026-03-12,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-14324.72,Debit,Petty cash fund replenishment
+TXN0243,2026-03-12,Fuel — Company Vehicle,Transport,-10967.0,Debit,Company vehicle fuel top-up
+TXN0181,2026-03-13,Lanka Advertising Agency — Digital Campaign,Marketing,-63089.38,Debit,Online ads & social media campaign — month 3
+TXN0208,2026-03-13,Grab / PickMe — Staff Transport,Transport,-2429.52,Debit,Petty cash expense
+TXN0227,2026-03-13,Freelancer Payment — Ravindu Silva,Freelancer Fees,-84370.45,Debit,Contract work — Ravindu Silva
+TXN0180,2026-03-14,CloudHosting.lk — Server & Hosting,Cloud & Software,-64698.85,Debit,Monthly cloud infrastructure
+TXN0226,2026-03-14,Freelancer Payment — Malith De Silva,Freelancer Fees,-111413.69,Debit,Contract work — Malith De Silva
+TXN0229,2026-03-14,Freelancer Payment — Malith De Silva,Freelancer Fees,-26011.16,Debit,Contract work — Malith De Silva
+TXN0216,2026-03-16,Grab / PickMe — Staff Transport,Transport,-1462.71,Debit,Petty cash expense
+TXN0224,2026-03-16,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-117092.92,Debit,Contract work — Shanuki Rathnayake
+TXN0225,2026-03-17,Freelancer Payment — Kasun Perera,Freelancer Fees,-111205.65,Debit,Contract work — Kasun Perera
+TXN0228,2026-03-17,Freelancer Payment — Malith De Silva,Freelancer Fees,-117835.38,Debit,Contract work — Malith De Silva
+TXN0253,2026-03-18,Keells Super — Office Pantry,Petty Cash,-3326.36,Debit,Vendor invoice payment
+TXN0198,2026-03-19,Photocopy & Binding — Reports,Office Supplies,-1114.17,Debit,Petty cash expense
+TXN0254,2026-03-19,Keells Super — Office Pantry,Petty Cash,-6517.17,Debit,Vendor invoice payment
+TXN0182,2026-03-20,Inland Revenue — Quarterly Tax Payment Q1,Tax,-214277.82,Debit,Corporate income tax installment
+TXN0193,2026-03-20,Courier — Document Delivery,Logistics,-1190.87,Debit,Petty cash expense
+TXN0204,2026-03-20,Tea/Coffee & Office Refreshments,Petty Cash,-749.41,Debit,Petty cash expense
+TXN0210,2026-03-20,Grab / PickMe — Staff Transport,Transport,-3786.91,Debit,Petty cash expense
+TXN0200,2026-03-21,Tea/Coffee & Office Refreshments,Petty Cash,-2147.39,Debit,Petty cash expense
+TXN0206,2026-03-21,Courier — Document Delivery,Logistics,-735.39,Debit,Petty cash expense
+TXN0175,2026-03-22,Invoice Payment — Hatton National Bank,Sales Revenue,392837.52,Credit,Project milestone payment from Hatton National Bank
+TXN0212,2026-03-22,Staff Overtime Meal Allowance,Meals & Entertainment,-4671.1,Debit,Petty cash expense
+TXN0244,2026-03-22,Fuel — Company Vehicle,Transport,-5991.8,Debit,Company vehicle fuel top-up
+TXN0223,2026-03-24,Freelancer Payment — Tharushi Jayasinghe,Freelancer Fees,-109288.64,Debit,Contract work — Tharushi Jayasinghe
+TXN0248,2026-03-24,Fuel — Company Vehicle,Transport,-3124.58,Debit,Company vehicle fuel top-up
+TXN0176,2026-03-25,Staff Salaries — 12 Employees,Salaries,-1047355.63,Debit,Monthly payroll run
+TXN0249,2026-03-25,Fuel — Company Vehicle,Transport,-10708.67,Debit,Company vehicle fuel top-up
+TXN0255,2026-03-25,Keells Super — Office Pantry,Petty Cash,-12913.01,Debit,Vendor invoice payment
+TXN0174,2026-03-26,Invoice Payment — Sampath Bank,Sales Revenue,509333.53,Credit,Project milestone payment from Sampath Bank
+TXN0188,2026-03-26,Tea/Coffee & Office Refreshments,Petty Cash,-550.48,Debit,Petty cash expense
+TXN0196,2026-03-26,Printer Ink & Paper Restock,Office Supplies,-6644.02,Debit,Petty cash expense
+TXN0202,2026-03-26,Staff Overtime Meal Allowance,Meals & Entertainment,-5012.55,Debit,Petty cash expense
+TXN0240,2026-03-26,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-24852.73,Debit,Petty cash fund replenishment
+TXN0247,2026-03-26,Fuel — Company Vehicle,Transport,-11667.23,Debit,Company vehicle fuel top-up
+TXN0173,2026-03-27,Invoice Payment — Local Startup A,Sales Revenue,261739.68,Credit,Project milestone payment from Local Startup A
+TXN0191,2026-03-27,Courier — Document Delivery,Logistics,-807.89,Debit,Petty cash expense
+TXN0192,2026-03-27,Grab / PickMe — Staff Transport,Transport,-4977.54,Debit,Petty cash expense
+TXN0201,2026-03-27,Staff Overtime Meal Allowance,Meals & Entertainment,-2320.32,Debit,Petty cash expense
+TXN0217,2026-03-27,Parking Fee — Colombo Office,Transport,-401.87,Debit,Petty cash expense
+TXN0221,2026-03-27,Grab / PickMe — Staff Transport,Transport,-2008.91,Debit,Petty cash expense
+TXN0230,2026-03-27,Freelancer Payment — Tharushi Jayasinghe,Freelancer Fees,-26910.4,Debit,Contract work — Tharushi Jayasinghe
+TXN0235,2026-03-27,Sampath Bank — Monthly Account Maintenance,Bank Charges,-1791.72,Debit,Monthly bank service charge
+TXN0205,2026-03-28,Team Lunch — Client Meeting,Meals & Entertainment,-3797.36,Debit,Petty cash expense
+TXN0241,2026-03-28,Insurance Claim Reimbursement,Insurance,14494.18,Credit,Miscellaneous income
+TXN0194,2026-03-29,Printer Ink & Paper Restock,Office Supplies,-7729.39,Debit,Petty cash expense
+TXN0222,2026-03-29,Team Lunch — Client Meeting,Meals & Entertainment,-11451.13,Debit,Petty cash expense
+TXN0185,2026-03-30,Printer Ink & Paper Restock,Office Supplies,-7294.87,Debit,Petty cash expense
+TXN0186,2026-03-30,Tea/Coffee & Office Refreshments,Petty Cash,-1962.26,Debit,Petty cash expense
+TXN0242,2026-03-30,Fuel — Company Vehicle,Transport,-10371.08,Debit,Company vehicle fuel top-up
+TXN0195,2026-03-31,Printer Ink & Paper Restock,Office Supplies,-3725.71,Debit,Petty cash expense
+TXN0203,2026-03-31,Team Lunch — Client Meeting,Meals & Entertainment,-4792.29,Debit,Petty cash expense
+TXN0261,2026-04-01,"Office Rent — Colombo 3, Level 4",Rent,-121043.4,Debit,Monthly office lease payment
+TXN0274,2026-04-01,Photocopy & Binding — Reports,Office Supplies,-2201.33,Debit,Petty cash expense
+TXN0313,2026-04-01,Monthly Retainer — Dialog Axiata PLC,Retainer Fee,104855.15,Credit,Fixed monthly support retainer from Dialog Axiata PLC
+TXN0314,2026-04-01,Monthly Retainer — Sampath Bank,Retainer Fee,53207.66,Credit,Fixed monthly support retainer from Sampath Bank
+TXN0315,2026-04-01,Monthly Retainer — MAS Holdings,Retainer Fee,88402.32,Credit,Fixed monthly support retainer from MAS Holdings
+TXN0316,2026-04-01,Monthly Retainer — SLT-Mobitel,Retainer Fee,112573.32,Credit,Fixed monthly support retainer from SLT-Mobitel
+TXN0268,2026-04-02,Grab / PickMe — Staff Transport,Transport,-2522.31,Debit,Petty cash expense
+TXN0294,2026-04-02,Team Lunch — Client Meeting,Meals & Entertainment,-7195.42,Debit,Petty cash expense
+TXN0306,2026-04-02,Photocopy & Binding — Reports,Office Supplies,-1663.35,Debit,Petty cash expense
+TXN0284,2026-04-03,Team Lunch — Client Meeting,Meals & Entertainment,-8750.07,Debit,Petty cash expense
+TXN0285,2026-04-03,Parking Fee — Colombo Office,Transport,-246.54,Debit,Petty cash expense
+TXN0318,2026-04-03,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-19090.06,Debit,Petty cash fund replenishment
+TXN0334,2026-04-03,Fuel — Company Vehicle,Transport,-3454.79,Debit,Company vehicle fuel top-up
+TXN0287,2026-04-04,Tea/Coffee & Office Refreshments,Petty Cash,-1675.81,Debit,Petty cash expense
+TXN0302,2026-04-04,Printer Ink & Paper Restock,Office Supplies,-5478.99,Debit,Petty cash expense
+TXN0304,2026-04-04,Courier — Document Delivery,Logistics,-357.46,Debit,Petty cash expense
+TXN0266,2026-04-05,Bank of Ceylon — Business Loan EMI,Loan Repayment,-75000,Debit,Monthly EMI for LKR 3.6M business loan
+TXN0337,2026-04-05,Keells Super — Office Pantry,Petty Cash,-4189.63,Debit,Vendor invoice payment
+TXN0289,2026-04-06,Grab / PickMe — Staff Transport,Transport,-2230.13,Debit,Petty cash expense
+TXN0320,2026-04-06,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-14141.69,Debit,Petty cash fund replenishment
+TXN0303,2026-04-07,Team Lunch — Client Meeting,Meals & Entertainment,-9778.21,Debit,Petty cash expense
+TXN0319,2026-04-07,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-5966.11,Debit,Petty cash fund replenishment
+TXN0327,2026-04-07,Ceylinco Insurance — Business Property & Liability,Insurance,-38087.65,Debit,Quarterly business insurance premium
+TXN0328,2026-04-07,Fuel — Company Vehicle,Transport,-4866.0,Debit,Company vehicle fuel top-up
+TXN0330,2026-04-07,Fuel — Company Vehicle,Transport,-9327.79,Debit,Company vehicle fuel top-up
+TXN0280,2026-04-08,Staff Overtime Meal Allowance,Meals & Entertainment,-4163.56,Debit,Petty cash expense
+TXN0321,2026-04-08,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-21440.86,Debit,Petty cash fund replenishment
+TXN0259,2026-04-09,Invoice Payment — Dipped Products,Sales Revenue,302870.6,Credit,Project milestone payment from Dipped Products
+TXN0301,2026-04-09,Team Lunch — Client Meeting,Meals & Entertainment,-7728.67,Debit,Petty cash expense
+TXN0258,2026-04-10,Invoice Payment — MAS Holdings,Sales Revenue,314640.55,Credit,Project milestone payment from MAS Holdings
+TXN0262,2026-04-10,Lanka Electricity Board — Office Bill,Electricity Bill,-22534.2,Debit,Monthly electricity consumption
+TXN0283,2026-04-10,Parking Fee — Colombo Office,Transport,-517.84,Debit,Petty cash expense
+TXN0323,2026-04-10,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-21379.59,Debit,Petty cash fund replenishment
+TXN0339,2026-04-10,Dialog — Mobile Bills (Staff),Telephone,-8929.74,Debit,Vendor invoice payment
+TXN0267,2026-04-11,Team Lunch — Client Meeting,Meals & Entertainment,-3210.62,Debit,Petty cash expense
+TXN0322,2026-04-11,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-11879.08,Debit,Petty cash fund replenishment
+TXN0263,2026-04-12,SLT Fiber — Office Broadband (1Gbps),Internet Bill,-11357.18,Debit,Monthly ISP subscription
+TXN0324,2026-04-12,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-18425.19,Debit,Petty cash fund replenishment
+TXN0336,2026-04-13,Abans PLC — IT Equipment Maintenance,Equipment Maintenance,-52989.73,Debit,Vendor invoice payment
+TXN0338,2026-04-13,Keells Super — Office Pantry,Petty Cash,-13131.84,Debit,Vendor invoice payment
+TXN0286,2026-04-14,Tea/Coffee & Office Refreshments,Petty Cash,-2318.15,Debit,Petty cash expense
+TXN0290,2026-04-14,Staff Overtime Meal Allowance,Meals & Entertainment,-4106.8,Debit,Petty cash expense
+TXN0312,2026-04-14,Freelancer Payment — Malith De Silva,Freelancer Fees,-98192.67,Debit,Contract work — Malith De Silva
+TXN0273,2026-04-15,Grab / PickMe — Staff Transport,Transport,-1931.01,Debit,Petty cash expense
+TXN0317,2026-04-15,Sampath Bank — Monthly Account Maintenance,Bank Charges,-1930.85,Debit,Monthly bank service charge
+TXN0264,2026-04-16,CloudHosting.lk — Server & Hosting,Cloud & Software,-47027.04,Debit,Monthly cloud infrastructure
+TXN0271,2026-04-16,Photocopy & Binding — Reports,Office Supplies,-894.54,Debit,Petty cash expense
+TXN0278,2026-04-16,Photocopy & Binding — Reports,Office Supplies,-1437.22,Debit,Petty cash expense
+TXN0291,2026-04-16,Grab / PickMe — Staff Transport,Transport,-853.12,Debit,Petty cash expense
+TXN0292,2026-04-17,Parking Fee — Colombo Office,Transport,-579.7,Debit,Petty cash expense
+TXN0310,2026-04-17,Freelancer Payment — Kasun Perera,Freelancer Fees,-28561.41,Debit,Contract work — Kasun Perera
+TXN0335,2026-04-18,Fuel — Company Vehicle,Transport,-9260.01,Debit,Company vehicle fuel top-up
+TXN0265,2026-04-19,Lanka Advertising Agency — Digital Campaign,Marketing,-37607.3,Debit,Online ads & social media campaign — month 4
+TXN0295,2026-04-19,Printer Ink & Paper Restock,Office Supplies,-2878.93,Debit,Petty cash expense
+TXN0333,2026-04-19,Fuel — Company Vehicle,Transport,-6904.6,Debit,Company vehicle fuel top-up
+TXN0277,2026-04-20,Tea/Coffee & Office Refreshments,Petty Cash,-1016.79,Debit,Petty cash expense
+TXN0307,2026-04-20,Grab / PickMe — Staff Transport,Transport,-1226.12,Debit,Petty cash expense
+TXN0269,2026-04-21,Staff Overtime Meal Allowance,Meals & Entertainment,-2985.98,Debit,Petty cash expense
+TXN0288,2026-04-21,Staff Overtime Meal Allowance,Meals & Entertainment,-3637.7,Debit,Petty cash expense
+TXN0293,2026-04-21,Printer Ink & Paper Restock,Office Supplies,-3682.19,Debit,Petty cash expense
+TXN0297,2026-04-21,Team Lunch — Client Meeting,Meals & Entertainment,-11030.2,Debit,Petty cash expense
+TXN0281,2026-04-22,Tea/Coffee & Office Refreshments,Petty Cash,-2122.47,Debit,Petty cash expense
+TXN0332,2026-04-22,Fuel — Company Vehicle,Transport,-7789.07,Debit,Company vehicle fuel top-up
+TXN0298,2026-04-23,Staff Overtime Meal Allowance,Meals & Entertainment,-3346.63,Debit,Petty cash expense
+TXN0331,2026-04-23,Fuel — Company Vehicle,Transport,-11597.89,Debit,Company vehicle fuel top-up
+TXN0272,2026-04-24,Grab / PickMe — Staff Transport,Transport,-1720.86,Debit,Petty cash expense
+TXN0326,2026-04-24,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-9520.28,Debit,Petty cash fund replenishment
+TXN0257,2026-04-25,Invoice Payment — Aitken Spence,Sales Revenue,250748.78,Credit,Project milestone payment from Aitken Spence
+TXN0260,2026-04-25,Staff Salaries — 12 Employees,Salaries,-1011014.43,Debit,Monthly payroll run
+TXN0308,2026-04-25,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-30260.8,Debit,Contract work — Shanuki Rathnayake
+TXN0329,2026-04-25,Fuel — Company Vehicle,Transport,-9549.63,Debit,Company vehicle fuel top-up
+TXN0299,2026-04-26,Printer Ink & Paper Restock,Office Supplies,-7118.01,Debit,Petty cash expense
+TXN0309,2026-04-26,Freelancer Payment — Kasun Perera,Freelancer Fees,-46803.37,Debit,Contract work — Kasun Perera
+TXN0311,2026-04-26,Freelancer Payment — Kasun Perera,Freelancer Fees,-91754.4,Debit,Contract work — Kasun Perera
+TXN0325,2026-04-26,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-8061.09,Debit,Petty cash fund replenishment
+TXN0275,2026-04-27,Courier — Document Delivery,Logistics,-479.04,Debit,Petty cash expense
+TXN0296,2026-04-27,Grab / PickMe — Staff Transport,Transport,-3741.1,Debit,Petty cash expense
+TXN0300,2026-04-27,Tea/Coffee & Office Refreshments,Petty Cash,-2233.31,Debit,Petty cash expense
+TXN0270,2026-04-29,Parking Fee — Colombo Office,Transport,-727.2,Debit,Petty cash expense
+TXN0276,2026-04-29,Staff Overtime Meal Allowance,Meals & Entertainment,-4975.12,Debit,Petty cash expense
+TXN0279,2026-04-29,Courier — Document Delivery,Logistics,-456.51,Debit,Petty cash expense
+TXN0282,2026-04-29,Courier — Document Delivery,Logistics,-462.06,Debit,Petty cash expense
+TXN0305,2026-04-29,Grab / PickMe — Staff Transport,Transport,-3247.03,Debit,Petty cash expense
+TXN0344,2026-05-01,"Office Rent — Colombo 3, Level 4",Rent,-118515.92,Debit,Monthly office lease payment
+TXN0399,2026-05-01,Monthly Retainer — Dialog Axiata PLC,Retainer Fee,144225.52,Credit,Fixed monthly support retainer from Dialog Axiata PLC
+TXN0400,2026-05-01,Monthly Retainer — Sampath Bank,Retainer Fee,145926.18,Credit,Fixed monthly support retainer from Sampath Bank
+TXN0401,2026-05-01,Monthly Retainer — MAS Holdings,Retainer Fee,78044.07,Credit,Fixed monthly support retainer from MAS Holdings
+TXN0402,2026-05-01,Monthly Retainer — SLT-Mobitel,Retainer Fee,104915.19,Credit,Fixed monthly support retainer from SLT-Mobitel
+TXN0408,2026-05-01,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-20775.7,Debit,Petty cash fund replenishment
+TXN0369,2026-05-03,Staff Overtime Meal Allowance,Meals & Entertainment,-2692.89,Debit,Petty cash expense
+TXN0383,2026-05-03,Printer Ink & Paper Restock,Office Supplies,-7672.85,Debit,Petty cash expense
+TXN0405,2026-05-03,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-13916.39,Debit,Petty cash fund replenishment
+TXN0358,2026-05-04,Printer Ink & Paper Restock,Office Supplies,-4771.23,Debit,Petty cash expense
+TXN0360,2026-05-04,Grab / PickMe — Staff Transport,Transport,-3718.06,Debit,Petty cash expense
+TXN0384,2026-05-04,Printer Ink & Paper Restock,Office Supplies,-4859.18,Debit,Petty cash expense
+TXN0350,2026-05-05,Bank of Ceylon — Business Loan EMI,Loan Repayment,-75000,Debit,Monthly EMI for LKR 3.6M business loan
+TXN0351,2026-05-06,Grab / PickMe — Staff Transport,Transport,-4965.82,Debit,Petty cash expense
+TXN0414,2026-05-06,Fuel — Company Vehicle,Transport,-6962.72,Debit,Company vehicle fuel top-up
+TXN0419,2026-05-06,Fuel — Company Vehicle,Transport,-6403.8,Debit,Company vehicle fuel top-up
+TXN0426,2026-05-06,Printcare PLC — Stationery Order,Office Supplies,-12299.37,Debit,Vendor invoice payment
+TXN0349,2026-05-07,Office Mart Colombo — Stationery & Equipment,Office Supplies,-20726.09,Debit,Office consumables and equipment
+TXN0363,2026-05-07,Staff Overtime Meal Allowance,Meals & Entertainment,-2027.71,Debit,Petty cash expense
+TXN0417,2026-05-07,Fuel — Company Vehicle,Transport,-11523.53,Debit,Company vehicle fuel top-up
+TXN0355,2026-05-08,Tea/Coffee & Office Refreshments,Petty Cash,-630.05,Debit,Petty cash expense
+TXN0418,2026-05-08,Fuel — Company Vehicle,Transport,-11164.7,Debit,Company vehicle fuel top-up
+TXN0340,2026-05-09,Invoice Payment — Hayleys PLC,Sales Revenue,337772.46,Credit,Project milestone payment from Hayleys PLC
+TXN0356,2026-05-09,Team Lunch — Client Meeting,Meals & Entertainment,-5167.8,Debit,Petty cash expense
+TXN0412,2026-05-09,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-20930.01,Debit,Petty cash fund replenishment
+TXN0413,2026-05-09,Fuel — Company Vehicle,Transport,-7702.87,Debit,Company vehicle fuel top-up
+TXN0345,2026-05-10,Lanka Electricity Board — Office Bill,Electricity Bill,-36308.35,Debit,Monthly electricity consumption
+TXN0407,2026-05-10,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-15728.42,Debit,Petty cash fund replenishment
+TXN0420,2026-05-10,Fuel — Company Vehicle,Transport,-8253.4,Debit,Company vehicle fuel top-up
+TXN0422,2026-05-10,Fuel — Company Vehicle,Transport,-4850.56,Debit,Company vehicle fuel top-up
+TXN0380,2026-05-11,Courier — Document Delivery,Logistics,-653.01,Debit,Petty cash expense
+TXN0391,2026-05-11,Staff Overtime Meal Allowance,Meals & Entertainment,-5549.59,Debit,Petty cash expense
+TXN0397,2026-05-11,Freelancer Payment — Kasun Perera,Freelancer Fees,-89026.5,Debit,Contract work — Kasun Perera
+TXN0404,2026-05-11,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-22245.24,Debit,Petty cash fund replenishment
+TXN0346,2026-05-12,SLT Fiber — Office Broadband (1Gbps),Internet Bill,-9689.94,Debit,Monthly ISP subscription
+TXN0389,2026-05-12,Printer Ink & Paper Restock,Office Supplies,-6503.7,Debit,Petty cash expense
+TXN0410,2026-05-12,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-10426.52,Debit,Petty cash fund replenishment
+TXN0398,2026-05-13,Freelancer Payment — Ravindu Silva,Freelancer Fees,-54925.43,Debit,Contract work — Ravindu Silva
+TXN0341,2026-05-14,Invoice Payment — SLT-Mobitel,Sales Revenue,335796.45,Credit,Project milestone payment from SLT-Mobitel
+TXN0375,2026-05-14,Staff Overtime Meal Allowance,Meals & Entertainment,-1527.29,Debit,Petty cash expense
+TXN0381,2026-05-14,Team Lunch — Client Meeting,Meals & Entertainment,-7384.38,Debit,Petty cash expense
+TXN0424,2026-05-14,Printcare PLC — Stationery Order,Office Supplies,-25202.96,Debit,Vendor invoice payment
+TXN0354,2026-05-15,Grab / PickMe — Staff Transport,Transport,-1876.44,Debit,Petty cash expense
+TXN0379,2026-05-15,Printer Ink & Paper Restock,Office Supplies,-5963.43,Debit,Petty cash expense
+TXN0394,2026-05-15,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-69161.5,Debit,Contract work — Shanuki Rathnayake
+TXN0403,2026-05-15,Sampath Bank — Monthly Account Maintenance,Bank Charges,-658.96,Debit,Monthly bank service charge
+TXN0348,2026-05-16,Lanka Advertising Agency — Digital Campaign,Marketing,-66046.07,Debit,Online ads & social media campaign — month 5
+TXN0371,2026-05-16,Parking Fee — Colombo Office,Transport,-651.88,Debit,Petty cash expense
+TXN0387,2026-05-16,Courier — Document Delivery,Logistics,-1361.67,Debit,Petty cash expense
+TXN0393,2026-05-16,Freelancer Payment — Nimali Fernando,Freelancer Fees,-97048.68,Debit,Contract work — Nimali Fernando
+TXN0395,2026-05-16,Freelancer Payment — Kasun Perera,Freelancer Fees,-78121.36,Debit,Contract work — Kasun Perera
+TXN0366,2026-05-17,Team Lunch — Client Meeting,Meals & Entertainment,-8436.91,Debit,Petty cash expense
+TXN0342,2026-05-18,Invoice Payment — Sampath Bank,Sales Revenue,511695.27,Credit,Project milestone payment from Sampath Bank
+TXN0347,2026-05-18,CloudHosting.lk — Server & Hosting,Cloud & Software,-60809.42,Debit,Monthly cloud infrastructure
+TXN0352,2026-05-18,Printer Ink & Paper Restock,Office Supplies,-7495.29,Debit,Petty cash expense
+TXN0361,2026-05-18,Staff Overtime Meal Allowance,Meals & Entertainment,-1654.64,Debit,Petty cash expense
+TXN0396,2026-05-18,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-70839.46,Debit,Contract work — Shanuki Rathnayake
+TXN0365,2026-05-19,Parking Fee — Colombo Office,Transport,-725.45,Debit,Petty cash expense
+TXN0376,2026-05-19,Tea/Coffee & Office Refreshments,Petty Cash,-1664.76,Debit,Petty cash expense
+TXN0421,2026-05-20,Fuel — Company Vehicle,Transport,-9361.05,Debit,Company vehicle fuel top-up
+TXN0374,2026-05-21,Parking Fee — Colombo Office,Transport,-750.81,Debit,Petty cash expense
+TXN0382,2026-05-21,Photocopy & Binding — Reports,Office Supplies,-1861.13,Debit,Petty cash expense
+TXN0385,2026-05-21,Tea/Coffee & Office Refreshments,Petty Cash,-1383.1,Debit,Petty cash expense
+TXN0423,2026-05-21,Dialog — Mobile Bills (Staff),Telephone,-14167.35,Debit,Vendor invoice payment
+TXN0390,2026-05-22,Printer Ink & Paper Restock,Office Supplies,-6115.59,Debit,Petty cash expense
+TXN0416,2026-05-22,Fuel — Company Vehicle,Transport,-5259.88,Debit,Company vehicle fuel top-up
+TXN0362,2026-05-23,Team Lunch — Client Meeting,Meals & Entertainment,-9550.66,Debit,Petty cash expense
+TXN0392,2026-05-23,Freelancer Payment — Tharushi Jayasinghe,Freelancer Fees,-53942.05,Debit,Contract work — Tharushi Jayasinghe
+TXN0409,2026-05-24,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-9329.45,Debit,Petty cash fund replenishment
+TXN0425,2026-05-24,Keells Super — Office Pantry,Petty Cash,-11077.44,Debit,Vendor invoice payment
+TXN0343,2026-05-25,Staff Salaries — 12 Employees,Salaries,-1011450.62,Debit,Monthly payroll run
+TXN0367,2026-05-25,Parking Fee — Colombo Office,Transport,-415.35,Debit,Petty cash expense
+TXN0368,2026-05-27,Team Lunch — Client Meeting,Meals & Entertainment,-5801.69,Debit,Petty cash expense
+TXN0372,2026-05-27,Parking Fee — Colombo Office,Transport,-775.74,Debit,Petty cash expense
+TXN0378,2026-05-27,Staff Overtime Meal Allowance,Meals & Entertainment,-3166.15,Debit,Petty cash expense
+TXN0411,2026-05-27,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-19637.11,Debit,Petty cash fund replenishment
+TXN0415,2026-05-27,Fuel — Company Vehicle,Transport,-6821.22,Debit,Company vehicle fuel top-up
+TXN0353,2026-05-28,Printer Ink & Paper Restock,Office Supplies,-4905.82,Debit,Petty cash expense
+TXN0359,2026-05-28,Printer Ink & Paper Restock,Office Supplies,-7252.61,Debit,Petty cash expense
+TXN0370,2026-05-28,Grab / PickMe — Staff Transport,Transport,-3461.26,Debit,Petty cash expense
+TXN0373,2026-05-28,Parking Fee — Colombo Office,Transport,-314.13,Debit,Petty cash expense
+TXN0357,2026-05-29,Team Lunch — Client Meeting,Meals & Entertainment,-4608.58,Debit,Petty cash expense
+TXN0364,2026-05-29,Courier — Document Delivery,Logistics,-1446.36,Debit,Petty cash expense
+TXN0388,2026-05-30,Parking Fee — Colombo Office,Transport,-441.11,Debit,Petty cash expense
+TXN0406,2026-05-30,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-15472.28,Debit,Petty cash fund replenishment
+TXN0377,2026-05-31,Staff Overtime Meal Allowance,Meals & Entertainment,-2894.89,Debit,Petty cash expense
+TXN0386,2026-05-31,Grab / PickMe — Staff Transport,Transport,-3037.76,Debit,Petty cash expense
+TXN0434,2026-06-01,"Office Rent — Colombo 3, Level 4",Rent,-117805.01,Debit,Monthly office lease payment
+TXN0481,2026-06-01,Monthly Retainer — Dialog Axiata PLC,Retainer Fee,66945.3,Credit,Fixed monthly support retainer from Dialog Axiata PLC
+TXN0482,2026-06-01,Monthly Retainer — Sampath Bank,Retainer Fee,128964.64,Credit,Fixed monthly support retainer from Sampath Bank
+TXN0483,2026-06-01,Monthly Retainer — MAS Holdings,Retainer Fee,105355.81,Credit,Fixed monthly support retainer from MAS Holdings
+TXN0484,2026-06-01,Monthly Retainer — SLT-Mobitel,Retainer Fee,135611.44,Credit,Fixed monthly support retainer from SLT-Mobitel
+TXN0465,2026-06-02,Courier — Document Delivery,Logistics,-443.54,Debit,Petty cash expense
+TXN0448,2026-06-04,Tea/Coffee & Office Refreshments,Petty Cash,-2675.1,Debit,Petty cash expense
+TXN0460,2026-06-04,Printer Ink & Paper Restock,Office Supplies,-2155.0,Debit,Petty cash expense
+TXN0441,2026-06-05,Bank of Ceylon — Business Loan EMI,Loan Repayment,-75000,Debit,Monthly EMI for LKR 3.6M business loan
+TXN0459,2026-06-05,Photocopy & Binding — Reports,Office Supplies,-1299.34,Debit,Petty cash expense
+TXN0474,2026-06-05,Printer Ink & Paper Restock,Office Supplies,-6687.46,Debit,Petty cash expense
+TXN0469,2026-06-06,Tea/Coffee & Office Refreshments,Petty Cash,-1573.38,Debit,Petty cash expense
+TXN0453,2026-06-08,Staff Overtime Meal Allowance,Meals & Entertainment,-2844.59,Debit,Petty cash expense
+TXN0457,2026-06-08,Tea/Coffee & Office Refreshments,Petty Cash,-512.07,Debit,Petty cash expense
+TXN0462,2026-06-08,Staff Overtime Meal Allowance,Meals & Entertainment,-2444.02,Debit,Petty cash expense
+TXN0463,2026-06-08,Photocopy & Binding — Reports,Office Supplies,-1454.94,Debit,Petty cash expense
+TXN0496,2026-06-09,Fuel — Company Vehicle,Transport,-4286.89,Debit,Company vehicle fuel top-up
+TXN0502,2026-06-09,DIMO — Vehicle Service,Transport,-42599.82,Debit,Vendor invoice payment
+TXN0428,2026-06-10,Invoice Payment — Tokyo Cement,Sales Revenue,235590.15,Credit,Project milestone payment from Tokyo Cement
+TXN0435,2026-06-10,Lanka Electricity Board — Office Bill,Electricity Bill,-43886.36,Debit,Monthly electricity consumption
+TXN0438,2026-06-10,Lanka Advertising Agency — Digital Campaign,Marketing,-104632.35,Debit,Online ads & social media campaign — month 6
+TXN0461,2026-06-10,Tea/Coffee & Office Refreshments,Petty Cash,-1967.38,Debit,Petty cash expense
+TXN0486,2026-06-10,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-10130.61,Debit,Petty cash fund replenishment
+TXN0501,2026-06-10,Keells Super — Office Pantry,Petty Cash,-10147.74,Debit,Vendor invoice payment
+TXN0436,2026-06-12,SLT Fiber — Office Broadband (1Gbps),Internet Bill,-9667.02,Debit,Monthly ISP subscription
+TXN0439,2026-06-13,Office Mart Colombo — Stationery & Equipment,Office Supplies,-7081.42,Debit,Office consumables and equipment
+TXN0467,2026-06-13,Grab / PickMe — Staff Transport,Transport,-2711.89,Debit,Petty cash expense
+TXN0475,2026-06-13,Freelancer Payment — Malith De Silva,Freelancer Fees,-43076.8,Debit,Contract work — Malith De Silva
+TXN0492,2026-06-13,Fuel — Company Vehicle,Transport,-6779.77,Debit,Company vehicle fuel top-up
+TXN0446,2026-06-14,Tea/Coffee & Office Refreshments,Petty Cash,-512.24,Debit,Petty cash expense
+TXN0447,2026-06-14,Grab / PickMe — Staff Transport,Transport,-4100.19,Debit,Petty cash expense
+TXN0452,2026-06-14,Team Lunch — Client Meeting,Meals & Entertainment,-4818.06,Debit,Petty cash expense
+TXN0477,2026-06-14,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-50974.87,Debit,Contract work — Shanuki Rathnayake
+TXN0489,2026-06-14,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-21736.69,Debit,Petty cash fund replenishment
+TXN0449,2026-06-15,Staff Overtime Meal Allowance,Meals & Entertainment,-2399.45,Debit,Petty cash expense
+TXN0493,2026-06-17,Fuel — Company Vehicle,Transport,-7137.1,Debit,Company vehicle fuel top-up
+TXN0430,2026-06-18,Invoice Payment — Ceylinco Insurance,Sales Revenue,325625.33,Credit,Project milestone payment from Ceylinco Insurance
+TXN0437,2026-06-18,CloudHosting.lk — Server & Hosting,Cloud & Software,-45894.35,Debit,Monthly cloud infrastructure
+TXN0442,2026-06-18,ICTA Sri Lanka — Staff Training Program,Training & Development,-95000,Debit,Cloud computing certification for 3 engineers
+TXN0444,2026-06-18,Tea/Coffee & Office Refreshments,Petty Cash,-2917.62,Debit,Petty cash expense
+TXN0478,2026-06-18,Freelancer Payment — Ravindu Silva,Freelancer Fees,-102773.68,Debit,Contract work — Ravindu Silva
+TXN0440,2026-06-20,Inland Revenue — Quarterly Tax Payment Q2,Tax,-103991.49,Debit,Corporate income tax installment
+TXN0451,2026-06-20,Grab / PickMe — Staff Transport,Transport,-2442.93,Debit,Petty cash expense
+TXN0487,2026-06-20,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-23613.88,Debit,Petty cash fund replenishment
+TXN0488,2026-06-20,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-7832.74,Debit,Petty cash fund replenishment
+TXN0495,2026-06-20,Fuel — Company Vehicle,Transport,-4440.05,Debit,Company vehicle fuel top-up
+TXN0454,2026-06-21,Photocopy & Binding — Reports,Office Supplies,-1036.29,Debit,Petty cash expense
+TXN0445,2026-06-22,Parking Fee — Colombo Office,Transport,-724.29,Debit,Petty cash expense
+TXN0456,2026-06-22,Photocopy & Binding — Reports,Office Supplies,-1361.79,Debit,Petty cash expense
+TXN0471,2026-06-22,Team Lunch — Client Meeting,Meals & Entertainment,-5101.75,Debit,Petty cash expense
+TXN0480,2026-06-22,Freelancer Payment — Malith De Silva,Freelancer Fees,-95640.01,Debit,Contract work — Malith De Silva
+TXN0490,2026-06-22,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-13908.23,Debit,Petty cash fund replenishment
+TXN0494,2026-06-22,Fuel — Company Vehicle,Transport,-5383.26,Debit,Company vehicle fuel top-up
+TXN0427,2026-06-23,Invoice Payment — Expolanka Holdings,Sales Revenue,260617.53,Credit,Project milestone payment from Expolanka Holdings
+TXN0473,2026-06-23,Printer Ink & Paper Restock,Office Supplies,-7024.57,Debit,Petty cash expense
+TXN0476,2026-06-23,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-84571.41,Debit,Contract work — Shanuki Rathnayake
+TXN0498,2026-06-23,Fuel — Company Vehicle,Transport,-8926.59,Debit,Company vehicle fuel top-up
+TXN0432,2026-06-24,Invoice Payment — Ceylon Cold Stores,Sales Revenue,415331.27,Credit,Project milestone payment from Ceylon Cold Stores
+TXN0485,2026-06-24,Sampath Bank — Monthly Account Maintenance,Bank Charges,-1569.21,Debit,Monthly bank service charge
+TXN0500,2026-06-24,Printcare PLC — Stationery Order,Office Supplies,-38442.26,Debit,Vendor invoice payment
+TXN0429,2026-06-25,Invoice Payment — Softlogic Holdings,Sales Revenue,523214.82,Credit,Project milestone payment from Softlogic Holdings
+TXN0433,2026-06-25,Staff Salaries — 12 Employees,Salaries,-999926.83,Debit,Monthly payroll run
+TXN0443,2026-06-25,Photocopy & Binding — Reports,Office Supplies,-503.35,Debit,Petty cash expense
+TXN0464,2026-06-25,Courier — Document Delivery,Logistics,-1470.93,Debit,Petty cash expense
+TXN0479,2026-06-25,Freelancer Payment — Ravindu Silva,Freelancer Fees,-110310.38,Debit,Contract work — Ravindu Silva
+TXN0497,2026-06-25,Fuel — Company Vehicle,Transport,-7420.35,Debit,Company vehicle fuel top-up
+TXN0504,2026-06-25,Keells Super — Office Pantry,Petty Cash,-6924.05,Debit,Vendor invoice payment
+TXN0468,2026-06-26,Printer Ink & Paper Restock,Office Supplies,-3787.87,Debit,Petty cash expense
+TXN0499,2026-06-26,Abans PLC — IT Equipment Maintenance,Equipment Maintenance,-17182.88,Debit,Vendor invoice payment
+TXN0431,2026-06-27,Invoice Payment — John Keells Holdings,Sales Revenue,628040.74,Credit,Project milestone payment from John Keells Holdings
+TXN0491,2026-06-27,Insurance Claim Reimbursement,Insurance,17074.39,Credit,Miscellaneous income
+TXN0503,2026-06-27,Dialog — Mobile Bills (Staff),Telephone,-24636.5,Debit,Vendor invoice payment
+TXN0466,2026-06-28,Grab / PickMe — Staff Transport,Transport,-4475.0,Debit,Petty cash expense
+TXN0455,2026-06-29,Staff Overtime Meal Allowance,Meals & Entertainment,-3895.61,Debit,Petty cash expense
+TXN0458,2026-06-29,Courier — Document Delivery,Logistics,-1148.42,Debit,Petty cash expense
+TXN0470,2026-06-29,Team Lunch — Client Meeting,Meals & Entertainment,-4495.93,Debit,Petty cash expense
+TXN0450,2026-06-30,Parking Fee — Colombo Office,Transport,-752.8,Debit,Petty cash expense
+TXN0472,2026-06-30,Staff Overtime Meal Allowance,Meals & Entertainment,-2661.37,Debit,Petty cash expense
+TXN0511,2026-07-01,"Office Rent — Colombo 3, Level 4",Rent,-119222.9,Debit,Monthly office lease payment
+TXN0538,2026-07-01,Staff Overtime Meal Allowance,Meals & Entertainment,-5222.79,Debit,Petty cash expense
+TXN0557,2026-07-01,Monthly Retainer — Dialog Axiata PLC,Retainer Fee,52718.63,Credit,Fixed monthly support retainer from Dialog Axiata PLC
+TXN0558,2026-07-01,Monthly Retainer — Sampath Bank,Retainer Fee,120216.63,Credit,Fixed monthly support retainer from Sampath Bank
+TXN0559,2026-07-01,Monthly Retainer — MAS Holdings,Retainer Fee,97570.24,Credit,Fixed monthly support retainer from MAS Holdings
+TXN0560,2026-07-01,Monthly Retainer — SLT-Mobitel,Retainer Fee,101847.53,Credit,Fixed monthly support retainer from SLT-Mobitel
+TXN0525,2026-07-02,Parking Fee — Colombo Office,Transport,-483.43,Debit,Petty cash expense
+TXN0541,2026-07-02,Printer Ink & Paper Restock,Office Supplies,-6370.85,Debit,Petty cash expense
+TXN0523,2026-07-03,Photocopy & Binding — Reports,Office Supplies,-1652.52,Debit,Petty cash expense
+TXN0531,2026-07-03,Grab / PickMe — Staff Transport,Transport,-1236.14,Debit,Petty cash expense
+TXN0568,2026-07-03,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-17517.0,Debit,Petty cash fund replenishment
+TXN0575,2026-07-03,Fuel — Company Vehicle,Transport,-11614.31,Debit,Company vehicle fuel top-up
+TXN0517,2026-07-04,Team Lunch — Client Meeting,Meals & Entertainment,-6644.78,Debit,Petty cash expense
+TXN0516,2026-07-05,Bank of Ceylon — Business Loan EMI,Loan Repayment,-75000,Debit,Monthly EMI for LKR 3.6M business loan
+TXN0579,2026-07-05,Fuel — Company Vehicle,Transport,-9448.74,Debit,Company vehicle fuel top-up
+TXN0519,2026-07-06,Staff Overtime Meal Allowance,Meals & Entertainment,-5223.32,Debit,Petty cash expense
+TXN0573,2026-07-06,Fuel — Company Vehicle,Transport,-11781.07,Debit,Company vehicle fuel top-up
+TXN0563,2026-07-07,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-10712.04,Debit,Petty cash fund replenishment
+TXN0566,2026-07-07,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-19060.09,Debit,Petty cash fund replenishment
+TXN0571,2026-07-07,Ceylinco Insurance — Business Property & Liability,Insurance,-39703.91,Debit,Quarterly business insurance premium
+TXN0515,2026-07-08,Lanka Advertising Agency — Digital Campaign,Marketing,-67025.14,Debit,Online ads & social media campaign — month 7
+TXN0529,2026-07-08,Photocopy & Binding — Reports,Office Supplies,-1847.47,Debit,Petty cash expense
+TXN0547,2026-07-08,Staff Overtime Meal Allowance,Meals & Entertainment,-4499.17,Debit,Petty cash expense
+TXN0564,2026-07-08,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-23099.3,Debit,Petty cash fund replenishment
+TXN0565,2026-07-08,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-24875.97,Debit,Petty cash fund replenishment
+TXN0512,2026-07-10,Lanka Electricity Board — Office Bill,Electricity Bill,-40408.71,Debit,Monthly electricity consumption
+TXN0518,2026-07-10,Team Lunch — Client Meeting,Meals & Entertainment,-11833.84,Debit,Petty cash expense
+TXN0535,2026-07-10,Staff Overtime Meal Allowance,Meals & Entertainment,-1952.81,Debit,Petty cash expense
+TXN0508,2026-07-11,Invoice Payment — Aitken Spence,Sales Revenue,347560.66,Credit,Project milestone payment from Aitken Spence
+TXN0555,2026-07-11,Freelancer Payment — Malith De Silva,Freelancer Fees,-36543.68,Debit,Contract work — Malith De Silva
+TXN0507,2026-07-12,Invoice Payment — Dialog Axiata PLC,Sales Revenue,472849.12,Credit,Project milestone payment from Dialog Axiata PLC
+TXN0513,2026-07-12,SLT Fiber — Office Broadband (1Gbps),Internet Bill,-8982.12,Debit,Monthly ISP subscription
+TXN0530,2026-07-12,Grab / PickMe — Staff Transport,Transport,-2104.34,Debit,Petty cash expense
+TXN0532,2026-07-13,Tea/Coffee & Office Refreshments,Petty Cash,-1260.14,Debit,Petty cash expense
+TXN0577,2026-07-13,Fuel — Company Vehicle,Transport,-4787.26,Debit,Company vehicle fuel top-up
+TXN0581,2026-07-13,Fuel — Company Vehicle,Transport,-4265.59,Debit,Company vehicle fuel top-up
+TXN0527,2026-07-14,Photocopy & Binding — Reports,Office Supplies,-2180.89,Debit,Petty cash expense
+TXN0546,2026-07-14,Courier — Document Delivery,Logistics,-757.49,Debit,Petty cash expense
+TXN0552,2026-07-15,Freelancer Payment — Tharushi Jayasinghe,Freelancer Fees,-79287.76,Debit,Contract work — Tharushi Jayasinghe
+TXN0561,2026-07-15,Sampath Bank — Monthly Account Maintenance,Bank Charges,-1504.35,Debit,Monthly bank service charge
+TXN0570,2026-07-15,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-13886.56,Debit,Petty cash fund replenishment
+TXN0582,2026-07-15,Abans PLC — IT Equipment Maintenance,Equipment Maintenance,-45483.47,Debit,Vendor invoice payment
+TXN0506,2026-07-16,Invoice Payment — Softlogic Holdings,Sales Revenue,571800.83,Credit,Project milestone payment from Softlogic Holdings
+TXN0520,2026-07-16,Courier — Document Delivery,Logistics,-676.72,Debit,Petty cash expense
+TXN0569,2026-07-16,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-23330.03,Debit,Petty cash fund replenishment
+TXN0549,2026-07-17,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-108792.86,Debit,Contract work — Shanuki Rathnayake
+TXN0585,2026-07-17,Printcare PLC — Stationery Order,Office Supplies,-22906.09,Debit,Vendor invoice payment
+TXN0514,2026-07-18,CloudHosting.lk — Server & Hosting,Cloud & Software,-57826.21,Debit,Monthly cloud infrastructure
+TXN0539,2026-07-18,Photocopy & Binding — Reports,Office Supplies,-1588.27,Debit,Petty cash expense
+TXN0562,2026-07-18,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-18182.21,Debit,Petty cash fund replenishment
+TXN0522,2026-07-19,Parking Fee — Colombo Office,Transport,-528.78,Debit,Petty cash expense
+TXN0537,2026-07-19,Photocopy & Binding — Reports,Office Supplies,-1419.98,Debit,Petty cash expense
+TXN0580,2026-07-19,Fuel — Company Vehicle,Transport,-7469.35,Debit,Company vehicle fuel top-up
+TXN0509,2026-07-20,Invoice Payment — Local Startup A,Sales Revenue,646466.61,Credit,Project milestone payment from Local Startup A
+TXN0526,2026-07-20,Parking Fee — Colombo Office,Transport,-344.38,Debit,Petty cash expense
+TXN0540,2026-07-20,Grab / PickMe — Staff Transport,Transport,-4287.11,Debit,Petty cash expense
+TXN0556,2026-07-20,Freelancer Payment — Nimali Fernando,Freelancer Fees,-101739.1,Debit,Contract work — Nimali Fernando
+TXN0554,2026-07-21,Freelancer Payment — Nimali Fernando,Freelancer Fees,-54916.98,Debit,Contract work — Nimali Fernando
+TXN0567,2026-07-21,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-11122.75,Debit,Petty cash fund replenishment
+TXN0521,2026-07-22,Tea/Coffee & Office Refreshments,Petty Cash,-885.08,Debit,Petty cash expense
+TXN0550,2026-07-22,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-113392.95,Debit,Contract work — Shanuki Rathnayake
+TXN0551,2026-07-22,Freelancer Payment — Nimali Fernando,Freelancer Fees,-116052.63,Debit,Contract work — Nimali Fernando
+TXN0583,2026-07-22,Abans PLC — IT Equipment Maintenance,Equipment Maintenance,-30914.01,Debit,Vendor invoice payment
+TXN0584,2026-07-23,Printcare PLC — Stationery Order,Office Supplies,-14115.14,Debit,Vendor invoice payment
+TXN0545,2026-07-24,Parking Fee — Colombo Office,Transport,-656.48,Debit,Petty cash expense
+TXN0576,2026-07-24,Fuel — Company Vehicle,Transport,-8983.16,Debit,Company vehicle fuel top-up
+TXN0505,2026-07-25,Invoice Payment — Hatton National Bank,Sales Revenue,330031.83,Credit,Project milestone payment from Hatton National Bank
+TXN0510,2026-07-25,Staff Salaries — 12 Employees,Salaries,-1002355.84,Debit,Monthly payroll run
+TXN0534,2026-07-25,Courier — Document Delivery,Logistics,-443.14,Debit,Petty cash expense
+TXN0553,2026-07-25,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-113857.44,Debit,Contract work — Shanuki Rathnayake
+TXN0524,2026-07-26,Grab / PickMe — Staff Transport,Transport,-4133.91,Debit,Petty cash expense
+TXN0533,2026-07-26,Grab / PickMe — Staff Transport,Transport,-3151.09,Debit,Petty cash expense
+TXN0572,2026-07-28,Fuel — Company Vehicle,Transport,-8464.09,Debit,Company vehicle fuel top-up
+TXN0578,2026-07-28,Fuel — Company Vehicle,Transport,-9676.06,Debit,Company vehicle fuel top-up
+TXN0528,2026-07-29,Courier — Document Delivery,Logistics,-1431.64,Debit,Petty cash expense
+TXN0543,2026-07-29,Tea/Coffee & Office Refreshments,Petty Cash,-928.22,Debit,Petty cash expense
+TXN0548,2026-07-29,Grab / PickMe — Staff Transport,Transport,-4702.66,Debit,Petty cash expense
+TXN0536,2026-07-30,Staff Overtime Meal Allowance,Meals & Entertainment,-3217.55,Debit,Petty cash expense
+TXN0544,2026-07-30,Team Lunch — Client Meeting,Meals & Entertainment,-8099.59,Debit,Petty cash expense
+TXN0574,2026-07-30,Fuel — Company Vehicle,Transport,-7490.75,Debit,Company vehicle fuel top-up
+TXN0542,2026-07-31,Staff Overtime Meal Allowance,Meals & Entertainment,-3818.18,Debit,Petty cash expense
+TXN0592,2026-08-01,"Office Rent — Colombo 3, Level 4",Rent,-120474.98,Debit,Monthly office lease payment
+TXN0632,2026-08-01,Grab / PickMe — Staff Transport,Transport,-4185.99,Debit,Petty cash expense
+TXN0645,2026-08-01,Monthly Retainer — Dialog Axiata PLC,Retainer Fee,71767.07,Credit,Fixed monthly support retainer from Dialog Axiata PLC
+TXN0646,2026-08-01,Monthly Retainer — Sampath Bank,Retainer Fee,149203.9,Credit,Fixed monthly support retainer from Sampath Bank
+TXN0647,2026-08-01,Monthly Retainer — MAS Holdings,Retainer Fee,149148.6,Credit,Fixed monthly support retainer from MAS Holdings
+TXN0648,2026-08-01,Monthly Retainer — SLT-Mobitel,Retainer Fee,61154.87,Credit,Fixed monthly support retainer from SLT-Mobitel
+TXN0653,2026-08-01,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-20572.8,Debit,Petty cash fund replenishment
+TXN0659,2026-08-01,Fuel — Company Vehicle,Transport,-7719.15,Debit,Company vehicle fuel top-up
+TXN0609,2026-08-02,Courier — Document Delivery,Logistics,-604.48,Debit,Petty cash expense
+TXN0636,2026-08-02,Printer Ink & Paper Restock,Office Supplies,-6798.2,Debit,Petty cash expense
+TXN0611,2026-08-03,Parking Fee — Colombo Office,Transport,-436.31,Debit,Petty cash expense
+TXN0625,2026-08-03,Grab / PickMe — Staff Transport,Transport,-1093.03,Debit,Petty cash expense
+TXN0619,2026-08-04,Staff Overtime Meal Allowance,Meals & Entertainment,-5996.41,Debit,Petty cash expense
+TXN0656,2026-08-04,Fuel — Company Vehicle,Transport,-4693.65,Debit,Company vehicle fuel top-up
+TXN0589,2026-08-05,Invoice Payment — MAS Holdings,Sales Revenue,696932.62,Credit,Project milestone payment from MAS Holdings
+TXN0597,2026-08-05,Bank of Ceylon — Business Loan EMI,Loan Repayment,-75000,Debit,Monthly EMI for LKR 3.6M business loan
+TXN0615,2026-08-05,Staff Overtime Meal Allowance,Meals & Entertainment,-4389.73,Debit,Petty cash expense
+TXN0629,2026-08-05,Photocopy & Binding — Reports,Office Supplies,-599.8,Debit,Petty cash expense
+TXN0614,2026-08-06,Photocopy & Binding — Reports,Office Supplies,-1749.96,Debit,Petty cash expense
+TXN0616,2026-08-06,Grab / PickMe — Staff Transport,Transport,-2686.16,Debit,Petty cash expense
+TXN0627,2026-08-06,Team Lunch — Client Meeting,Meals & Entertainment,-7627.53,Debit,Petty cash expense
+TXN0605,2026-08-07,Parking Fee — Colombo Office,Transport,-489.56,Debit,Petty cash expense
+TXN0631,2026-08-08,Grab / PickMe — Staff Transport,Transport,-3634.29,Debit,Petty cash expense
+TXN0596,2026-08-09,Lanka Advertising Agency — Digital Campaign,Marketing,-52744.89,Debit,Online ads & social media campaign — month 8
+TXN0601,2026-08-09,Printer Ink & Paper Restock,Office Supplies,-5468.17,Debit,Petty cash expense
+TXN0593,2026-08-10,Lanka Electricity Board — Office Bill,Electricity Bill,-30317.05,Debit,Monthly electricity consumption
+TXN0608,2026-08-10,Staff Overtime Meal Allowance,Meals & Entertainment,-1955.26,Debit,Petty cash expense
+TXN0610,2026-08-10,Printer Ink & Paper Restock,Office Supplies,-6173.57,Debit,Petty cash expense
+TXN0640,2026-08-10,Freelancer Payment — Ravindu Silva,Freelancer Fees,-84432.9,Debit,Contract work — Ravindu Silva
+TXN0664,2026-08-10,Fuel — Company Vehicle,Transport,-8314.54,Debit,Company vehicle fuel top-up
+TXN0672,2026-08-10,DIMO — Vehicle Service,Transport,-34136.24,Debit,Vendor invoice payment
+TXN0590,2026-08-11,Invoice Payment — Aitken Spence,Sales Revenue,621832.78,Credit,Project milestone payment from Aitken Spence
+TXN0633,2026-08-11,Photocopy & Binding — Reports,Office Supplies,-1885.84,Debit,Petty cash expense
+TXN0652,2026-08-11,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-10276.38,Debit,Petty cash fund replenishment
+TXN0654,2026-08-11,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-6697.67,Debit,Petty cash fund replenishment
+TXN0588,2026-08-12,Invoice Payment — Ceylon Cold Stores,Sales Revenue,742789.56,Credit,Project milestone payment from Ceylon Cold Stores
+TXN0594,2026-08-12,SLT Fiber — Office Broadband (1Gbps),Internet Bill,-9928.06,Debit,Monthly ISP subscription
+TXN0655,2026-08-12,Fuel — Company Vehicle,Transport,-3424.92,Debit,Company vehicle fuel top-up
+TXN0665,2026-08-13,Fuel — Company Vehicle,Transport,-11393.39,Debit,Company vehicle fuel top-up
+TXN0602,2026-08-14,Team Lunch — Client Meeting,Meals & Entertainment,-8061.9,Debit,Petty cash expense
+TXN0660,2026-08-14,Fuel — Company Vehicle,Transport,-5103.27,Debit,Company vehicle fuel top-up
+TXN0587,2026-08-15,Invoice Payment — Access Engineering,Sales Revenue,701814.64,Credit,Project milestone payment from Access Engineering
+TXN0595,2026-08-15,CloudHosting.lk — Server & Hosting,Cloud & Software,-41172.19,Debit,Monthly cloud infrastructure
+TXN0599,2026-08-15,Printer Ink & Paper Restock,Office Supplies,-6556.38,Debit,Petty cash expense
+TXN0600,2026-08-15,Tea/Coffee & Office Refreshments,Petty Cash,-721.49,Debit,Petty cash expense
+TXN0606,2026-08-15,Photocopy & Binding — Reports,Office Supplies,-1634.13,Debit,Petty cash expense
+TXN0667,2026-08-15,Dialog — Mobile Bills (Staff),Telephone,-17873.53,Debit,Vendor invoice payment
+TXN0623,2026-08-16,Printer Ink & Paper Restock,Office Supplies,-2582.22,Debit,Petty cash expense
+TXN0641,2026-08-16,Freelancer Payment — Kasun Perera,Freelancer Fees,-112501.48,Debit,Contract work — Kasun Perera
+TXN0586,2026-08-17,Invoice Payment — Hatton National Bank,Sales Revenue,437527.37,Credit,Project milestone payment from Hatton National Bank
+TXN0604,2026-08-17,Tea/Coffee & Office Refreshments,Petty Cash,-1262.95,Debit,Petty cash expense
+TXN0622,2026-08-17,Printer Ink & Paper Restock,Office Supplies,-7190.6,Debit,Petty cash expense
+TXN0639,2026-08-17,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-39444.33,Debit,Contract work — Shanuki Rathnayake
+TXN0642,2026-08-17,Freelancer Payment — Ravindu Silva,Freelancer Fees,-51112.2,Debit,Contract work — Ravindu Silva
+TXN0651,2026-08-17,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-17618.2,Debit,Petty cash fund replenishment
+TXN0669,2026-08-17,DIMO — Vehicle Service,Transport,-24741.01,Debit,Vendor invoice payment
+TXN0624,2026-08-19,Photocopy & Binding — Reports,Office Supplies,-1788.01,Debit,Petty cash expense
+TXN0662,2026-08-19,Fuel — Company Vehicle,Transport,-5920.77,Debit,Company vehicle fuel top-up
+TXN0620,2026-08-20,Tea/Coffee & Office Refreshments,Petty Cash,-914.4,Debit,Petty cash expense
+TXN0671,2026-08-20,Dialog — Mobile Bills (Staff),Telephone,-19926.06,Debit,Vendor invoice payment
+TXN0618,2026-08-21,Staff Overtime Meal Allowance,Meals & Entertainment,-4818.09,Debit,Petty cash expense
+TXN0658,2026-08-21,Fuel — Company Vehicle,Transport,-4968.1,Debit,Company vehicle fuel top-up
+TXN0598,2026-08-22,Sampath Bank — Fixed Deposit Maturity,Investment Return,480000,Credit,12-month FD matured with 10.5% interest
+TXN0621,2026-08-22,Parking Fee — Colombo Office,Transport,-694.74,Debit,Petty cash expense
+TXN0634,2026-08-22,Grab / PickMe — Staff Transport,Transport,-4106.33,Debit,Petty cash expense
+TXN0666,2026-08-22,Keells Super — Office Pantry,Petty Cash,-14664.44,Debit,Vendor invoice payment
+TXN0635,2026-08-23,Staff Overtime Meal Allowance,Meals & Entertainment,-1843.01,Debit,Petty cash expense
+TXN0657,2026-08-23,Fuel — Company Vehicle,Transport,-5390.65,Debit,Company vehicle fuel top-up
+TXN0670,2026-08-23,Abans PLC — IT Equipment Maintenance,Equipment Maintenance,-15980.84,Debit,Vendor invoice payment
+TXN0643,2026-08-24,Freelancer Payment — Nimali Fernando,Freelancer Fees,-37552.4,Debit,Contract work — Nimali Fernando
+TXN0644,2026-08-24,Freelancer Payment — Malith De Silva,Freelancer Fees,-83300.32,Debit,Contract work — Malith De Silva
+TXN0591,2026-08-25,Staff Salaries — 12 Employees,Salaries,-1044417.74,Debit,Monthly payroll run
+TXN0626,2026-08-25,Printer Ink & Paper Restock,Office Supplies,-7734.47,Debit,Petty cash expense
+TXN0663,2026-08-25,Fuel — Company Vehicle,Transport,-4430.22,Debit,Company vehicle fuel top-up
+TXN0630,2026-08-26,Tea/Coffee & Office Refreshments,Petty Cash,-1055.1,Debit,Petty cash expense
+TXN0668,2026-08-26,Dialog — Mobile Bills (Staff),Telephone,-15284.16,Debit,Vendor invoice payment
+TXN0628,2026-08-27,Staff Overtime Meal Allowance,Meals & Entertainment,-2222.57,Debit,Petty cash expense
+TXN0637,2026-08-27,Freelancer Payment — Ravindu Silva,Freelancer Fees,-102685.63,Debit,Contract work — Ravindu Silva
+TXN0638,2026-08-27,Freelancer Payment — Malith De Silva,Freelancer Fees,-101299.6,Debit,Contract work — Malith De Silva
+TXN0661,2026-08-27,Fuel — Company Vehicle,Transport,-3915.12,Debit,Company vehicle fuel top-up
+TXN0607,2026-08-28,Courier — Document Delivery,Logistics,-649.31,Debit,Petty cash expense
+TXN0613,2026-08-28,Printer Ink & Paper Restock,Office Supplies,-2750.01,Debit,Petty cash expense
+TXN0649,2026-08-28,Sampath Bank — Monthly Account Maintenance,Bank Charges,-1486.74,Debit,Monthly bank service charge
+TXN0612,2026-08-30,Parking Fee — Colombo Office,Transport,-483.78,Debit,Petty cash expense
+TXN0617,2026-08-30,Courier — Document Delivery,Logistics,-415.83,Debit,Petty cash expense
+TXN0603,2026-08-31,Courier — Document Delivery,Logistics,-1263.21,Debit,Petty cash expense
+TXN0650,2026-08-31,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-16925.72,Debit,Petty cash fund replenishment
+TXN0678,2026-09-01,"Office Rent — Colombo 3, Level 4",Rent,-117907.94,Debit,Monthly office lease payment
+TXN0695,2026-09-01,Courier — Document Delivery,Logistics,-448.85,Debit,Petty cash expense
+TXN0700,2026-09-01,Grab / PickMe — Staff Transport,Transport,-1262.83,Debit,Petty cash expense
+TXN0726,2026-09-01,Monthly Retainer — Dialog Axiata PLC,Retainer Fee,95767.84,Credit,Fixed monthly support retainer from Dialog Axiata PLC
+TXN0727,2026-09-01,Monthly Retainer — Sampath Bank,Retainer Fee,133355.0,Credit,Fixed monthly support retainer from Sampath Bank
+TXN0728,2026-09-01,Monthly Retainer — MAS Holdings,Retainer Fee,99249.98,Credit,Fixed monthly support retainer from MAS Holdings
+TXN0729,2026-09-01,Monthly Retainer — SLT-Mobitel,Retainer Fee,127134.81,Credit,Fixed monthly support retainer from SLT-Mobitel
+TXN0734,2026-09-01,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-7866.57,Debit,Petty cash fund replenishment
+TXN0735,2026-09-01,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-10683.71,Debit,Petty cash fund replenishment
+TXN0737,2026-09-01,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-12586.73,Debit,Petty cash fund replenishment
+TXN0740,2026-09-01,Fuel — Company Vehicle,Transport,-3712.58,Debit,Company vehicle fuel top-up
+TXN0696,2026-09-03,Grab / PickMe — Staff Transport,Transport,-4255.88,Debit,Petty cash expense
+TXN0747,2026-09-03,Fuel — Company Vehicle,Transport,-11861.3,Debit,Company vehicle fuel top-up
+TXN0697,2026-09-04,Staff Overtime Meal Allowance,Meals & Entertainment,-3024.76,Debit,Petty cash expense
+TXN0683,2026-09-05,Bank of Ceylon — Business Loan EMI,Loan Repayment,-75000,Debit,Monthly EMI for LKR 3.6M business loan
+TXN0746,2026-09-06,Fuel — Company Vehicle,Transport,-5379.66,Debit,Company vehicle fuel top-up
+TXN0686,2026-09-07,Parking Fee — Colombo Office,Transport,-692.03,Debit,Petty cash expense
+TXN0743,2026-09-08,Fuel — Company Vehicle,Transport,-7239.29,Debit,Company vehicle fuel top-up
+TXN0694,2026-09-09,Tea/Coffee & Office Refreshments,Petty Cash,-2786.37,Debit,Petty cash expense
+TXN0708,2026-09-09,Courier — Document Delivery,Logistics,-657.55,Debit,Petty cash expense
+TXN0716,2026-09-09,Tea/Coffee & Office Refreshments,Petty Cash,-2980.08,Debit,Petty cash expense
+TXN0679,2026-09-10,Lanka Electricity Board — Office Bill,Electricity Bill,-43665.13,Debit,Monthly electricity consumption
+TXN0690,2026-09-10,Parking Fee — Colombo Office,Transport,-231.32,Debit,Petty cash expense
+TXN0750,2026-09-10,Keells Super — Office Pantry,Petty Cash,-13812.93,Debit,Vendor invoice payment
+TXN0684,2026-09-11,Staff Overtime Meal Allowance,Meals & Entertainment,-3138.43,Debit,Petty cash expense
+TXN0699,2026-09-11,Printer Ink & Paper Restock,Office Supplies,-2395.76,Debit,Petty cash expense
+TXN0719,2026-09-11,Freelancer Payment — Kasun Perera,Freelancer Fees,-56849.71,Debit,Contract work — Kasun Perera
+TXN0736,2026-09-11,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-23352.73,Debit,Petty cash fund replenishment
+TXN0673,2026-09-12,Invoice Payment — Expolanka Holdings,Sales Revenue,205188.66,Credit,Project milestone payment from Expolanka Holdings
+TXN0680,2026-09-12,SLT Fiber — Office Broadband (1Gbps),Internet Bill,-10075.88,Debit,Monthly ISP subscription
+TXN0689,2026-09-13,Grab / PickMe — Staff Transport,Transport,-2710.13,Debit,Petty cash expense
+TXN0702,2026-09-13,Photocopy & Binding — Reports,Office Supplies,-650.42,Debit,Petty cash expense
+TXN0676,2026-09-14,Invoice Payment — Sampath Bank,Sales Revenue,346917.03,Credit,Project milestone payment from Sampath Bank
+TXN0712,2026-09-14,Printer Ink & Paper Restock,Office Supplies,-2713.17,Debit,Petty cash expense
+TXN0701,2026-09-15,Grab / PickMe — Staff Transport,Transport,-1207.86,Debit,Petty cash expense
+TXN0714,2026-09-15,Staff Overtime Meal Allowance,Meals & Entertainment,-2112.35,Debit,Petty cash expense
+TXN0720,2026-09-15,Freelancer Payment — Kasun Perera,Freelancer Fees,-28931.72,Debit,Contract work — Kasun Perera
+TXN0681,2026-09-16,CloudHosting.lk — Server & Hosting,Cloud & Software,-69155.54,Debit,Monthly cloud infrastructure
+TXN0742,2026-09-16,Fuel — Company Vehicle,Transport,-3134.54,Debit,Company vehicle fuel top-up
+TXN0706,2026-09-17,Photocopy & Binding — Reports,Office Supplies,-991.47,Debit,Petty cash expense
+TXN0707,2026-09-17,Photocopy & Binding — Reports,Office Supplies,-595.69,Debit,Petty cash expense
+TXN0722,2026-09-17,Freelancer Payment — Ravindu Silva,Freelancer Fees,-89752.77,Debit,Contract work — Ravindu Silva
+TXN0730,2026-09-17,Sampath Bank — Monthly Account Maintenance,Bank Charges,-679.14,Debit,Monthly bank service charge
+TXN0687,2026-09-18,Tea/Coffee & Office Refreshments,Petty Cash,-775.11,Debit,Petty cash expense
+TXN0693,2026-09-18,Tea/Coffee & Office Refreshments,Petty Cash,-2045.58,Debit,Petty cash expense
+TXN0718,2026-09-19,Staff Overtime Meal Allowance,Meals & Entertainment,-2721.52,Debit,Petty cash expense
+TXN0675,2026-09-20,Invoice Payment — John Keells Holdings,Sales Revenue,630431.54,Credit,Project milestone payment from John Keells Holdings
+TXN0682,2026-09-20,Inland Revenue — Quarterly Tax Payment Q3,Tax,-171117.86,Debit,Corporate income tax installment
+TXN0710,2026-09-20,Printer Ink & Paper Restock,Office Supplies,-2568.26,Debit,Petty cash expense
+TXN0715,2026-09-20,Grab / PickMe — Staff Transport,Transport,-916.89,Debit,Petty cash expense
+TXN0733,2026-09-20,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-9225.81,Debit,Petty cash fund replenishment
+TXN0692,2026-09-21,Printer Ink & Paper Restock,Office Supplies,-7825.26,Debit,Petty cash expense
+TXN0738,2026-09-21,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-11138.67,Debit,Petty cash fund replenishment
+TXN0751,2026-09-21,DIMO — Vehicle Service,Transport,-45319.01,Debit,Vendor invoice payment
+TXN0724,2026-09-22,Freelancer Payment — Malith De Silva,Freelancer Fees,-82694.57,Debit,Contract work — Malith De Silva
+TXN0725,2026-09-22,Freelancer Payment — Tharushi Jayasinghe,Freelancer Fees,-60070.33,Debit,Contract work — Tharushi Jayasinghe
+TXN0691,2026-09-24,Parking Fee — Colombo Office,Transport,-725.81,Debit,Petty cash expense
+TXN0717,2026-09-24,Parking Fee — Colombo Office,Transport,-703.65,Debit,Petty cash expense
+TXN0744,2026-09-24,Fuel — Company Vehicle,Transport,-7200.81,Debit,Company vehicle fuel top-up
+TXN0677,2026-09-25,Staff Salaries — 12 Employees,Salaries,-1045769.16,Debit,Monthly payroll run
+TXN0709,2026-09-25,Team Lunch — Client Meeting,Meals & Entertainment,-11212.5,Debit,Petty cash expense
+TXN0713,2026-09-25,Grab / PickMe — Staff Transport,Transport,-4555.39,Debit,Petty cash expense
+TXN0723,2026-09-25,Freelancer Payment — Nimali Fernando,Freelancer Fees,-25147.17,Debit,Contract work — Nimali Fernando
+TXN0748,2026-09-25,Fuel — Company Vehicle,Transport,-6645.71,Debit,Company vehicle fuel top-up
+TXN0674,2026-09-26,Invoice Payment — SLT-Mobitel,Sales Revenue,346242.69,Credit,Project milestone payment from SLT-Mobitel
+TXN0703,2026-09-26,Team Lunch — Client Meeting,Meals & Entertainment,-10958.84,Debit,Petty cash expense
+TXN0741,2026-09-26,Fuel — Company Vehicle,Transport,-8069.87,Debit,Company vehicle fuel top-up
+TXN0705,2026-09-27,Parking Fee — Colombo Office,Transport,-235.34,Debit,Petty cash expense
+TXN0688,2026-09-28,Photocopy & Binding — Reports,Office Supplies,-1217.66,Debit,Petty cash expense
+TXN0711,2026-09-28,Tea/Coffee & Office Refreshments,Petty Cash,-2353.2,Debit,Petty cash expense
+TXN0721,2026-09-28,Freelancer Payment — Nimali Fernando,Freelancer Fees,-115735.8,Debit,Contract work — Nimali Fernando
+TXN0732,2026-09-28,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-17392.22,Debit,Petty cash fund replenishment
+TXN0749,2026-09-28,Dialog — Mobile Bills (Staff),Telephone,-10078.4,Debit,Vendor invoice payment
+TXN0752,2026-09-28,DIMO — Vehicle Service,Transport,-32835.87,Debit,Vendor invoice payment
+TXN0704,2026-09-29,Staff Overtime Meal Allowance,Meals & Entertainment,-2019.78,Debit,Petty cash expense
+TXN0731,2026-09-29,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-12639.53,Debit,Petty cash fund replenishment
+TXN0745,2026-09-29,Fuel — Company Vehicle,Transport,-7266.72,Debit,Company vehicle fuel top-up
+TXN0685,2026-09-30,Tea/Coffee & Office Refreshments,Petty Cash,-2151.38,Debit,Petty cash expense
+TXN0698,2026-09-30,Parking Fee — Colombo Office,Transport,-650.04,Debit,Petty cash expense
+TXN0739,2026-09-30,Fuel — Company Vehicle,Transport,-10593.51,Debit,Company vehicle fuel top-up
+TXN0757,2026-10-01,"Office Rent — Colombo 3, Level 4",Rent,-120919.13,Debit,Monthly office lease payment
+TXN0807,2026-10-01,Monthly Retainer — Dialog Axiata PLC,Retainer Fee,101394.62,Credit,Fixed monthly support retainer from Dialog Axiata PLC
+TXN0808,2026-10-01,Monthly Retainer — Sampath Bank,Retainer Fee,120950.58,Credit,Fixed monthly support retainer from Sampath Bank
+TXN0809,2026-10-01,Monthly Retainer — MAS Holdings,Retainer Fee,92752.7,Credit,Fixed monthly support retainer from MAS Holdings
+TXN0810,2026-10-01,Monthly Retainer — SLT-Mobitel,Retainer Fee,140629.07,Credit,Fixed monthly support retainer from SLT-Mobitel
+TXN0790,2026-10-02,Staff Overtime Meal Allowance,Meals & Entertainment,-5273.28,Debit,Petty cash expense
+TXN0794,2026-10-02,Parking Fee — Colombo Office,Transport,-581.0,Debit,Petty cash expense
+TXN0777,2026-10-03,Photocopy & Binding — Reports,Office Supplies,-2155.07,Debit,Petty cash expense
+TXN0812,2026-10-03,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-8521.94,Debit,Petty cash fund replenishment
+TXN0768,2026-10-04,Printer Ink & Paper Restock,Office Supplies,-7897.77,Debit,Petty cash expense
+TXN0775,2026-10-04,Photocopy & Binding — Reports,Office Supplies,-654.33,Debit,Petty cash expense
+TXN0783,2026-10-04,Photocopy & Binding — Reports,Office Supplies,-897.28,Debit,Petty cash expense
+TXN0762,2026-10-05,Bank of Ceylon — Business Loan EMI,Loan Repayment,-75000,Debit,Monthly EMI for LKR 3.6M business loan
+TXN0763,2026-10-05,Abans PLC — 3x Dell Latitude Laptops,Equipment Purchase,-520000,Debit,New employee onboarding equipment
+TXN0791,2026-10-05,Staff Overtime Meal Allowance,Meals & Entertainment,-4281.45,Debit,Petty cash expense
+TXN0822,2026-10-05,Fuel — Company Vehicle,Transport,-5489.79,Debit,Company vehicle fuel top-up
+TXN0824,2026-10-05,Fuel — Company Vehicle,Transport,-9213.92,Debit,Company vehicle fuel top-up
+TXN0836,2026-10-05,Keells Super — Office Pantry,Petty Cash,-6842.49,Debit,Vendor invoice payment
+TXN0771,2026-10-07,Tea/Coffee & Office Refreshments,Petty Cash,-622.26,Debit,Petty cash expense
+TXN0787,2026-10-07,Team Lunch — Client Meeting,Meals & Entertainment,-8902.75,Debit,Petty cash expense
+TXN0821,2026-10-07,Ceylinco Insurance — Business Property & Liability,Insurance,-21402.52,Debit,Quarterly business insurance premium
+TXN0834,2026-10-07,Abans PLC — IT Equipment Maintenance,Equipment Maintenance,-20764.94,Debit,Vendor invoice payment
+TXN0838,2026-10-08,Abans PLC — IT Equipment Maintenance,Equipment Maintenance,-33641.46,Debit,Vendor invoice payment
+TXN0769,2026-10-09,Grab / PickMe — Staff Transport,Transport,-2420.7,Debit,Petty cash expense
+TXN0813,2026-10-09,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-12374.3,Debit,Petty cash fund replenishment
+TXN0825,2026-10-09,Fuel — Company Vehicle,Transport,-8352.01,Debit,Company vehicle fuel top-up
+TXN0758,2026-10-10,Lanka Electricity Board — Office Bill,Electricity Bill,-27377.53,Debit,Monthly electricity consumption
+TXN0753,2026-10-11,Invoice Payment — John Keells Holdings,Sales Revenue,590045.98,Credit,Project milestone payment from John Keells Holdings
+TXN0774,2026-10-11,Grab / PickMe — Staff Transport,Transport,-4414.14,Debit,Petty cash expense
+TXN0759,2026-10-12,SLT Fiber — Office Broadband (1Gbps),Internet Bill,-11494.46,Debit,Monthly ISP subscription
+TXN0778,2026-10-12,Team Lunch — Client Meeting,Meals & Entertainment,-9773.02,Debit,Petty cash expense
+TXN0779,2026-10-12,Grab / PickMe — Staff Transport,Transport,-2616.11,Debit,Petty cash expense
+TXN0798,2026-10-12,Courier — Document Delivery,Logistics,-509.24,Debit,Petty cash expense
+TXN0829,2026-10-12,Fuel — Company Vehicle,Transport,-8564.18,Debit,Company vehicle fuel top-up
+TXN0782,2026-10-13,Staff Overtime Meal Allowance,Meals & Entertainment,-3301.75,Debit,Petty cash expense
+TXN0797,2026-10-13,Photocopy & Binding — Reports,Office Supplies,-769.75,Debit,Petty cash expense
+TXN0804,2026-10-14,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-107410.64,Debit,Contract work — Shanuki Rathnayake
+TXN0823,2026-10-14,Fuel — Company Vehicle,Transport,-6954.65,Debit,Company vehicle fuel top-up
+TXN0835,2026-10-14,DIMO — Vehicle Service,Transport,-44506.1,Debit,Vendor invoice payment
+TXN0760,2026-10-15,CloudHosting.lk — Server & Hosting,Cloud & Software,-51663.74,Debit,Monthly cloud infrastructure
+TXN0785,2026-10-15,Grab / PickMe — Staff Transport,Transport,-3444.72,Debit,Petty cash expense
+TXN0805,2026-10-15,Freelancer Payment — Nimali Fernando,Freelancer Fees,-74000.98,Debit,Contract work — Nimali Fernando
+TXN0814,2026-10-15,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-15986.63,Debit,Petty cash fund replenishment
+TXN0828,2026-10-15,Fuel — Company Vehicle,Transport,-11994.86,Debit,Company vehicle fuel top-up
+TXN0773,2026-10-16,Grab / PickMe — Staff Transport,Transport,-2186.33,Debit,Petty cash expense
+TXN0792,2026-10-16,Staff Overtime Meal Allowance,Meals & Entertainment,-3164.59,Debit,Petty cash expense
+TXN0793,2026-10-16,Printer Ink & Paper Restock,Office Supplies,-4334.08,Debit,Petty cash expense
+TXN0832,2026-10-16,Fuel — Company Vehicle,Transport,-10155.27,Debit,Company vehicle fuel top-up
+TXN0776,2026-10-17,Parking Fee — Colombo Office,Transport,-207.4,Debit,Petty cash expense
+TXN0806,2026-10-17,Freelancer Payment — Kasun Perera,Freelancer Fees,-41974.08,Debit,Contract work — Kasun Perera
+TXN0818,2026-10-17,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-10906.03,Debit,Petty cash fund replenishment
+TXN0820,2026-10-17,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-5858.85,Debit,Petty cash fund replenishment
+TXN0789,2026-10-18,Courier — Document Delivery,Logistics,-827.32,Debit,Petty cash expense
+TXN0831,2026-10-18,Fuel — Company Vehicle,Transport,-5141.59,Debit,Company vehicle fuel top-up
+TXN0800,2026-10-19,Freelancer Payment — Tharushi Jayasinghe,Freelancer Fees,-106832.59,Debit,Contract work — Tharushi Jayasinghe
+TXN0816,2026-10-19,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-13812.1,Debit,Petty cash fund replenishment
+TXN0799,2026-10-20,Tea/Coffee & Office Refreshments,Petty Cash,-1274.6,Debit,Petty cash expense
+TXN0826,2026-10-20,Fuel — Company Vehicle,Transport,-11194.65,Debit,Company vehicle fuel top-up
+TXN0767,2026-10-21,Parking Fee — Colombo Office,Transport,-777.1,Debit,Petty cash expense
+TXN0796,2026-10-21,Tea/Coffee & Office Refreshments,Petty Cash,-2475.55,Debit,Petty cash expense
+TXN0802,2026-10-21,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-35693.09,Debit,Contract work — Shanuki Rathnayake
+TXN0761,2026-10-22,Office Mart Colombo — Stationery & Equipment,Office Supplies,-22026.24,Debit,Office consumables and equipment
+TXN0803,2026-10-22,Freelancer Payment — Tharushi Jayasinghe,Freelancer Fees,-113367.99,Debit,Contract work — Tharushi Jayasinghe
+TXN0830,2026-10-22,Fuel — Company Vehicle,Transport,-11435.5,Debit,Company vehicle fuel top-up
+TXN0788,2026-10-23,Printer Ink & Paper Restock,Office Supplies,-7338.54,Debit,Petty cash expense
+TXN0755,2026-10-24,Invoice Payment — Local Startup B,Sales Revenue,179406.73,Credit,Project milestone payment from Local Startup B
+TXN0756,2026-10-25,Staff Salaries — 12 Employees,Salaries,-991792.75,Debit,Monthly payroll run
+TXN0833,2026-10-25,Fuel — Company Vehicle,Transport,-6832.26,Debit,Company vehicle fuel top-up
+TXN0766,2026-10-26,Staff Overtime Meal Allowance,Meals & Entertainment,-2945.38,Debit,Petty cash expense
+TXN0772,2026-10-26,Team Lunch — Client Meeting,Meals & Entertainment,-9389.27,Debit,Petty cash expense
+TXN0801,2026-10-26,Freelancer Payment — Malith De Silva,Freelancer Fees,-68627.21,Debit,Contract work — Malith De Silva
+TXN0811,2026-10-26,Sampath Bank — Monthly Account Maintenance,Bank Charges,-905.54,Debit,Monthly bank service charge
+TXN0837,2026-10-26,DIMO — Vehicle Service,Transport,-27553.4,Debit,Vendor invoice payment
+TXN0784,2026-10-27,Printer Ink & Paper Restock,Office Supplies,-5913.12,Debit,Petty cash expense
+TXN0815,2026-10-27,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-7880.53,Debit,Petty cash fund replenishment
+TXN0817,2026-10-27,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-19036.15,Debit,Petty cash fund replenishment
+TXN0754,2026-10-28,Invoice Payment — Ceylinco Insurance,Sales Revenue,228345.18,Credit,Project milestone payment from Ceylinco Insurance
+TXN0764,2026-10-28,Parking Fee — Colombo Office,Transport,-261.86,Debit,Petty cash expense
+TXN0765,2026-10-28,Tea/Coffee & Office Refreshments,Petty Cash,-2551.0,Debit,Petty cash expense
+TXN0780,2026-10-28,Printer Ink & Paper Restock,Office Supplies,-7078.88,Debit,Petty cash expense
+TXN0781,2026-10-28,Staff Overtime Meal Allowance,Meals & Entertainment,-3810.16,Debit,Petty cash expense
+TXN0786,2026-10-28,Parking Fee — Colombo Office,Transport,-469.14,Debit,Petty cash expense
+TXN0827,2026-10-28,Fuel — Company Vehicle,Transport,-8983.79,Debit,Company vehicle fuel top-up
+TXN0770,2026-10-30,Printer Ink & Paper Restock,Office Supplies,-5052.12,Debit,Petty cash expense
+TXN0819,2026-10-30,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-5371.58,Debit,Petty cash fund replenishment
+TXN0795,2026-10-31,Grab / PickMe — Staff Transport,Transport,-1578.45,Debit,Petty cash expense
+TXN0846,2026-11-01,"Office Rent — Colombo 3, Level 4",Rent,-121295.85,Debit,Monthly office lease payment
+TXN0862,2026-11-01,Tea/Coffee & Office Refreshments,Petty Cash,-2167.18,Debit,Petty cash expense
+TXN0892,2026-11-01,Monthly Retainer — Dialog Axiata PLC,Retainer Fee,132874.17,Credit,Fixed monthly support retainer from Dialog Axiata PLC
+TXN0893,2026-11-01,Monthly Retainer — Sampath Bank,Retainer Fee,70468.24,Credit,Fixed monthly support retainer from Sampath Bank
+TXN0894,2026-11-01,Monthly Retainer — MAS Holdings,Retainer Fee,139093.93,Credit,Fixed monthly support retainer from MAS Holdings
+TXN0895,2026-11-01,Monthly Retainer — SLT-Mobitel,Retainer Fee,68987.09,Credit,Fixed monthly support retainer from SLT-Mobitel
+TXN0916,2026-11-01,Fuel — Company Vehicle,Transport,-11465.45,Debit,Company vehicle fuel top-up
+TXN0871,2026-11-02,Tea/Coffee & Office Refreshments,Petty Cash,-2243.43,Debit,Petty cash expense
+TXN0865,2026-11-03,Photocopy & Binding — Reports,Office Supplies,-881.56,Debit,Petty cash expense
+TXN0852,2026-11-04,Photocopy & Binding — Reports,Office Supplies,-995.26,Debit,Petty cash expense
+TXN0872,2026-11-04,Photocopy & Binding — Reports,Office Supplies,-1564.74,Debit,Petty cash expense
+TXN0850,2026-11-05,Bank of Ceylon — Business Loan EMI,Loan Repayment,-75000,Debit,Monthly EMI for LKR 3.6M business loan
+TXN0911,2026-11-05,Fuel — Company Vehicle,Transport,-8918.48,Debit,Company vehicle fuel top-up
+TXN0844,2026-11-06,Invoice Payment — MAS Holdings,Sales Revenue,291266.32,Credit,Project milestone payment from MAS Holdings
+TXN0917,2026-11-06,Keells Super — Office Pantry,Petty Cash,-4852.67,Debit,Vendor invoice payment
+TXN0869,2026-11-07,Courier — Document Delivery,Logistics,-682.65,Debit,Petty cash expense
+TXN0912,2026-11-07,Fuel — Company Vehicle,Transport,-3940.95,Debit,Company vehicle fuel top-up
+TXN0839,2026-11-08,Invoice Payment — LOLC Finance,Sales Revenue,146827.97,Credit,Project milestone payment from LOLC Finance
+TXN0841,2026-11-08,Invoice Payment — Commercial Bank,Sales Revenue,375634.84,Credit,Project milestone payment from Commercial Bank
+TXN0843,2026-11-08,Invoice Payment — SLT-Mobitel,Sales Revenue,207868.63,Credit,Project milestone payment from SLT-Mobitel
+TXN0858,2026-11-08,Printer Ink & Paper Restock,Office Supplies,-3004.33,Debit,Petty cash expense
+TXN0855,2026-11-09,Photocopy & Binding — Reports,Office Supplies,-2424.46,Debit,Petty cash expense
+TXN0898,2026-11-09,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-24726.97,Debit,Petty cash fund replenishment
+TXN0901,2026-11-09,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-7943.12,Debit,Petty cash fund replenishment
+TXN0922,2026-11-09,Printcare PLC — Stationery Order,Office Supplies,-34783.08,Debit,Vendor invoice payment
+TXN0847,2026-11-10,Lanka Electricity Board — Office Bill,Electricity Bill,-44760.79,Debit,Monthly electricity consumption
+TXN0867,2026-11-10,Staff Overtime Meal Allowance,Meals & Entertainment,-5861.92,Debit,Petty cash expense
+TXN0881,2026-11-10,Staff Overtime Meal Allowance,Meals & Entertainment,-5041.67,Debit,Petty cash expense
+TXN0906,2026-11-10,Vendor Rebate — CloudHosting.lk,Rebates,21224.34,Credit,Miscellaneous income
+TXN0914,2026-11-11,Fuel — Company Vehicle,Transport,-8216.93,Debit,Company vehicle fuel top-up
+TXN0915,2026-11-11,Fuel — Company Vehicle,Transport,-7704.41,Debit,Company vehicle fuel top-up
+TXN0848,2026-11-12,SLT Fiber — Office Broadband (1Gbps),Internet Bill,-10545.51,Debit,Monthly ISP subscription
+TXN0854,2026-11-12,Parking Fee — Colombo Office,Transport,-508.59,Debit,Petty cash expense
+TXN0856,2026-11-12,Team Lunch — Client Meeting,Meals & Entertainment,-3747.09,Debit,Petty cash expense
+TXN0875,2026-11-12,Printer Ink & Paper Restock,Office Supplies,-2782.72,Debit,Petty cash expense
+TXN0889,2026-11-12,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-27127.17,Debit,Contract work — Shanuki Rathnayake
+TXN0907,2026-11-12,Fuel — Company Vehicle,Transport,-6538.56,Debit,Company vehicle fuel top-up
+TXN0863,2026-11-14,Courier — Document Delivery,Logistics,-355.78,Debit,Petty cash expense
+TXN0870,2026-11-14,Staff Overtime Meal Allowance,Meals & Entertainment,-3422.14,Debit,Petty cash expense
+TXN0921,2026-11-14,Printcare PLC — Stationery Order,Office Supplies,-26643.38,Debit,Vendor invoice payment
+TXN0849,2026-11-15,CloudHosting.lk — Server & Hosting,Cloud & Software,-41478.4,Debit,Monthly cloud infrastructure
+TXN0899,2026-11-15,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-9284.07,Debit,Petty cash fund replenishment
+TXN0840,2026-11-16,Invoice Payment — Aitken Spence,Sales Revenue,387049.18,Credit,Project milestone payment from Aitken Spence
+TXN0842,2026-11-16,Invoice Payment — John Keells Holdings,Sales Revenue,512518.65,Credit,Project milestone payment from John Keells Holdings
+TXN0919,2026-11-16,Dialog — Mobile Bills (Staff),Telephone,-21317.88,Debit,Vendor invoice payment
+TXN0864,2026-11-17,Courier — Document Delivery,Logistics,-707.27,Debit,Petty cash expense
+TXN0876,2026-11-17,Parking Fee — Colombo Office,Transport,-583.3,Debit,Petty cash expense
+TXN0857,2026-11-18,Tea/Coffee & Office Refreshments,Petty Cash,-2127.63,Debit,Petty cash expense
+TXN0866,2026-11-18,Photocopy & Binding — Reports,Office Supplies,-1875.25,Debit,Petty cash expense
+TXN0888,2026-11-18,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-44893.95,Debit,Contract work — Shanuki Rathnayake
+TXN0873,2026-11-19,Printer Ink & Paper Restock,Office Supplies,-5870.05,Debit,Petty cash expense
+TXN0883,2026-11-19,Tea/Coffee & Office Refreshments,Petty Cash,-2784.72,Debit,Petty cash expense
+TXN0886,2026-11-19,Freelancer Payment — Nimali Fernando,Freelancer Fees,-69705.51,Debit,Contract work — Nimali Fernando
+TXN0880,2026-11-20,Tea/Coffee & Office Refreshments,Petty Cash,-2299.99,Debit,Petty cash expense
+TXN0882,2026-11-20,Staff Overtime Meal Allowance,Meals & Entertainment,-3104.16,Debit,Petty cash expense
+TXN0884,2026-11-20,Freelancer Payment — Kasun Perera,Freelancer Fees,-73147.03,Debit,Contract work — Kasun Perera
+TXN0891,2026-11-20,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-71043.85,Debit,Contract work — Shanuki Rathnayake
+TXN0920,2026-11-20,Dialog — Mobile Bills (Staff),Telephone,-13067.0,Debit,Vendor invoice payment
+TXN0877,2026-11-21,Parking Fee — Colombo Office,Transport,-315.86,Debit,Petty cash expense
+TXN0860,2026-11-22,Printer Ink & Paper Restock,Office Supplies,-5467.76,Debit,Petty cash expense
+TXN0918,2026-11-22,Dialog — Mobile Bills (Staff),Telephone,-18435.94,Debit,Vendor invoice payment
+TXN0851,2026-11-23,Printer Ink & Paper Restock,Office Supplies,-7094.21,Debit,Petty cash expense
+TXN0879,2026-11-23,Tea/Coffee & Office Refreshments,Petty Cash,-1679.56,Debit,Petty cash expense
+TXN0896,2026-11-23,Sampath Bank — Monthly Account Maintenance,Bank Charges,-1681.75,Debit,Monthly bank service charge
+TXN0902,2026-11-23,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-21587.83,Debit,Petty cash fund replenishment
+TXN0868,2026-11-24,Parking Fee — Colombo Office,Transport,-556.37,Debit,Petty cash expense
+TXN0890,2026-11-24,Freelancer Payment — Ravindu Silva,Freelancer Fees,-37413.63,Debit,Contract work — Ravindu Silva
+TXN0900,2026-11-24,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-15462.58,Debit,Petty cash fund replenishment
+TXN0845,2026-11-25,Staff Salaries — 12 Employees,Salaries,-1000188.0,Debit,Monthly payroll run
+TXN0853,2026-11-26,Staff Overtime Meal Allowance,Meals & Entertainment,-4245.86,Debit,Petty cash expense
+TXN0861,2026-11-26,Team Lunch — Client Meeting,Meals & Entertainment,-10423.07,Debit,Petty cash expense
+TXN0878,2026-11-26,Team Lunch — Client Meeting,Meals & Entertainment,-8865.4,Debit,Petty cash expense
+TXN0897,2026-11-26,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-9983.05,Debit,Petty cash fund replenishment
+TXN0904,2026-11-26,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-20930.86,Debit,Petty cash fund replenishment
+TXN0913,2026-11-26,Fuel — Company Vehicle,Transport,-8397.08,Debit,Company vehicle fuel top-up
+TXN0885,2026-11-27,Freelancer Payment — Tharushi Jayasinghe,Freelancer Fees,-32893.25,Debit,Contract work — Tharushi Jayasinghe
+TXN0905,2026-11-27,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-10780.95,Debit,Petty cash fund replenishment
+TXN0909,2026-11-27,Fuel — Company Vehicle,Transport,-11151.42,Debit,Company vehicle fuel top-up
+TXN0887,2026-11-28,Freelancer Payment — Tharushi Jayasinghe,Freelancer Fees,-105195.18,Debit,Contract work — Tharushi Jayasinghe
+TXN0910,2026-11-29,Fuel — Company Vehicle,Transport,-11405.31,Debit,Company vehicle fuel top-up
+TXN0859,2026-11-30,Team Lunch — Client Meeting,Meals & Entertainment,-9764.4,Debit,Petty cash expense
+TXN0874,2026-11-30,Parking Fee — Colombo Office,Transport,-525.38,Debit,Petty cash expense
+TXN0903,2026-11-30,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-15864.09,Debit,Petty cash fund replenishment
+TXN0908,2026-11-30,Fuel — Company Vehicle,Transport,-10846.21,Debit,Company vehicle fuel top-up
+TXN0930,2026-12-01,"Office Rent — Colombo 3, Level 4",Rent,-119440.98,Debit,Monthly office lease payment
+TXN0976,2026-12-01,Printer Ink & Paper Restock,Office Supplies,-4178.55,Debit,Petty cash expense
+TXN0985,2026-12-01,Monthly Retainer — Dialog Axiata PLC,Retainer Fee,131098.85,Credit,Fixed monthly support retainer from Dialog Axiata PLC
+TXN0986,2026-12-01,Monthly Retainer — Sampath Bank,Retainer Fee,59498.62,Credit,Fixed monthly support retainer from Sampath Bank
+TXN0987,2026-12-01,Monthly Retainer — MAS Holdings,Retainer Fee,110850.06,Credit,Fixed monthly support retainer from MAS Holdings
+TXN0988,2026-12-01,Monthly Retainer — SLT-Mobitel,Retainer Fee,54845.84,Credit,Fixed monthly support retainer from SLT-Mobitel
+TXN0948,2026-12-02,Courier — Document Delivery,Logistics,-1274.92,Debit,Petty cash expense
+TXN0964,2026-12-02,Tea/Coffee & Office Refreshments,Petty Cash,-1037.53,Debit,Petty cash expense
+TXN0969,2026-12-02,Grab / PickMe — Staff Transport,Transport,-3091.81,Debit,Petty cash expense
+TXN0990,2026-12-02,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-19806.09,Debit,Petty cash fund replenishment
+TXN1002,2026-12-02,Fuel — Company Vehicle,Transport,-5530.07,Debit,Company vehicle fuel top-up
+TXN1009,2026-12-02,Fuel — Company Vehicle,Transport,-3852.83,Debit,Company vehicle fuel top-up
+TXN1011,2026-12-02,Fuel — Company Vehicle,Transport,-5597.66,Debit,Company vehicle fuel top-up
+TXN0954,2026-12-04,Team Lunch — Client Meeting,Meals & Entertainment,-7396.53,Debit,Petty cash expense
+TXN0935,2026-12-05,Bank of Ceylon — Business Loan EMI,Loan Repayment,-75000,Debit,Monthly EMI for LKR 3.6M business loan
+TXN0940,2026-12-05,Parking Fee — Colombo Office,Transport,-730.45,Debit,Petty cash expense
+TXN0971,2026-12-05,Parking Fee — Colombo Office,Transport,-490.52,Debit,Petty cash expense
+TXN0949,2026-12-06,Team Lunch — Client Meeting,Meals & Entertainment,-9725.57,Debit,Petty cash expense
+TXN0955,2026-12-06,Staff Overtime Meal Allowance,Meals & Entertainment,-3751.74,Debit,Petty cash expense
+TXN0992,2026-12-06,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-16401.09,Debit,Petty cash fund replenishment
+TXN0939,2026-12-07,Parking Fee — Colombo Office,Transport,-719.5,Debit,Petty cash expense
+TXN0968,2026-12-08,Grab / PickMe — Staff Transport,Transport,-888.71,Debit,Petty cash expense
+TXN0957,2026-12-09,Team Lunch — Client Meeting,Meals & Entertainment,-8653.8,Debit,Petty cash expense
+TXN0996,2026-12-09,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-23968.09,Debit,Petty cash fund replenishment
+TXN1017,2026-12-09,DIMO — Vehicle Service,Transport,-37171.57,Debit,Vendor invoice payment
+TXN0931,2026-12-10,Lanka Electricity Board — Office Bill,Electricity Bill,-42791.24,Debit,Monthly electricity consumption
+TXN0995,2026-12-11,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-22647.59,Debit,Petty cash fund replenishment
+TXN1003,2026-12-11,Fuel — Company Vehicle,Transport,-8595.89,Debit,Company vehicle fuel top-up
+TXN0932,2026-12-12,SLT Fiber — Office Broadband (1Gbps),Internet Bill,-10948.94,Debit,Monthly ISP subscription
+TXN0938,2026-12-12,Parking Fee — Colombo Office,Transport,-402.93,Debit,Petty cash expense
+TXN0956,2026-12-12,Photocopy & Binding — Reports,Office Supplies,-1022.66,Debit,Petty cash expense
+TXN0959,2026-12-12,Parking Fee — Colombo Office,Transport,-700.75,Debit,Petty cash expense
+TXN0963,2026-12-12,Printer Ink & Paper Restock,Office Supplies,-2491.09,Debit,Petty cash expense
+TXN0984,2026-12-12,Freelancer Payment — Nimali Fernando,Freelancer Fees,-118314.99,Debit,Contract work — Nimali Fernando
+TXN0923,2026-12-13,Invoice Payment — Dipped Products,Sales Revenue,226295.89,Credit,Project milestone payment from Dipped Products
+TXN0951,2026-12-13,Courier — Document Delivery,Logistics,-1331.42,Debit,Petty cash expense
+TXN0961,2026-12-13,Parking Fee — Colombo Office,Transport,-681.32,Debit,Petty cash expense
+TXN0972,2026-12-13,Courier — Document Delivery,Logistics,-1442.39,Debit,Petty cash expense
+TXN0925,2026-12-14,Invoice Payment — Softlogic Holdings,Sales Revenue,645564.1,Credit,Project milestone payment from Softlogic Holdings
+TXN0966,2026-12-14,Parking Fee — Colombo Office,Transport,-224.38,Debit,Petty cash expense
+TXN0943,2026-12-15,Grab / PickMe — Staff Transport,Transport,-3405.3,Debit,Petty cash expense
+TXN0980,2026-12-15,Freelancer Payment — Malith De Silva,Freelancer Fees,-83936.98,Debit,Contract work — Malith De Silva
+TXN0994,2026-12-15,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-24713.43,Debit,Petty cash fund replenishment
+TXN0933,2026-12-16,CloudHosting.lk — Server & Hosting,Cloud & Software,-29932.64,Debit,Monthly cloud infrastructure
+TXN0941,2026-12-16,Courier — Document Delivery,Logistics,-1430.83,Debit,Petty cash expense
+TXN1007,2026-12-16,Fuel — Company Vehicle,Transport,-7525.98,Debit,Company vehicle fuel top-up
+TXN1016,2026-12-16,DIMO — Vehicle Service,Transport,-44990.1,Debit,Vendor invoice payment
+TXN1000,2026-12-17,Fuel — Company Vehicle,Transport,-9460.32,Debit,Company vehicle fuel top-up
+TXN0960,2026-12-18,Photocopy & Binding — Reports,Office Supplies,-2211.78,Debit,Petty cash expense
+TXN0979,2026-12-18,Freelancer Payment — Tharushi Jayasinghe,Freelancer Fees,-41538.45,Debit,Contract work — Tharushi Jayasinghe
+TXN0981,2026-12-18,Freelancer Payment — Nimali Fernando,Freelancer Fees,-62461.71,Debit,Contract work — Nimali Fernando
+TXN0967,2026-12-19,Courier — Document Delivery,Logistics,-1127.77,Debit,Petty cash expense
+TXN0927,2026-12-20,Invoice Payment — Commercial Bank,Sales Revenue,370139.66,Credit,Project milestone payment from Commercial Bank
+TXN0928,2026-12-20,Invoice Payment — LOLC Finance,Sales Revenue,209654.32,Credit,Project milestone payment from LOLC Finance
+TXN0934,2026-12-20,Inland Revenue — Quarterly Tax Payment Q4,Tax,-122053.86,Debit,Corporate income tax installment
+TXN0936,2026-12-20,Year-End Performance Bonus — All Staff,Salaries,-299135.75,Debit,Annual performance bonus payout
+TXN0993,2026-12-20,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-23395.34,Debit,Petty cash fund replenishment
+TXN1013,2026-12-20,Keells Super — Office Pantry,Petty Cash,-6966.23,Debit,Vendor invoice payment
+TXN0926,2026-12-21,Invoice Payment — MAS Holdings,Sales Revenue,475591.74,Credit,Project milestone payment from MAS Holdings
+TXN0982,2026-12-21,Freelancer Payment — Malith De Silva,Freelancer Fees,-35395.31,Debit,Contract work — Malith De Silva
+TXN0997,2026-12-21,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-19939.59,Debit,Petty cash fund replenishment
+TXN1006,2026-12-21,Fuel — Company Vehicle,Transport,-9389.44,Debit,Company vehicle fuel top-up
+TXN1008,2026-12-21,Fuel — Company Vehicle,Transport,-9655.41,Debit,Company vehicle fuel top-up
+TXN0947,2026-12-22,Photocopy & Binding — Reports,Office Supplies,-633.86,Debit,Petty cash expense
+TXN1010,2026-12-22,Fuel — Company Vehicle,Transport,-3972.4,Debit,Company vehicle fuel top-up
+TXN1004,2026-12-23,Fuel — Company Vehicle,Transport,-9691.15,Debit,Company vehicle fuel top-up
+TXN1005,2026-12-23,Fuel — Company Vehicle,Transport,-8869.4,Debit,Company vehicle fuel top-up
+TXN1015,2026-12-23,Abans PLC — IT Equipment Maintenance,Equipment Maintenance,-52859.42,Debit,Vendor invoice payment
+TXN0962,2026-12-24,Grab / PickMe — Staff Transport,Transport,-4357.14,Debit,Petty cash expense
+TXN0989,2026-12-24,Sampath Bank — Monthly Account Maintenance,Bank Charges,-591.56,Debit,Monthly bank service charge
+TXN0991,2026-12-24,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-12072.65,Debit,Petty cash fund replenishment
+TXN0999,2026-12-24,Overpayment Refund — SLT,Refunds,6541.74,Credit,Miscellaneous income
+TXN0929,2026-12-25,Staff Salaries — 12 Employees,Salaries,-1041963.61,Debit,Monthly payroll run
+TXN0937,2026-12-25,Photocopy & Binding — Reports,Office Supplies,-2427.69,Debit,Petty cash expense
+TXN0977,2026-12-25,Freelancer Payment — Shanuki Rathnayake,Freelancer Fees,-118837.74,Debit,Contract work — Shanuki Rathnayake
+TXN0978,2026-12-25,Freelancer Payment — Kasun Perera,Freelancer Fees,-89679.83,Debit,Contract work — Kasun Perera
+TXN1014,2026-12-25,Dialog — Mobile Bills (Staff),Telephone,-17238.1,Debit,Vendor invoice payment
+TXN0958,2026-12-26,Parking Fee — Colombo Office,Transport,-450.54,Debit,Petty cash expense
+TXN0983,2026-12-26,Freelancer Payment — Tharushi Jayasinghe,Freelancer Fees,-85508.19,Debit,Contract work — Tharushi Jayasinghe
+TXN1001,2026-12-26,Fuel — Company Vehicle,Transport,-4435.84,Debit,Company vehicle fuel top-up
+TXN0924,2026-12-27,Invoice Payment — Access Engineering,Sales Revenue,714603.6,Credit,Project milestone payment from Access Engineering
+TXN0973,2026-12-27,Staff Overtime Meal Allowance,Meals & Entertainment,-3169.43,Debit,Petty cash expense
+TXN0975,2026-12-27,Staff Overtime Meal Allowance,Meals & Entertainment,-3446.77,Debit,Petty cash expense
+TXN0998,2026-12-27,ATM Withdrawal — Petty Cash Fund,Cash Withdrawal,-20974.91,Debit,Petty cash fund replenishment
+TXN1012,2026-12-27,Dialog — Mobile Bills (Staff),Telephone,-9609.24,Debit,Vendor invoice payment
+TXN0942,2026-12-28,Tea/Coffee & Office Refreshments,Petty Cash,-842.7,Debit,Petty cash expense
+TXN0953,2026-12-28,Courier — Document Delivery,Logistics,-764.4,Debit,Petty cash expense
+TXN0965,2026-12-28,Courier — Document Delivery,Logistics,-490.03,Debit,Petty cash expense
+TXN0970,2026-12-28,Grab / PickMe — Staff Transport,Transport,-3366.62,Debit,Petty cash expense
+TXN0944,2026-12-29,Grab / PickMe — Staff Transport,Transport,-2477.46,Debit,Petty cash expense
+TXN0952,2026-12-29,Courier — Document Delivery,Logistics,-518.98,Debit,Petty cash expense
+TXN0945,2026-12-30,Parking Fee — Colombo Office,Transport,-535.31,Debit,Petty cash expense
+TXN0946,2026-12-30,Grab / PickMe — Staff Transport,Transport,-2749.9,Debit,Petty cash expense
+TXN0950,2026-12-31,Printer Ink & Paper Restock,Office Supplies,-7766.31,Debit,Petty cash expense
+TXN0974,2026-12-31,Staff Overtime Meal Allowance,Meals & Entertainment,-2358.77,Debit,Petty cash expense

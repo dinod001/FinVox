@@ -84,6 +84,7 @@ IMPORTANT RULES:
 1. ONLY return the raw SQL query. Do not include markdown formatting like ```sql. Do not include any explanations.
 2. The query MUST start with SELECT.
 3. Be mindful of PostgreSQL syntax for casting strings to numeric if necessary.
+4. Always use ILIKE or LOWER() for string comparisons to avoid case-sensitivity bugs (e.g. LOWER(transaction_type) = 'credit').
 """
     )
     
