@@ -15,6 +15,7 @@ from src.agents.tools.cashflow_tools import CashflowTool
 from src.agents.tools.rag_tools import RAGTool
 from src.agents.tools.market_tools import MarketTool
 from src.agents.tools.investment_tools import InvestmentTool
+from src.agents.decision_graph import build_decision_graph
 
 class AgentOrchestrator:
     """
@@ -26,6 +27,9 @@ class AgentOrchestrator:
         self.llm_chat = get_chat_llm(temperature=0.0)
         self.router = AgentRouter()
         self.memory_manager = MemoryManager()
+        
+        # Guardrail & Decision Graph
+        self.decision_graph = build_decision_graph(self.router)
         
         # Instantiate Tool Singletons
         self.cashflow_tool = CashflowTool(engine=engine, llm=self.llm_chat)
