@@ -70,10 +70,29 @@ class ChatResponse(BaseModel):
         None, 
         description="Raw output from executed tools/queries (useful for debugging or UI expansion panels)"
     )
-    latency_ms: float = Field(
-        ..., 
+    latency_ms: int = Field(
+        0,
         description="Total processing time in milliseconds"
     )
+
+# ── Chat Session Metadata Schemas ─────────────────────────────────────────────
+
+class ChatSessionMeta(BaseModel):
+    id: str = Field(..., description="Session UUID")
+    user_id: str = Field(..., description="User's username")
+    title: str = Field(..., description="Chat session title")
+    created_at: str = Field(..., description="Creation timestamp")
+    updated_at: str = Field(..., description="Last update timestamp")
+
+class ChatSessionListResponse(BaseModel):
+    sessions: List[ChatSessionMeta]
+
+class ChatSessionCreateRequest(BaseModel):
+    user_id: str = Field(..., description="User's username")
+    title: Optional[str] = Field(None, description="Optional title, auto-generated if omitted")
+
+class ChatSessionUpdateRequest(BaseModel):
+    title: str = Field(..., description="New title for the session")
 
 
 # ── Data Ingestion Schemas ────────────────────────────────────────────────────
