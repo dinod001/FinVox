@@ -17,7 +17,7 @@ class IngestionPipeline:
         # Ensure the DB collection exists before inserting
         ensure_collection(collection_name=QDRANT_COLLECTION_NAME)
 
-    def run(self, file_path: str, document_id: str, base_metadata: Dict[str, Any] = None) -> Dict[str, Any]:
+    def run(self, file_path: str, document_id: str, base_metadata: Dict[str, Any] = None, original_filename: str = None) -> Dict[str, Any]:
         """
         End-to-end ingestion pipeline:
         1. Ingest file to raw text/tables
@@ -26,7 +26,7 @@ class IngestionPipeline:
         4. Upsert to Qdrant Cloud
         """
         log.info("Starting ingestion pipeline for file: {}", file_path)
-        source_name = os.path.basename(file_path)
+        source_name = original_filename if original_filename else os.path.basename(file_path)
         base_meta = base_metadata or {}
         
         # 1. INGEST

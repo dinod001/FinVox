@@ -1,6 +1,7 @@
 import os
 import uuid
 import asyncio
+import time
 from pathlib import Path
 import tempfile
 import aiofiles
@@ -66,32 +67,38 @@ async def upload_file(
         return pipeline.run(
             file_path=temp_path,
             document_id=document_id,
-            base_metadata=base_metadata
+            base_metadata=base_metadata,
+            original_filename=file.filename
         )
         
     try:
         # Run blocking ingestion tasks in a background thread
+        start_time = time.time()
         result = await asyncio.to_thread(_run_pipeline)
+        end_time = time.time()
+        time_taken_ms = int((end_time - start_time) * 1000)
         
         # 3. Format the response
         response = IngestionResponse(
             success=result.get("success", False),
             document_id=document_id,
+            file_name=file.filename,
+            time_taken_ms=time_taken_ms,
             message=result.get("message", "Ingestion completed") if result.get("success") else "Ingestion failed",
             error=result.get("error")
         )
         
         if response.success:
-            if "upserted_count" in result:
-                # Vector DB results
+            if "supabase_table" in result and result.get("supabase_table"):
+                # Relational DB results (CSV/Excel)
+                response.supabase_table = result.get("supabase_table")
+                response.rows_inserted = result.get("rows_inserted", 0)
+                response.message = f"Successfully created table '{response.supabase_table}' with {response.rows_inserted} rows."
+            elif "upserted_count" in result:
+                # Vector DB results (PDFs)
                 response.chunks_processed = result.get("chunks_processed", 0)
                 response.upserted_count = result.get("upserted_count", 0)
                 response.message = f"Successfully vectorized {response.upserted_count} chunks to Qdrant."
-            elif "supabase_table" in result:
-                # Relational DB results
-                response.supabase_table = result.get("supabase_table")
-                response.rows_inserted = result.get("rows_inserted", 0)
-                response.message = f"Successfully created table {response.supabase_table} with {response.rows_inserted} rows."
                 
         else:
             raise HTTPException(status_code=400, detail=response.error)

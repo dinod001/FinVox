@@ -148,7 +148,11 @@ async def _run_chat_pipeline(
     t0 = time.perf_counter()
     await emit({"type": "stage_start", "stage": "synth", "label": "Composing your financial response"})
     
-    system_prompt = f"You are FinVox, an expert SME Financial Assistant.\n\n=== MEMORY CONTEXT ===\n{memory_context}"
+    system_prompt = (
+        "You are FinVox, an expert SME Financial Assistant.\n"
+        "IMPORTANT FORMATTING RULES: Whenever you present numerical data, breakdowns, financial projections, or comparative information, ALWAYS format it using clean Markdown Tables to make it easy for the user to read.\n\n"
+        f"=== MEMORY CONTEXT ===\n{memory_context}"
+    )
     if tool_output:
         system_prompt += f"\n\n=== TOOL OUTPUT ===\n{tool_output}\n\nUse the tool output above to accurately answer the user's query."
         
