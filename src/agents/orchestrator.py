@@ -8,6 +8,13 @@ from src.agents.state import AgentState
 from src.agents.router import AgentRouter
 from src.memory.memory_manager import MemoryManager
 from src.infrastructure.llm.llm_provider import get_chat_llm
+from src.infrastructure.db.crm_client import engine
+from src.infrastructure.llm.embeddings import get_embeddings
+
+from src.agents.tools.cashflow_tools import CashflowTool
+from src.agents.tools.rag_tools import RAGTool
+from src.agents.tools.market_tools import MarketTool
+from src.agents.tools.investment_tools import InvestmentTool
 
 class AgentOrchestrator:
     """
@@ -16,10 +23,15 @@ class AgentOrchestrator:
     """
 
     def __init__(self):
-        # Default LLM for agents and merging (Groq based on config)
         self.llm_chat = get_chat_llm(temperature=0.0)
         self.router = AgentRouter()
         self.memory_manager = MemoryManager()
+        
+        # Instantiate Tool Singletons
+        self.cashflow_tool = CashflowTool(engine=engine, llm=self.llm_chat)
+        self.rag_tool = RAGTool(embedder=get_embeddings(), llm=self.llm_chat)
+        self.market_tool = MarketTool()
+        self.investment_tool = InvestmentTool()
         
         self.graph = self._build_graph()
 
@@ -129,15 +141,12 @@ class AgentOrchestrator:
 
     def cashflow_agent(self, state: AgentState) -> Dict:
         """Specialized Agent for Cashflow and Liquidity."""
-        from src.agents.tools.cashflow_tools import analyze_cashflow
-        
         decisions = state.get("route_decisions", [])
         decision = next((d for d in decisions if d.get("route") == "cashflow"), {})
         query = decision.get("rewritten_query", state["messages"][0].content)
         
-        # Here we mock the tool output if tool fails, normally we call the tool.
         try:
-            tool_output = analyze_cashflow.invoke({"query": query})
+            tool_output = self.cashflow_tool.analyze(query)
         except Exception as e:
             logger.error(f"Cashflow tool error: {e}")
             tool_output = "Unable to fetch cashflow data."
@@ -151,14 +160,12 @@ class AgentOrchestrator:
 
     def rag_agent(self, state: AgentState) -> Dict:
         """Specialized Agent for Document Analysis."""
-        from src.agents.tools.rag_tools import search_internal_knowledge
-        
         decisions = state.get("route_decisions", [])
         decision = next((d for d in decisions if d.get("route") == "rag"), {})
         query = decision.get("rewritten_query", state["messages"][0].content)
         
         try:
-            tool_output = search_internal_knowledge.invoke({"query": query})
+            tool_output = self.rag_tool.search(query)
         except Exception as e:
             logger.error(f"RAG tool error: {e}")
             tool_output = "Unable to fetch document data."
@@ -172,19 +179,40 @@ class AgentOrchestrator:
 
     def investment_agent(self, state: AgentState) -> Dict:
         """Specialized Agent for Investment Advice."""
-        system_prompt = "You are an expert investment advisor for SMEs. Provide risk-assessed investment advice based on the user's query."
-        answer = self._generate_agent_response(state, system_prompt, "investment", "")
+        decisions = state.get("route_decisions", [])
+        decision = next((d for d in decisions if d.get("route") == "investment"), {})
+        query = decision.get("rewritten_query", state["messages"][0].content)
+        
+        try:
+            tool_output = str(self.investment_tool.search(query))
+        except Exception as e:
+            logger.error(f"Investment tool error: {e}")
+            tool_output = "Unable to fetch investment data."
+            
+        system_prompt = "You are an expert investment advisor for SMEs. Provide risk-assessed investment advice based on the user's query and the provided search results."
+        answer = self._generate_agent_response(state, system_prompt, "investment", tool_output)
         return {
-            "agent_outputs": [{"route": "investment", "tool_output": "", "answer": answer}]
+            "agent_outputs": [{"route": "investment", "tool_output": tool_output, "answer": answer}]
         }
 
     def market_agent(self, state: AgentState) -> Dict:
         """Specialized Agent for Market Data."""
-        system_prompt = "You are a live stock market analyst. Provide up-to-date information on the market."
-        # Tool call for Yahoo/CSE would go here
-        answer = self._generate_agent_response(state, system_prompt, "market", "")
+        decisions = state.get("route_decisions", [])
+        decision = next((d for d in decisions if d.get("route") == "market"), {})
+        query = decision.get("rewritten_query", state["messages"][0].content)
+        
+        # Note: In a real system, we'd extract tickers from the query using another LLM call or regex.
+        # For this refactor, we just pass a default to show the plumbing is wired correctly.
+        try:
+            tool_output = str(self.market_tool.fetch_data(["^GSPC", "LKR=X"]))
+        except Exception as e:
+            logger.error(f"Market tool error: {e}")
+            tool_output = "Unable to fetch market data."
+            
+        system_prompt = "You are a live stock market analyst. Provide up-to-date information on the market based on the fetched data."
+        answer = self._generate_agent_response(state, system_prompt, "market", tool_output)
         return {
-            "agent_outputs": [{"route": "market", "tool_output": "", "answer": answer}]
+            "agent_outputs": [{"route": "market", "tool_output": tool_output, "answer": answer}]
         }
 
     def general_agent(self, state: AgentState) -> Dict:
