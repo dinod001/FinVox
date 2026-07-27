@@ -42,7 +42,7 @@ retrieval:
 
 cag: # Cache-Augmented Generation using Qdrant
   collection_name: cag_cache
-  similarity_threshold: 0.65
+  similarity_threshold: 0.90
   cache_ttl: 86400 # 24h TTL
   max_cache_size: 1000
 

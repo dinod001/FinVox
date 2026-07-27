@@ -62,6 +62,7 @@ class MemoryManager:
     def get_memory_context(self, user_id: str, session_id: str, query: str, k_st: int = 10, k_lt: int = 3, lt_threshold: float = 0.5) -> str:
         """
         Retrieves both Short-Term and Long-Term memory and formats it for the LLM context.
+        Also retrieves the list of active uploaded documents to provide RAG context to the router.
         Called before generating an answer for every query.
         """
         # 1. Retrieve relevant long-term facts
@@ -70,9 +71,36 @@ class MemoryManager:
         # 2. Retrieve recent short-term conversation
         st_turns = self.st_store.recent(user_id=user_id, session_id=session_id, k=k_st)
 
+        # 3. Retrieve active RAG documents (Unstructured)
+        try:
+            from src.infrastructure.db.qdrant_client import get_unique_documents
+            docs = get_unique_documents()
+            user_docs = [d for d in docs if d.get("user_id") == user_id or d.get("user_id") == "Unknown"]
+        except Exception as e:
+            log.warning(f"Failed to fetch active documents for memory context: {e}")
+            user_docs = []
+
+        # 4. Retrieve active Structured Datasets (SQL Tables)
+        try:
+            from src.infrastructure.db.table_manager import get_registered_tables
+            sql_tables = get_registered_tables()
+        except Exception as e:
+            log.warning(f"Failed to fetch active SQL tables for memory context: {e}")
+            sql_tables = []
+
         # Format Context
         context_parts = []
         
+        if user_docs or sql_tables:
+            docs_and_tables = []
+            for d in user_docs:
+                docs_and_tables.append(f"- [PDF/Doc] {d.get('title')} (Source: {d.get('source')}): {d.get('description', '')}")
+            for t in sql_tables:
+                docs_and_tables.append(f"- [SQL Table] {t.get('table_name')}: {t.get('description', '')}")
+                
+            doc_str = "\n".join(docs_and_tables)
+            context_parts.append(f"### Uploaded Documents & Datasets Available for Analysis:\n{doc_str}")
+            
         if lt_facts:
             facts_str = "\n".join([f"- {fact.text}" for fact in lt_facts])
             context_parts.append(f"### Long-Term Knowledge about User:\n{facts_str}")

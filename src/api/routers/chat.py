@@ -99,6 +99,12 @@ async def _run_chat_pipeline(
     t0 = time.perf_counter()
     routes_taken = []
     
+    # Check if we need KPIs for any route before dispatching
+    from src.services.kpi_service import get_kpis_for_user
+    user_kpis_str = ""
+    if any(d.get("route") in ["cashflow", "rag"] for d in route_decisions):
+        user_kpis_str = await get_kpis_for_user(req.user_id)
+    
     async def _dispatch_one(decision: Dict[str, Any]) -> str:
         route = decision.get("route", "general")
         query = decision.get("rewritten_query", req.message)
@@ -110,7 +116,7 @@ async def _run_chat_pipeline(
         out = ""
         try:
             if route == "cashflow" and orchestrator.cashflow_tool:
-                out = await asyncio.to_thread(orchestrator.cashflow_tool.analyze, query)
+                out = await asyncio.to_thread(orchestrator.cashflow_tool.analyze, query, user_kpis_str)
             elif route == "rag" and orchestrator.rag_tool:
                 out = await asyncio.to_thread(orchestrator.rag_tool.search, query)
             elif route == "market" and orchestrator.market_tool:
@@ -165,10 +171,16 @@ Format EXACTLY like this:
 Valid types: "bar", "line", "pie". The "name" field is the label.
 """
 
+    active_routes = routes_taken
+    
+    kpi_context = ""
+    if ("cashflow" in active_routes or "rag" in active_routes) and user_kpis_str:
+        kpi_context = f"\n\n=== COMPANY KPIs ===\n{user_kpis_str}\n\nCRITICAL RULE: DO NOT invent or assume any business KPIs or targets. You MUST ONLY evaluate performance against the specific KPIs listed above. If no KPIs are listed, just provide the facts without judging performance."
+
     system_prompt = (
         "You are FinVox, an expert SME Financial Assistant.\n"
         "IMPORTANT FORMATTING RULES: Whenever you present numerical data, breakdowns, financial projections, or comparative information, ALWAYS format it using clean Markdown Tables to make it easy for the user to read.\n\n"
-        f"=== MEMORY CONTEXT ===\n{memory_context}\n\n{chart_instruction}"
+        f"=== MEMORY CONTEXT ===\n{memory_context}\n{kpi_context}\n\n{chart_instruction}"
     )
     if tool_output:
         system_prompt += f"\n\n=== TOOL OUTPUT ===\n{tool_output}\n\nUse the tool output above to accurately answer the user's query."

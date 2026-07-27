@@ -634,6 +634,17 @@
   background-color: rgba(241, 245, 249, 0.5);
 }
 
+/* Math Equation Overflow Fix */
+.message-content .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 10px 0;
+  max-width: 100%;
+}
+.message-content .katex-display > .katex {
+  white-space: normal;
+}
+
 .message-wrapper.user .message-content {
   background: var(--text-main);
   color: white;

@@ -283,58 +283,21 @@ class IngestFile:
         return {str(i): row.to_dict() for i, row in df.iterrows()}
 
     def _process_pdf(self, file_path: str) -> Dict[str, Any]:
-        """Extract Markdown and tables from a PDF using PyMuPDF4LLM."""
+        """Extract Markdown from a PDF using PyMuPDF4LLM."""
         log.info(f"Processing PDF file: {file_path}")
         try:
             # 1. Extract to markdown using PyMuPDF4LLM
+            # PyMuPDF4LLM does an excellent job creating Markdown tables.
+            # We must NOT pass these tables to Pandas for cleaning because Pandas
+            # will drop the empty description columns in the summary rows (like Sub-Total).
             md_text = pymupdf4llm.to_markdown(file_path)
             
-            # 2. Separate text and tables
-            table_pattern = re.compile(r'(?:\|.*\|\n)+', re.MULTILINE)
-            tables = table_pattern.findall(md_text)
-            pure_text = table_pattern.sub('\n[TABLE_REMOVED]\n', md_text).strip()
-            
-            processed_tables = []
-            for idx, table_md in enumerate(tables):
-                # 3. Clean the markdown table to standard CSV format
-                lines = table_md.strip().split('\n')
-                cleaned_lines = []
-                for line in lines:
-                    # Skip markdown divider rows like |---|---|
-                    if re.match(r'^\|?[\-\|\s:]+\|?$', line.strip()):
-                        continue
-                    
-                    line = line.strip()
-                    if line.startswith('|'):
-                        line = line[1:]
-                    if line.endswith('|'):
-                        line = line[:-1]
-                    
-                    # Remove markdown bold/italic syntax and split by pipe
-                    cells = []
-                    for cell in line.split('|'):
-                        clean_cell = cell.replace('**', '').replace('*', '').strip()
-                        # Wrap in double quotes for safe CSV parsing
-                        cells.append(f'"{clean_cell}"')
-                        
-                    cleaned_lines.append(','.join(cells))
-                
-                csv_string = '\n'.join(cleaned_lines)
-                
-                # 4. Pass the CSV buffer through our robust data_cleaning pipeline!
-                buffer = io.BytesIO(csv_string.encode('utf-8'))
-                success, df, msg = self.data_cleaning(buffer)
-                if success and df is not None:
-                    processed_tables.append(self.convert_to_json(df))
-                else:
-                    log.warning(f"Failed to clean extracted table {idx+1}: {msg}")
-            
             result = {
-                "text": pure_text,
-                "tables": processed_tables,
+                "text": md_text,
+                "tables": [], # We leave tables inside md_text for the Markdown chunker to handle perfectly!
                 "metadata": {"source": file_path}
             }
-            log.info(f"PDF processed successfully. Extracted {len(tables)} tables.")
+            log.info("PDF processed successfully. Kept tables inside Markdown to preserve layout.")
             return result
         except Exception as e:
             error_msg = f"Failed to process PDF: {str(e)}"

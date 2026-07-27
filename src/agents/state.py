@@ -24,6 +24,7 @@ class AgentState(TypedDict):
     # User / session identifiers (passed through every node)
     user_id: str
     session_id: str
+    user_kpis: Optional[str]
 
     # ── Memory ────────────────────────────────────────────────────────────────
     # Short-Term & Long-Term: formatted recent conversation and facts
