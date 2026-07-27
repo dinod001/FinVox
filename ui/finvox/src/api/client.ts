@@ -64,6 +64,53 @@ export const apiClient = {
     }
     return response.json();
   },
+
+  /**
+   * Perform a PUT request to the backend.
+   */
+  put: async (endpoint: string, data: any, options: RequestInit = {}) => {
+    const token = getToken();
+    const headers = {
+      'Content-Type': 'application/json',
+      ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+      ...options.headers,
+    };
+
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
+      method: 'PUT',
+      ...options,
+      headers,
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      await handleApiError(response);
+    }
+    return response.json();
+  },
+
+  /**
+   * Perform a DELETE request to the backend.
+   */
+  delete: async (endpoint: string, options: RequestInit = {}) => {
+    const token = getToken();
+    const headers = {
+      'Content-Type': 'application/json',
+      ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+      ...options.headers,
+    };
+
+    const response = await fetch(`${BASE_URL}${endpoint}`, {
+      method: 'DELETE',
+      ...options,
+      headers,
+    });
+
+    if (!response.ok) {
+      await handleApiError(response);
+    }
+    return response.json();
+  },
   
   /**
    * Base URL for streaming or custom fetch requests

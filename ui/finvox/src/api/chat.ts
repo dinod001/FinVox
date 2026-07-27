@@ -27,7 +27,7 @@ export const chatApi = {
 
       // Since we need to read the body stream, we use fetch directly
       // instead of the apiClient wrapper.
-      const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+      const baseUrl = apiClient.baseURL;
       const token = localStorage.getItem('finvox_token');
       
       const response = await fetch(`${baseUrl}/chat/stream`, {

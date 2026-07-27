@@ -18,12 +18,13 @@ class CashflowTool:
         self.engine = engine
         self.llm = llm
 
-        # Compile prompt templates once at init time — avoids re-parsing per call.
         self._sql_prompt = PromptTemplate.from_template(
             """You are a PostgreSQL expert Data Analyst.
 
 Here are the available tables in the database, along with their descriptions and column schemas:
 {context}
+
+{kpis}
 
 The user is asking: "{query}"
 
@@ -35,7 +36,8 @@ IMPORTANT RULES:
 4. Always use ILIKE or LOWER() for string comparisons to avoid case-sensitivity bugs (e.g. LOWER(transaction_type) = 'credit').
 5. DO NOT return thousands of raw rows. ALWAYS aggregate data (e.g. SUM, COUNT, GROUP BY) when analyzing large periods, or use LIMIT for top N queries.
 6. NEVER calculate totals or perform arithmetic yourself! You MUST write SQL to do the math (e.g., using SUM, COUNT, GROUP BY).
-   - Carefully inspect the schema and data types. If expenses/debits are already stored as negative numbers, do not subtract them again when calculating net flows. 
+   - Carefully inspect the schema and data types. If expenses/debits are already stored as negative numbers, do not subtract them again when calculating net flows.
+7. CRITICAL KPI RULE: If the user asks about a business metric or KPI, you MUST use the exact formula provided in the 'COMPANY KPIs' section above. NEVER invent or assume formulas for business KPIs. If a KPI is not listed, write standard SQL to answer the question using the available tables.
 """
         )
 
@@ -91,7 +93,7 @@ IMPORTANT RULES:
 
     # ── Public Interface ──────────────────────────────────────────────────────
 
-    def analyze(self, query: str) -> str:
+    def analyze(self, query: str, kpis: str = "") -> str:
         """
         Full Text-to-SQL pipeline:
           1. Fetch available table schemas.
@@ -104,11 +106,15 @@ IMPORTANT RULES:
         context = self._get_table_context()
         if "No user-uploaded data" in context or "Error" in context:
             return context
+            
+        kpis_str = ""
+        if kpis:
+            kpis_str = f"=== COMPANY KPIs ===\n{kpis}"
 
         # ── Step 1: Generate SQL ──────────────────────────────────────────────
         sql_chain = self._sql_prompt | self.llm
         try:
-            raw = sql_chain.invoke({"context": context, "query": query})
+            raw = sql_chain.invoke({"context": context, "kpis": kpis_str, "query": query})
             sql_query = raw.content.strip()
             # Strip any accidental markdown fences
             sql_query = re.sub(r"^```(sql|postgres)?", "", sql_query, flags=re.IGNORECASE)
@@ -143,11 +149,8 @@ IMPORTANT RULES:
             log.error(f"SQL execution error: {e}")
             return f"Database error while executing the query: {str(e)}"
 
-        # ── Step 4: Format Answer ─────────────────────────────────────────────
-        answer_chain = self._answer_prompt | self.llm
-        try:
-            response = answer_chain.invoke({"query": query, "db_results": db_results})
-            return response.content.strip()
-        except Exception as e:
-            log.error(f"Answer formatting failed: {e}")
-            return f"Raw Data Results: {db_results}"
+        # ── Step 4: Return Raw Results to Orchestrator ────────────────────────
+        # We no longer use an LLM here to format the answer, because the Final 
+        # Synthesis node in chat.py will do it (and it has the KPI context).
+        # This prevents hallucinations like making up KPI targets.
+        return f"Raw SQL Result: {db_results}"

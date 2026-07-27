@@ -8,8 +8,9 @@ export interface IngestionResponse {
   rows_processed?: number;
 }
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+import { apiClient } from './client';
 
+const BASE_URL = apiClient.baseURL;
 export const ingestApi = {
   uploadFile: async (
     file: File,

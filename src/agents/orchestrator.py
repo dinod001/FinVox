@@ -167,7 +167,7 @@ Valid types: "bar", "line", "pie". The "name" field is the label.
         query = decision.get("rewritten_query", state["messages"][0].content)
         
         try:
-            tool_output = self.cashflow_tool.analyze(query)
+            tool_output = self.cashflow_tool.analyze(query, kpis=state.get("user_kpis", ""))
         except Exception as e:
             logger.error(f"Cashflow tool error: {e}")
             tool_output = "Unable to fetch cashflow data."

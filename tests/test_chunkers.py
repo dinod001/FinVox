@@ -12,9 +12,9 @@ def run_integration_test():
     print("Integration Test: Data Ingestion -> Chunkers")
     print("="*60)
     
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    csv_path = os.path.join(current_dir, "sample_test.csv")
-    pdf_path = os.path.join(current_dir, "AXZIO_AI_B2B_Strategy_Report.pdf")
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    csv_path = os.path.join(project_root, "data", "sample", "sme_cashflow_sample.csv")
+    pdf_path = os.path.join(project_root, "data", "sample", "sample_invoice.pdf")
     
     ingester = IngestFile()
     
@@ -30,11 +30,11 @@ def run_integration_test():
         csv_chunks = chunk_json_rows(
             data=csv_data,
             document_id="doc-csv-123",
-            source_name="sample_test.csv",
+            source_name="sme_cashflow_sample.csv",
             base_metadata={"company": "Test SME"}
         )
-        print(f"Generated {len(csv_chunks)} chunks from CSV.")
-        for i, chunk in enumerate(csv_chunks):
+        print(f"Generated {len(csv_chunks)} chunks from CSV. (Showing first 2)")
+        for i, chunk in enumerate(csv_chunks[:2]):
             print(f"  -> Chunk {i}: {chunk['text']}")
             
     # ---------------------------------------------------------
@@ -53,9 +53,12 @@ def run_integration_test():
         md_chunks = chunk_markdown_parent_child(
             md_text=pdf_text,
             document_id="doc-pdf-456",
-            source_name="AXZIO_AI_B2B_Strategy_Report.pdf"
+            source_name="sample_invoice.pdf"
         )
         print(f"Generated {len(md_chunks)} text chunks from PDF Markdown.")
+        for i, chunk in enumerate(md_chunks):
+            print(f"\n[CHUNK {i}]")
+            print(chunk["text"])
         
         # 2b. Chunk PDF Tables
         table_chunks = []

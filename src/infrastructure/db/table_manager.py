@@ -52,6 +52,33 @@ def ensure_table_registry():
     except Exception as e:
         log.error(f"Failed to ensure table_registry: {e}")
 
+def ensure_kpi_registry():
+    """
+    Ensure the kpi_registry table exists in Supabase.
+    This stores company-specific KPIs.
+    """
+    if not engine:
+        log.error("Database engine not initialized. Cannot create kpi_registry.")
+        return
+        
+    create_table_sql = """
+    CREATE TABLE IF NOT EXISTS kpi_registry (
+        id UUID PRIMARY KEY,
+        user_id VARCHAR NOT NULL,
+        kpi_name VARCHAR NOT NULL,
+        formula TEXT,
+        target_value VARCHAR,
+        description TEXT,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
+    """
+    try:
+        with engine.begin() as conn:
+            conn.execute(text(create_table_sql))
+        log.info("✓ kpi_registry checked/created successfully.")
+    except Exception as e:
+        log.error(f"Failed to ensure kpi_registry: {e}")
+
 def save_dataframe_to_supabase(df: pd.DataFrame, filename: str, description: str = "") -> dict:
     """
     Save a pandas DataFrame directly as a native PostgreSQL table.
@@ -139,3 +166,18 @@ def delete_supabase_table(table_id: str) -> dict:
     except Exception as e:
         log.error(f"Failed to delete table with ID {table_id}: {e}")
         return {"success": False, "error": str(e)}
+
+def get_registered_tables() -> list:
+    """
+    Fetch a list of all active registered structured datasets from Supabase.
+    Returns a list of dicts with 'table_name' and 'description'.
+    """
+    if not engine:
+        return []
+    try:
+        with engine.connect() as conn:
+            res = conn.execute(text("SELECT table_name, description FROM table_registry"))
+            return [{"table_name": row[0], "description": row[1] or ""} for row in res.fetchall()]
+    except Exception as e:
+        log.error(f"Failed to fetch registered tables: {e}")
+        return []

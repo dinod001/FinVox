@@ -31,9 +31,14 @@ async def lifespan(app: FastAPI):
         def _exec():
             with engine.connect() as conn:
                 conn.execute(text("SELECT 1"))
+            # Ensure core utility tables exist
+            from src.infrastructure.db.table_manager import ensure_table_registry, ensure_kpi_registry
+            ensure_table_registry()
+            ensure_kpi_registry()
+            
         try:
             await asyncio.to_thread(_exec)
-            logger.info("✓ Database connection established")
+            logger.info("✓ Database connection established and registries verified")
         except Exception as e:
             logger.error(f"✗ Database warmup failed: {e}")
 
@@ -142,11 +147,12 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 # ── Routers Configuration ───────────────────────────────────────────
 
-from src.api.routers import health, auth, chat_sessions, ingestion, chat, management
+from src.api.routers import health, auth, chat_sessions, ingestion, chat, management, kpis
 
 app.include_router(health.router)
 app.include_router(auth.router)
 app.include_router(chat_sessions.router)
 app.include_router(ingestion.router)
 app.include_router(chat.router)
+app.include_router(kpis.router)
 app.include_router(management.router)

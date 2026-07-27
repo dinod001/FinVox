@@ -41,15 +41,17 @@ class AgentRouter:
         
         self.prompt = PromptTemplate(
             template="""You are the master Orchestrator Router for an AI Financial Advisory System (FinVox).
-Your job is to read the User Message and the available Memory Context, then route the user to the correct specialized agent.
+Your job is to read the User Message and the available Memory Context, then route the user to the correct specialized agent(s).
+CRITICAL: If the user's query requires multiple different tools (e.g. checking a financial metric AND reading a document), you MUST return MULTIPLE routes in your list. Do NOT try to cram everything into one route. Split the question and rewrite the query for each specific agent.
+CRITICAL: IMPORTANT CROSS-AGENT RULE: If a single sentence asks to combine or compare data across DIFFERENT domains (e.g., "Calculate the burn rate using the amount from the uploaded invoice"), you MUST split it into MULTIPLE routes (e.g., one 'rag' route for the invoice, one 'cashflow' route for the burn rate). However, if the query only involves ONE domain (e.g., "What is our burn rate?"), do NOT split it.
 CRITICAL: You must rewrite the user's query to be a standalone sentence if it contains pronouns (it, that, he) referring to past context.
 CRITICAL: The rewritten query MUST be optimized for the specific tool. For example, if routing to 'rag' (Vector Search), rewrite "Can you analyze my PDF" to "Extract total amounts, due dates, and vendor names from the invoice."
 CRITICAL: If routing to data-driven tools (cashflow, market, investment), you MUST replace relative time expressions (e.g., "this month") with absolute dates (e.g., "July 2026") using the Current Date provided. However, for 'general' conversation, keep natural words like "tomorrow" or "next week" as they are.
 
 Valid Routes:
 - general    : For greetings, small talk, non-financial queries, or if the user is just answering a simple question. DO NOT use this for ANY financial explanations.
-- cashflow   : For ANY questions, reasons, or explanations about cash flow, inflows, outflows, income, expenses, debits, credits, balances, or analyzing financial data trends.
-- rag        : For questions asking to read, analyze, or summarize uploaded documents, invoices, or past PDF reports.
+- cashflow   : For ANY questions, reasons, or explanations about cash flow, inflows, outflows, income, expenses, debits, credits, balances, or analyzing financial data trends. (DO NOT use for math/calculations if the numbers come exclusively from an uploaded document/invoice).
+- rag        : For questions asking to read, analyze, summarize, OR calculate/compare values strictly from uploaded documents, invoices, or past PDF reports.
 - investment : For questions about how to invest surplus money, risk management, or portfolio advice.
 - market     : For live stock market data, forex rates, or current economic news (e.g., Yahoo Finance, CSE).
 

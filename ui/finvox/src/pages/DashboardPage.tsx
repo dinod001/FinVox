@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppLayout from '../components/AppLayout';
-import { Database, HardDrive, Activity, Server, Loader2, Calendar, RefreshCw, TrendingUp, Plus, FileSpreadsheet, FileText, Check, MoreHorizontal, Trash2 } from 'lucide-react';
+import { Database, HardDrive, Activity, Server, Loader2, Calendar, RefreshCw, TrendingUp, Plus, FileSpreadsheet, FileText, Check, MoreHorizontal, Trash2, Target, LineChart, Edit2, X } from 'lucide-react';
+import { apiClient } from '../api/client';
+import { kpiApi, type KPI } from '../api/kpi';
 
 interface Metrics {
   qdrant: { status: string; points_count: number; collection?: string };
@@ -11,11 +13,12 @@ interface Metrics {
 const DashboardPage: React.FC = () => {
   const [metrics, setMetrics] = useState<Metrics | null>(null);
   const [loading, setLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState<'datasets' | 'kpis'>('datasets');
 
   const fetchMetrics = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://127.0.0.1:8000/health/metrics');
+      const res = await fetch(`${apiClient.baseURL}/health/metrics`);
       const data = await res.json();
       setMetrics(data);
     } catch (err) {
@@ -139,9 +142,53 @@ const DashboardPage: React.FC = () => {
           </div>
         )}
         
-        {/* Data Management Section */}
-        <div style={{ marginTop: '3rem', background: 'white', borderRadius: '16px', border: '1px solid #e5e7eb', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', overflow: 'hidden' }}>
-          <DatasetManager onUpdate={fetchMetrics} />
+        {/* Management Toggle */}
+        <div style={{ marginTop: '3rem', marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>
+          <div style={{ display: 'inline-flex', background: '#e5e7eb', padding: '0.35rem', borderRadius: '12px' }}>
+            <button 
+              onClick={() => setActiveTab('datasets')}
+              style={{
+                padding: '0.75rem 2rem', 
+                background: activeTab === 'datasets' ? 'white' : 'transparent',
+                border: 'none',
+                borderRadius: '8px',
+                fontWeight: 600,
+                color: activeTab === 'datasets' ? '#111827' : '#6b7280',
+                cursor: 'pointer',
+                boxShadow: activeTab === 'datasets' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                transition: 'all 0.2s ease',
+                display: 'flex', alignItems: 'center', gap: '0.5rem'
+              }}
+            >
+              <Database size={18} /> Datasets
+            </button>
+            <button 
+              onClick={() => setActiveTab('kpis')}
+              style={{
+                padding: '0.75rem 2rem', 
+                background: activeTab === 'kpis' ? 'white' : 'transparent',
+                border: 'none',
+                borderRadius: '8px',
+                fontWeight: 600,
+                color: activeTab === 'kpis' ? '#111827' : '#6b7280',
+                cursor: 'pointer',
+                boxShadow: activeTab === 'kpis' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                transition: 'all 0.2s ease',
+                display: 'flex', alignItems: 'center', gap: '0.5rem'
+              }}
+            >
+              <Target size={18} /> KPIs
+            </button>
+          </div>
+        </div>
+
+        {/* Management Content Section */}
+        <div style={{ background: 'white', borderRadius: '16px', border: '1px solid #e5e7eb', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)', overflow: 'hidden' }}>
+          {activeTab === 'datasets' ? (
+            <DatasetManager onUpdate={fetchMetrics} />
+          ) : (
+            <KPIManager />
+          )}
         </div>
       </div>
     </AppLayout>
@@ -158,7 +205,7 @@ const DatasetManager: React.FC<{ onUpdate: () => void }> = ({ onUpdate }) => {
   const fetchDatasets = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://127.0.0.1:8000/management/datasets');
+      const res = await fetch(`${apiClient.baseURL}/management/datasets`);
       setDatasets(await res.json());
     } catch (err) {
       console.error("Failed to fetch datasets", err);
@@ -176,7 +223,7 @@ const DatasetManager: React.FC<{ onUpdate: () => void }> = ({ onUpdate }) => {
     
     setDeletingId(id);
     try {
-      await fetch(`http://127.0.0.1:8000/management/${type}/${id}`, { method: 'DELETE' });
+      await fetch(`${apiClient.baseURL}/management/${type}/${id}`, { method: 'DELETE' });
       await fetchDatasets();
       onUpdate();
     } catch (err) {
@@ -318,6 +365,294 @@ const DatasetManager: React.FC<{ onUpdate: () => void }> = ({ onUpdate }) => {
               <button style={{ background: '#fdf2f8', border: '1px solid #fbcfe8', borderRadius: '6px', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#be185d', fontWeight: 600 }}>1</button>
               <button style={{ background: 'white', border: '1px solid #e5e7eb', borderRadius: '6px', width: '32px', height: '32px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af', cursor: 'not-allowed' }}>&gt;</button>
             </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+// --- KPI Manager Component ---
+const KPIManager: React.FC = () => {
+  const [kpis, setKpis] = useState<KPI[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
+  
+  // Modal state
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<'add' | 'edit'>('add');
+  const [editingId, setEditingId] = useState<string | null>(null);
+  
+  // Form state
+  const [formData, setFormData] = useState({ kpi_name: '', formula: '', target_value: '', description: '' });
+  const [formLoading, setFormLoading] = useState(false);
+
+  // User ID from localStorage
+  const userId = localStorage.getItem('finvox_user') || 'guest';
+
+  const fetchKPIs = async () => {
+    setLoading(true);
+    try {
+      const data = await kpiApi.getKPIs(userId);
+      setKpis(data);
+    } catch (err) {
+      console.error("Failed to fetch KPIs", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchKPIs();
+  }, []);
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this KPI?')) return;
+    setDeletingId(id);
+    try {
+      await kpiApi.deleteKPI(id, userId);
+      await fetchKPIs();
+    } catch (err) {
+      alert('Failed to delete KPI');
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
+  const openAddModal = () => {
+    setModalMode('add');
+    setFormData({ kpi_name: '', formula: '', target_value: '', description: '' });
+    setEditingId(null);
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (kpi: KPI) => {
+    setModalMode('edit');
+    setFormData({ 
+      kpi_name: kpi.kpi_name, 
+      formula: kpi.formula, 
+      target_value: kpi.target_value, 
+      description: kpi.description || '' 
+    });
+    setEditingId(kpi.id);
+    setIsModalOpen(true);
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormLoading(true);
+    try {
+      if (modalMode === 'add') {
+        await kpiApi.createKPI({
+          user_id: userId,
+          kpi_name: formData.kpi_name,
+          formula: formData.formula,
+          target_value: formData.target_value,
+          description: formData.description
+        });
+      } else if (modalMode === 'edit' && editingId) {
+        await kpiApi.updateKPI(editingId, userId, {
+          kpi_name: formData.kpi_name,
+          formula: formData.formula,
+          target_value: formData.target_value,
+          description: formData.description
+        });
+      }
+      setIsModalOpen(false);
+      await fetchKPIs();
+    } catch (err) {
+      console.error(err);
+      alert('Failed to save KPI');
+    } finally {
+      setFormLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '2rem', borderBottom: '1px solid #e5e7eb' }}>
+        <div>
+          <h2 style={{ color: '#111827', fontSize: '1.4rem', fontWeight: 800, marginBottom: '0.25rem' }}>Manage KPIs</h2>
+          <p style={{ color: '#6b7280', fontSize: '0.95rem' }}>Define and monitor your Key Performance Indicators.</p>
+        </div>
+        <button 
+          onClick={openAddModal}
+          style={{
+            display: 'flex', alignItems: 'center', gap: '0.5rem',
+            background: '#8b5cf6', color: 'white',
+            padding: '0.75rem 1.25rem', borderRadius: '8px',
+            fontWeight: 600, fontSize: '0.95rem', border: 'none',
+            cursor: 'pointer', boxShadow: '0 4px 6px -1px rgba(139, 92, 246, 0.3)'
+          }}
+        >
+          <Plus size={18} /> Add KPI
+        </button>
+      </div>
+
+      {loading ? (
+        <div style={{ padding: '4rem', textAlign: 'center' }}><Loader2 className="spin" style={{ margin: '0 auto', color: '#8b5cf6' }} /></div>
+      ) : kpis.length === 0 ? (
+        <div style={{ color: '#6b7280', textAlign: 'center', padding: '4rem', fontSize: '1.1rem' }}>No KPIs defined yet.</div>
+      ) : (
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+            <thead>
+              <tr style={{ borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+                <th style={{ padding: '1rem 2rem', color: '#6b7280', fontWeight: 600, fontSize: '0.85rem' }}>KPI Name</th>
+                <th style={{ padding: '1rem', color: '#6b7280', fontWeight: 600, fontSize: '0.85rem' }}>Formula</th>
+                <th style={{ padding: '1rem', color: '#6b7280', fontWeight: 600, fontSize: '0.85rem' }}>Target Value</th>
+                <th style={{ padding: '1rem 2rem', color: '#6b7280', fontWeight: 600, fontSize: '0.85rem', textAlign: 'right' }}>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {kpis.map((kpi) => (
+                <tr key={kpi.id} style={{ borderBottom: '1px solid #f3f4f6' }}>
+                  <td style={{ padding: '1.5rem 2rem', width: '30%' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                      <div style={{ 
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        width: '40px', height: '40px', borderRadius: '10px',
+                        background: '#f5f3ff', color: '#8b5cf6'
+                      }}>
+                        <Target size={20} />
+                      </div>
+                      <div>
+                        <span style={{ fontWeight: 700, color: '#111827', fontSize: '0.95rem', display: 'block' }}>{kpi.kpi_name}</span>
+                        {kpi.description && <span style={{ color: '#6b7280', fontSize: '0.8rem' }}>{kpi.description}</span>}
+                      </div>
+                    </div>
+                  </td>
+                  <td style={{ padding: '1.5rem 1rem', width: '30%' }}>
+                    <code style={{ background: '#f1f5f9', color: '#334155', padding: '0.3rem 0.6rem', borderRadius: '6px', fontSize: '0.85rem', fontFamily: 'monospace' }}>
+                      {kpi.formula}
+                    </code>
+                  </td>
+                  <td style={{ padding: '1.5rem 1rem' }}>
+                    <span style={{ 
+                      display: 'inline-flex', alignItems: 'center', gap: '0.25rem',
+                      background: '#ecfdf5', color: '#059669', 
+                      padding: '0.25rem 0.6rem', borderRadius: '12px', 
+                      fontSize: '0.85rem', fontWeight: 700 
+                    }}>
+                      {kpi.target_value}
+                    </span>
+                  </td>
+                  <td style={{ padding: '1.5rem 2rem', textAlign: 'right' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.5rem' }}>
+                      <button 
+                        onClick={() => openEditModal(kpi)}
+                        style={{
+                          background: '#f3f4f6', border: '1px solid #e5e7eb',
+                          color: '#4b5563', width: '36px', height: '36px',
+                          borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        <Edit2 size={16} />
+                      </button>
+                      <button 
+                        onClick={() => handleDelete(kpi.id)}
+                        disabled={deletingId === kpi.id}
+                        style={{
+                          background: '#fef2f2', border: '1px solid #fecdd3',
+                          color: '#e11d48', width: '36px', height: '36px',
+                          borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                          cursor: deletingId === kpi.id ? 'not-allowed' : 'pointer'
+                        }}
+                      >
+                        {deletingId === kpi.id ? <Loader2 size={16} className="spin" /> : <Trash2 size={16} />}
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* Modal Overlay */}
+      {isModalOpen && (
+        <div style={{
+          position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+          background: 'rgba(17, 24, 39, 0.6)', backdropFilter: 'blur(4px)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50
+        }}>
+          <div style={{
+            background: 'white', borderRadius: '16px', width: '100%', maxWidth: '500px',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+            overflow: 'hidden', animation: 'fadeIn 0.2s ease-out'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.5rem', borderBottom: '1px solid #e5e7eb', background: '#f9fafb' }}>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#111827', margin: 0 }}>
+                {modalMode === 'add' ? 'Add New KPI' : 'Edit KPI'}
+              </h3>
+              <button onClick={() => setIsModalOpen(false)} style={{ background: 'transparent', border: 'none', color: '#6b7280', cursor: 'pointer' }}>
+                <X size={20} />
+              </button>
+            </div>
+            
+            <form onSubmit={handleFormSubmit} style={{ padding: '1.5rem' }}>
+              <div style={{ marginBottom: '1.25rem' }}>
+                <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: 600, color: '#374151', marginBottom: '0.5rem' }}>KPI Name</label>
+                <input 
+                  type="text" required
+                  value={formData.kpi_name} onChange={(e) => setFormData({...formData, kpi_name: e.target.value})}
+                  placeholder="e.g. Net Profit Margin"
+                  style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '0.95rem' }}
+                />
+              </div>
+              
+              <div style={{ marginBottom: '1.25rem' }}>
+                <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: 600, color: '#374151', marginBottom: '0.5rem' }}>Formula (SQL Expression)</label>
+                <textarea 
+                  required rows={3}
+                  value={formData.formula} onChange={(e) => setFormData({...formData, formula: e.target.value})}
+                  placeholder="e.g. (SUM(net_profit) / SUM(revenue)) * 100"
+                  style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '0.95rem', fontFamily: 'monospace' }}
+                />
+              </div>
+
+              <div style={{ marginBottom: '1.25rem' }}>
+                <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: 600, color: '#374151', marginBottom: '0.5rem' }}>Target Value (Optional)</label>
+                <input 
+                  type="text"
+                  value={formData.target_value} onChange={(e) => setFormData({...formData, target_value: e.target.value})}
+                  placeholder="e.g. > 15%"
+                  style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '0.95rem' }}
+                />
+              </div>
+
+              <div style={{ marginBottom: '2rem' }}>
+                <label style={{ display: 'block', fontSize: '0.9rem', fontWeight: 600, color: '#374151', marginBottom: '0.5rem' }}>Description (Optional)</label>
+                <input 
+                  type="text"
+                  value={formData.description} onChange={(e) => setFormData({...formData, description: e.target.value})}
+                  placeholder="Brief explanation of this KPI"
+                  style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid #d1d5db', fontSize: '0.95rem' }}
+                />
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem' }}>
+                <button 
+                  type="button" onClick={() => setIsModalOpen(false)}
+                  style={{ padding: '0.75rem 1.5rem', background: 'white', border: '1px solid #d1d5db', borderRadius: '8px', color: '#374151', fontWeight: 600, cursor: 'pointer' }}
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit" disabled={formLoading}
+                  style={{ 
+                    padding: '0.75rem 1.5rem', background: '#8b5cf6', border: 'none', borderRadius: '8px', 
+                    color: 'white', fontWeight: 600, cursor: formLoading ? 'not-allowed' : 'pointer',
+                    display: 'flex', alignItems: 'center', gap: '0.5rem'
+                  }}
+                >
+                  {formLoading && <Loader2 size={16} className="spin" />}
+                  {modalMode === 'add' ? 'Create KPI' : 'Save Changes'}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
