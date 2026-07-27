@@ -104,3 +104,38 @@ def save_dataframe_to_supabase(df: pd.DataFrame, filename: str, description: str
     except Exception as e:
         log.error(f"Failed to save table to Supabase: {e}")
         return {"success": False, "error": str(e)}
+
+def delete_supabase_table(table_id: str) -> dict:
+    """
+    Drop a dynamically created table from Supabase and remove it from table_registry using its ID.
+    """
+    if not engine:
+        return {"success": False, "error": "Database engine not initialized."}
+        
+    try:
+        with engine.begin() as conn:
+            # 0. Get the table name from the registry
+            res = conn.execute(
+                text("SELECT table_name FROM table_registry WHERE id = :id"),
+                {"id": table_id}
+            )
+            row = res.fetchone()
+            if not row:
+                return {"success": False, "error": "Table ID not found in registry."}
+                
+            table_name = row[0]
+            
+            # 1. Drop the actual data table
+            conn.execute(text(f"DROP TABLE IF EXISTS {table_name} CASCADE"))
+            
+            # 2. Remove from registry
+            conn.execute(
+                text("DELETE FROM table_registry WHERE id = :id"),
+                {"id": table_id}
+            )
+            
+        log.success(f"Successfully deleted table and registry entry for ID: {table_id}")
+        return {"success": True, "message": f"Table {table_name} deleted successfully."}
+    except Exception as e:
+        log.error(f"Failed to delete table with ID {table_id}: {e}")
+        return {"success": False, "error": str(e)}

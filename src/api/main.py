@@ -142,8 +142,11 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 # ── Routers Configuration ───────────────────────────────────────────
 
+from src.api.routers import health, auth, chat_sessions, ingestion, chat, management
+
 app.include_router(health.router)
 app.include_router(auth.router)
 app.include_router(chat_sessions.router)
 app.include_router(ingestion.router)
 app.include_router(chat.router)
+app.include_router(management.router)

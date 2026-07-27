@@ -148,10 +148,27 @@ async def _run_chat_pipeline(
     t0 = time.perf_counter()
     await emit({"type": "stage_start", "stage": "synth", "label": "Composing your financial response"})
     
+    chart_instruction = """
+=== CHART GENERATION ===
+If the user asks for a chart, graph, or visual representation, OR if you believe the numerical data is best presented visually (e.g. expenses, trends), output a JSON block wrapped in ```chart
+Format EXACTLY like this:
+```chart
+{
+  "type": "bar",
+  "title": "Chart Title",
+  "data": [
+    {"name": "Label1", "value": 100},
+    {"name": "Label2", "value": 200}
+  ]
+}
+```
+Valid types: "bar", "line", "pie". The "name" field is the label.
+"""
+
     system_prompt = (
         "You are FinVox, an expert SME Financial Assistant.\n"
         "IMPORTANT FORMATTING RULES: Whenever you present numerical data, breakdowns, financial projections, or comparative information, ALWAYS format it using clean Markdown Tables to make it easy for the user to read.\n\n"
-        f"=== MEMORY CONTEXT ===\n{memory_context}"
+        f"=== MEMORY CONTEXT ===\n{memory_context}\n\n{chart_instruction}"
     )
     if tool_output:
         system_prompt += f"\n\n=== TOOL OUTPUT ===\n{tool_output}\n\nUse the tool output above to accurately answer the user's query."

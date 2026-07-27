@@ -84,30 +84,38 @@ def ensure_collection(
 ) -> None:
     """
     Create the Qdrant collection if it does not exist.
-
     Safe to call repeatedly (idempotent).
     """
     client = get_qdrant_client()
 
     existing = [c.name for c in client.get_collections().collections]
-    if collection_name in existing:
+    if collection_name not in existing:
+        client.create_collection(
+            collection_name=collection_name,
+            vectors_config=VectorParams(
+                size=vector_size,
+                distance=distance,
+                on_disk=on_disk,
+            ),
+        )
+        log.info(
+            "Created Qdrant collection '{}' (dim={}, distance={})",
+            collection_name,
+            vector_size,
+            distance.name,
+        )
+    else:
         log.info("Collection '{}' already exists — skipping creation.", collection_name)
-        return
-
-    client.create_collection(
-        collection_name=collection_name,
-        vectors_config=VectorParams(
-            size=vector_size,
-            distance=distance,
-            on_disk=on_disk,
-        ),
-    )
-    log.info(
-        "Created Qdrant collection '{}' (dim={}, distance={})",
-        collection_name,
-        vector_size,
-        distance.name,
-    )
+        
+    # Always ensure payload index exists for fast lookups/deletes
+    try:
+        client.create_payload_index(
+            collection_name=collection_name,
+            field_name="document_id",
+            field_schema="keyword"
+        )
+    except Exception as e:
+        log.debug(f"Payload index creation skipped/failed: {e}")
 
 
 def delete_collection(collection_name: str = QDRANT_COLLECTION_NAME) -> None:
@@ -283,6 +291,8 @@ def delete_chunks_by_document_id(
     Delete all chunks associated with a specific document_id.
     """
     client = get_qdrant_client()
+    # Make sure the payload index exists before trying to delete
+    ensure_collection(collection_name)
     try:
         client.delete(
             collection_name=collection_name,
@@ -299,7 +309,46 @@ def delete_chunks_by_document_id(
         return True
     except Exception as e:
         log.error("Failed to delete chunks for document_id '{}': {}", document_id, e)
-        return False# ---------------------------------------------------------------------------
+        return False
+
+def get_unique_documents(collection_name: str = QDRANT_COLLECTION_NAME) -> List[Dict[str, Any]]:
+    """
+    Scroll through Qdrant and extract unique documents (PDFs) based on document_id.
+    """
+    client = get_qdrant_client()
+    try:
+        documents = {}
+        offset = None
+        while True:
+            records, next_offset = client.scroll(
+                collection_name=collection_name,
+                limit=1000,
+                with_payload=True,
+                with_vectors=False,
+                offset=offset
+            )
+            for record in records:
+                payload = record.payload or {}
+                doc_id = payload.get("document_id")
+                if doc_id and doc_id not in documents:
+                    documents[doc_id] = {
+                        "document_id": doc_id,
+                        "source": payload.get("source", "Unknown"),
+                        "title": payload.get("title", "Unknown"),
+                        "description": payload.get("description", ""),
+                        "user_id": payload.get("user_id", "Unknown"),
+                        "created_at": payload.get("created_at", "")
+                    }
+            if next_offset is None:
+                break
+            offset = next_offset
+            
+        return list(documents.values())
+    except Exception as e:
+        log.error(f"Failed to fetch unique documents from Qdrant: {e}")
+        return []
+
+# ---------------------------------------------------------------------------
 # Convenience — count
 # ---------------------------------------------------------------------------
 

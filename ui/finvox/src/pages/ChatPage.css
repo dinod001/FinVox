@@ -351,7 +351,7 @@
 /* Empty State */
 .empty-state-container {
   max-width: 900px;
-  margin: 0 auto;
+  margin: auto;
   width: 100%;
   display: flex;
   flex-direction: column;

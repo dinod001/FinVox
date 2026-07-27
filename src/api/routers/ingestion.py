@@ -7,9 +7,13 @@ import tempfile
 import aiofiles
 
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException
+from sqlalchemy import text
 from src.services.ingest_service.pipeline import IngestionPipeline
 from src.api.schemas import IngestionResponse
 from src.infrastructure.log import log
+from src.infrastructure.db.crm_client import engine
+from src.infrastructure.db.table_manager import sanitize_table_name
+from src.infrastructure.db.qdrant_client import get_unique_documents
 
 router = APIRouter(prefix="/ingestion", tags=["Data Ingestion"])
 
@@ -29,15 +33,39 @@ def get_pipeline() -> IngestionPipeline:
 async def upload_file(
     file: UploadFile = File(...),
     user_id: str = Form(..., description="User uploading the file"),
-    description: str = Form(None, description="Description of the file contents"),
-    company: str = Form(None, description="Associated company name"),
-    year: str = Form(None, description="Relevant financial year")
+    description: str = Form(..., description="Description of the file contents")
 ):
     """
     Upload and ingest a file (PDF, CSV, Excel).
     - PDFs are chunked, embedded, and stored in Qdrant (Vector DB) for RAG.
     - CSV/Excel files are cleaned and dynamically created as tables in Supabase (Relational DB) for Text-to-SQL.
     """
+    
+    # 0. Check if a dataset with this filename already exists
+    filename = file.filename
+    try:
+        # Check Structured (Supabase)
+        table_name = sanitize_table_name(filename)
+        def _check_sql():
+            if not engine: return False
+            with engine.connect() as conn:
+                res = conn.execute(text("SELECT 1 FROM table_registry WHERE table_name = :t"), {"t": table_name})
+                return res.fetchone() is not None
+        
+        sql_exists = await asyncio.to_thread(_check_sql)
+        if sql_exists:
+            raise HTTPException(status_code=409, detail=f"A structured dataset named '{filename}' already exists. Please delete it first or use a different file name.")
+            
+        # Check Unstructured (Qdrant)
+        pdfs = await asyncio.to_thread(get_unique_documents)
+        pdf_exists = any(p["source"] == filename for p in pdfs)
+        if pdf_exists:
+            raise HTTPException(status_code=409, detail=f"An AI document named '{filename}' already exists. Please delete it first or use a different file name.")
+            
+    except HTTPException:
+        raise
+    except Exception as e:
+        log.error(f"Error checking dataset existence: {e}")
     
     # 1. Save uploaded file to a temporary location
     try:
@@ -57,9 +85,7 @@ async def upload_file(
     document_id = str(uuid.uuid4())
     base_metadata = {
         "user_id": user_id,
-        "description": description or "No description",
-        "company": company or "Unknown",
-        "year": year or "Unknown"
+        "description": description or "No description"
     }
     
     def _run_pipeline():

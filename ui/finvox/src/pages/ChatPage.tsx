@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
   Send, TrendingUp, History, LogOut, CheckCircle2, Loader2, Play,
-  ChevronDown, Bell, Crown, Wallet, PieChart, Target, Sparkles, Lock, Trash2
+  ChevronDown, Bell, Crown, Wallet, PieChart, Target, Sparkles, Lock, Trash2, Download
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -15,6 +15,8 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css';
 import AppLayout from '../components/AppLayout';
+import DynamicChart from '../components/DynamicChart';
+import type { ChartConfig } from '../components/DynamicChart';
 import './ChatPage.css';
 
 interface TimelineEvent {
@@ -35,10 +37,104 @@ interface Message {
 
 const preprocessMath = (text: string) => {
   if (!text) return text;
-  let processed = text.replace(/\\\[/g, '$$$$').replace(/\\\]/g, '$$$$');
+  
+  // Protect all code blocks from math preprocessing to avoid corrupting JSON/code
+  const codeBlocks: string[] = [];
+  let processed = text.replace(/```[\s\S]*?```/g, (match) => {
+    codeBlocks.push(match);
+    return `__CODE_BLOCK_${codeBlocks.length - 1}__`;
+  });
+
+  processed = processed.replace(/\\\[/g, '$$$$').replace(/\\\]/g, '$$$$');
   processed = processed.replace(/\\\(/g, '$').replace(/\\\)/g, '$');
   processed = processed.replace(/^\[\s*\n/gm, '$$$$\n').replace(/\n\s*\]$/gm, '\n$$$$');
+
+  // Restore code blocks
+  processed = processed.replace(/__CODE_BLOCK_(\d+)__/g, (_, idx) => codeBlocks[parseInt(idx)]);
+  
   return processed;
+};
+
+const MarkdownTable = ({ children, ...props }: any) => {
+  const tableRef = useRef<HTMLTableElement>(null);
+
+  const downloadCSV = () => {
+    if (!tableRef.current) return;
+    const rows = Array.from(tableRef.current.querySelectorAll('tr'));
+    const csv = rows.map(row => {
+      const cols = Array.from(row.querySelectorAll('th, td'));
+      return cols.map(c => `"${(c.textContent || '').replace(/"/g, '""')}"`).join(',');
+    }).join('\n');
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'finvox_data.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  return (
+    <div style={{ margin: '1.5rem 0' }}>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '0.5rem' }}>
+        <button 
+          onClick={downloadCSV}
+          title="Download Data as CSV"
+          style={{
+            background: 'var(--bg-card)',
+            color: 'var(--text-main)',
+            border: '1px solid var(--border-light)',
+            padding: '4px 10px',
+            borderRadius: '6px',
+            fontSize: '12px',
+            fontWeight: 500,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '6px',
+            transition: 'all 0.2s ease',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.02)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = 'var(--crimson)';
+            e.currentTarget.style.color = 'white';
+            e.currentTarget.style.borderColor = 'var(--crimson)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = 'var(--bg-card)';
+            e.currentTarget.style.color = 'var(--text-main)';
+            e.currentTarget.style.borderColor = 'var(--border-light)';
+          }}
+        >
+          <Download size={14} /> Export CSV
+        </button>
+      </div>
+      <div style={{ overflowX: 'auto', border: '1px solid var(--border-light)', borderRadius: '8px' }}>
+        <table ref={tableRef} {...props} style={{ width: '100%', borderCollapse: 'collapse', ...props.style }}>
+          {children}
+        </table>
+      </div>
+    </div>
+  );
+};
+
+const RealtimeClock = () => {
+  const [time, setTime] = useState<string>('');
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTime(now.toLocaleString('en-US', { 
+        year: 'numeric', month: 'short', day: 'numeric', 
+        hour: '2-digit', minute: '2-digit', second: '2-digit' 
+      }));
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+  return <>{time}</>;
 };
 
 const ChatPage: React.FC = () => {
@@ -52,26 +148,6 @@ const ChatPage: React.FC = () => {
   const [sessions, setSessions] = useState<ChatSessionMeta[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
 
-  // Real-time Clock State
-  const [currentTime, setCurrentTime] = useState<string>('');
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      const formatted = now.toLocaleString('en-US', { 
-        year: 'numeric', 
-        month: 'short', 
-        day: 'numeric', 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit' 
-      });
-      setCurrentTime(formatted);
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   const skipFetchRef = useRef(false);
 
@@ -279,7 +355,7 @@ const ChatPage: React.FC = () => {
           </div>
           <div className="ch-right">
             <div className="realtime-clock text-muted" style={{ fontSize: '0.9rem', marginRight: '1rem', fontWeight: 500 }}>
-              {currentTime}
+              <RealtimeClock />
             </div>
             <div className="status-badge">
               <span className="dot bg-green blink-light"></span> AI Connected
@@ -356,6 +432,28 @@ const ChatPage: React.FC = () => {
                         <ReactMarkdown 
                           remarkPlugins={[remarkGfm, remarkBreaks, remarkMath]}
                           rehypePlugins={[rehypeKatex]}
+                          components={{
+                            pre({ children, ...props }: any) {
+                              // Check if the child is a <code class="language-chart"> block
+                              const child = Array.isArray(children) ? children[0] : children;
+                              if (child?.props?.className?.includes('language-chart')) {
+                                const raw = String(child.props.children).replace(/\n$/, '');
+                                try {
+                                  const config = JSON.parse(raw) as ChartConfig;
+                                  return <DynamicChart config={config} />;
+                                } catch {
+                                  return (
+                                    <div style={{ color: '#e11d48', border: '1px solid #fca5a5', borderRadius: '8px', padding: '12px', fontSize: '13px' }}>
+                                      ⚠️ Failed to render chart. Raw data:<br />
+                                      <pre style={{ fontSize: '11px', marginTop: '8px', overflowX: 'auto' }}>{raw}</pre>
+                                    </div>
+                                  );
+                                }
+                              }
+                              return <pre {...props}>{children}</pre>;
+                            },
+                            table: MarkdownTable
+                          }}
                         >
                           {preprocessMath(msg.content)}
                         </ReactMarkdown>
