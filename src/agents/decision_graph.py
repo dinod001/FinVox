@@ -31,7 +31,7 @@ def guardrail_node(state: DecisionState) -> Dict[str, Any]:
     """Runs the guardrail check."""
     logger.info("Running guardrail check...")
     try:
-        is_in_scope = check_guardrail(state["message"])
+        is_in_scope = check_guardrail(state["message"], state.get("memory_context", ""))
     except Exception as e:
         logger.warning(f"Guardrail failed, defaulting to in-scope: {e}")
         is_in_scope = True
@@ -58,7 +58,9 @@ def decide_node(state: DecisionState) -> Dict[str, Any]:
     primary = decisions[0] if decisions else {"route": "general"}
     primary_route = primary.get("route", "general")
     
-    if not in_scope:
+    # If guardrail fails, but router confidently found a specialized financial route 
+    # (using its memory context and reasoning), trust the router.
+    if not in_scope and primary_route == "general":
         verdict = "out_of_scope"
         primary_route = "out_of_scope"
     else:

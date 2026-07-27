@@ -8,28 +8,103 @@
   overflow: hidden;
 }
 
-.global-sidebar {
-  width: 280px;
+/* Primary Sidebar (Thin, Icons Only + Labels) */
+.primary-sidebar {
+  width: 84px;
+  background: #0f172a; /* Dark background for primary sidebar */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 0;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.sidebar-header {
+  margin-bottom: 2rem;
+}
+
+.brand-logo-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+}
+
+.primary-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  align-items: center;
+}
+
+.primary-nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 64px;
+  gap: 0.25rem;
+  border-radius: 12px;
+  color: #94a3b8; /* Slate 400 */
+  transition: all 0.2s ease;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.primary-nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.primary-nav-link.active {
+  background: var(--crimson);
+  color: white;
+  box-shadow: 0 4px 12px rgba(225, 29, 72, 0.3);
+}
+
+.sidebar-footer {
+  margin-top: auto;
+}
+
+.btn-logout-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 64px;
+  gap: 0.25rem;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: all 0.2s;
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+.btn-logout-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f87171;
+}
+
+/* Secondary Sidebar (Chat History etc.) */
+.secondary-sidebar {
+  width: 260px;
   background: var(--sidebar-bg);
   border-right: 1px solid var(--border-light);
   display: flex;
   flex-direction: column;
-  padding: 1.5rem;
   flex-shrink: 0;
   transition: all 0.3s ease;
 }
 
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 2.5rem;
-}
-
-.brand-logo-img {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
+.secondary-sidebar-header {
+  padding: 1.5rem 1.5rem 1rem 1.5rem;
 }
 
 .sidebar-brand-text {
@@ -41,80 +116,20 @@
   letter-spacing: -0.5px;
 }
 
-/* Primary Navigation */
-.primary-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  margin-bottom: 2rem;
-}
-
-.nav-link {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  border-radius: 10px;
-  color: var(--text-muted);
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: all 0.2s ease;
-}
-
-.nav-link:hover {
-  background: rgba(15, 23, 42, 0.04);
-  color: var(--text-main);
-}
-
-.nav-link.active {
-  background: var(--crimson-light);
-  color: var(--crimson);
-}
-
-/* Dynamic Sidebar Content */
-.dynamic-sidebar-content {
+.secondary-sidebar-content {
   flex: 1;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-  margin-bottom: 1rem;
+  padding: 0 1.5rem 1.5rem 1.5rem;
 }
-.dynamic-sidebar-content::-webkit-scrollbar {
+
+.secondary-sidebar-content::-webkit-scrollbar {
   width: 4px;
 }
-.dynamic-sidebar-content::-webkit-scrollbar-thumb {
+.secondary-sidebar-content::-webkit-scrollbar-thumb {
   background-color: var(--border-light);
   border-radius: 4px;
-}
-
-/* Footer */
-.sidebar-footer {
-  margin-top: auto;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border-light);
-}
-
-.btn-logout {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.8rem;
-  border: none;
-  background: transparent;
-  color: var(--text-main);
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: all 0.2s;
-}
-
-.btn-logout:hover {
-  background: #f1f5f9;
-  color: var(--crimson);
 }
 
 /* Main Content Area */
@@ -128,15 +143,14 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 1400px) {
-  .global-sidebar {
-    width: 250px;
-    padding: 1.25rem;
-  }
-}
-
 @media (max-width: 992px) {
-  .global-sidebar {
+  .primary-sidebar {
     display: none;
+  }
+  .secondary-sidebar {
+    position: absolute;
+    height: 100%;
+    z-index: 20;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.05);
   }
 }

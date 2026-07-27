@@ -131,7 +131,24 @@ class AgentOrchestrator:
         
         memory_context = state.get("memory_context", "")
 
-        system_content = f"{system_prompt}\n\n=== MEMORY CONTEXT ===\n{memory_context}"
+        chart_instruction = """
+=== CHART GENERATION ===
+If the user asks for a chart, graph, or visual representation, OR if you believe the numerical data is best presented visually (e.g. expenses, trends), output a JSON block wrapped in ```chart
+Format EXACTLY like this:
+```chart
+{
+  "type": "bar",
+  "title": "Chart Title",
+  "data": [
+    {"name": "Label1", "value": 100},
+    {"name": "Label2", "value": 200}
+  ]
+}
+```
+Valid types: "bar", "line", "pie". The "name" field is the label.
+"""
+
+        system_content = f"{system_prompt}\n\n=== MEMORY CONTEXT ===\n{memory_context}\n\n{chart_instruction}"
         if tool_output:
             system_content += f"\n\n=== TOOL OUTPUT ===\n{tool_output}"
 
@@ -252,7 +269,23 @@ class AgentOrchestrator:
             combined_tool_output += f"=== {route} AGENT RESULT ===\n{answer}\n\n"
 
         system_prompt = "You are FinVox. Consolidate the following agent responses into a single, cohesive, and natural reply to the user. Do not explicitly say 'Agent X said this', just provide a unified financial answer."
-        system_content = f"{system_prompt}\n\n=== AGENT RESULTS TO MERGE ===\n{combined_tool_output}"
+        chart_instruction = """
+=== CHART GENERATION ===
+If the agent results contain a ```chart block, you MUST preserve it in your final answer exactly as is. If you believe the consolidated data is better presented as a chart, you can generate a JSON block wrapped in ```chart
+Format EXACTLY like this:
+```chart
+{
+  "type": "bar",
+  "title": "Chart Title",
+  "data": [
+    {"name": "Label1", "value": 100},
+    {"name": "Label2", "value": 200}
+  ]
+}
+```
+Valid types: "bar", "line", "pie". The "name" field is the label.
+"""
+        system_content = f"{system_prompt}\n\n=== AGENT RESULTS TO MERGE ===\n{combined_tool_output}\n\n{chart_instruction}"
 
         messages = [
             SystemMessage(content=system_content),

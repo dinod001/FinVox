@@ -73,6 +73,10 @@ graph TD
 - **Embeddings:** HuggingFace Sentence Transformers (`bge-large-en-v1.5`)
 - **Voice Pipeline:** LiveKit, Deepgram, ElevenLabs
 
+## 🔮 Future Enhancements
+
+- **On-the-Fly API Fetching (Real-time Tool Calling):** Direct integration with external accounting and BI software (e.g., QuickBooks, Xero, Power BI) via REST APIs. Instead of storing large datasets natively, FinVox will utilize dynamic AI tool calling to fetch live financial reports and ledger data directly from these third-party APIs upon user request. This eliminates data duplication, reduces storage costs, and guarantees 100% real-time data accuracy.
+
 ## 🎓 Academic Context
 
 This project is developed by **Dinod Imanjith Withanawasam** (Student ID: KD/BSCSD/21/28 | Cardiff Met ID: st20312099) as part of the BSc (Hons) in Software Engineering program.

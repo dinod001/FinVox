@@ -21,6 +21,9 @@ IN-SCOPE — the assistant should help with ANY of the following, even if implic
   • Conversational fillers, thinking words, and pauses (e.g., "umm", "let me check", "wait a second", "I don't know").
   • Be highly permissive: if a query can be even loosely interpreted as analyzing business data, making a business decision, or exploring business concepts, it is IN-SCOPE.
 
+CRITICAL CONTEXT RULE:
+If the user's message is a short fragment or follow-up question (e.g., "can you give me number", "what about the other one", "show it to me"), you MUST read the "RECENT CONVERSATION CONTEXT". If the ongoing conversation is about finance or data analysis, you MUST classify the fragment as IN-SCOPE. Do not reject fragments as gibberish if they make sense in context.
+
 OUT-OF-SCOPE — politely refuse ONLY IF it is completely unrelated to business, data, or finance:
   • General world knowledge (presidents, capitals, celebrities, politics, general science trivia).
   • Medical advice, generic weather, sports scores.
@@ -60,15 +63,15 @@ Examples:
 # ── 3. Langchain Setup ────────────────────────────────────────────────────────
 
 GUARDRAIL_PROMPT = PromptTemplate(
-    template="{system}\n\n{examples}\n\nUSER: \"{query}\"\nDECISION:",
-    input_variables=["query"],
+    template="{system}\n\n{examples}\n\n=== RECENT CONVERSATION CONTEXT ===\n{memory_context}\n\nUSER: \"{query}\"\nDECISION:",
+    input_variables=["query", "memory_context"],
     partial_variables={
         "system": _GUARDRAIL_SYSTEM,
         "examples": _GUARDRAIL_EXAMPLES
     }
 )
 
-def check_guardrail(user_message: str) -> bool:
+def check_guardrail(user_message: str, memory_context: str = "") -> bool:
     """
     Checks if the user's message is within the FinVox domain.
     Returns True if in-scope, False if out-of-scope.
@@ -79,7 +82,7 @@ def check_guardrail(user_message: str) -> bool:
         
         chain = GUARDRAIL_PROMPT | llm | StrOutputParser()
         
-        result: str = chain.invoke({"query": user_message})
+        result: str = chain.invoke({"query": user_message, "memory_context": memory_context})
         
         # Clean the output string
         result_clean = result.strip().lower()

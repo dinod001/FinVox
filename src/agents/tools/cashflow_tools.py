@@ -33,6 +33,9 @@ IMPORTANT RULES:
 2. The query MUST start with SELECT.
 3. Be mindful of PostgreSQL syntax for casting strings to numeric if necessary.
 4. Always use ILIKE or LOWER() for string comparisons to avoid case-sensitivity bugs (e.g. LOWER(transaction_type) = 'credit').
+5. DO NOT return thousands of raw rows. ALWAYS aggregate data (e.g. SUM, COUNT, GROUP BY) when analyzing large periods, or use LIMIT for top N queries.
+6. NEVER calculate totals or perform arithmetic yourself! You MUST write SQL to do the math (e.g., using SUM, COUNT, GROUP BY).
+   - Carefully inspect the schema and data types. If expenses/debits are already stored as negative numbers, do not subtract them again when calculating net flows. 
 """
         )
 
@@ -45,7 +48,9 @@ I executed a database query to find the answer. Here are the raw results from th
 {db_results}
 
 Based on these results, provide a clear, natural, and concise answer to the user's question.
-If the results say "No data found", inform the user politely. Do not mention SQL or databases in your final answer.
+IMPORTANT RULES:
+1. If the results say "No data found", inform the user politely. Do not mention SQL or databases.
+2. If the result contains financial amounts, ALWAYS format them using 'LKR' or 'Rs.' (e.g., LKR 150,000). DO NOT use the $ symbol unless explicitly asked.
 """
         )
 
@@ -128,8 +133,12 @@ If the results say "No data found", inform the user politely. Do not mention SQL
                     db_results = "No data found matching the query."
                 else:
                     columns = result.keys()
-                    db_results = str([dict(zip(columns, row)) for row in rows])
-                log.info(f"SQL returned {len(rows)} rows.")
+                    max_rows = 50
+                    dict_rows = [dict(zip(columns, row)) for row in rows[:max_rows]]
+                    db_results = str(dict_rows)
+                    if len(rows) > max_rows:
+                        db_results += f"\n\n[NOTE: Output truncated. The query returned {len(rows)} rows, but only the first {max_rows} are shown here to prevent memory overload. Please refine the SQL query using aggregation (SUM, COUNT) or LIMIT.]"
+                log.info(f"SQL returned {len(rows)} rows. Passed {min(len(rows), max_rows)} to LLM.")
         except Exception as e:
             log.error(f"SQL execution error: {e}")
             return f"Database error while executing the query: {str(e)}"

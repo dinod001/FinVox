@@ -111,6 +111,8 @@ class IngestionPipeline:
 
         # 4. UPSERT TO QDRANT
         log.info("Step 4: Upserting into Qdrant database...")
+        ensure_collection(collection_name=QDRANT_COLLECTION_NAME)
+        
         try:
             upserted_count = upsert_chunks(
                 chunks=chunks,

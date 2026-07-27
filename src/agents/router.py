@@ -47,8 +47,8 @@ CRITICAL: The rewritten query MUST be optimized for the specific tool. For examp
 CRITICAL: If routing to data-driven tools (cashflow, market, investment), you MUST replace relative time expressions (e.g., "this month") with absolute dates (e.g., "July 2026") using the Current Date provided. However, for 'general' conversation, keep natural words like "tomorrow" or "next week" as they are.
 
 Valid Routes:
-- general    : For greetings, small talk, normal conversation, or if the user is just answering a question.
-- cashflow   : For questions about future cash flow, liquidity, income/expense predictions, or upcoming bills.
+- general    : For greetings, small talk, non-financial queries, or if the user is just answering a simple question. DO NOT use this for ANY financial explanations.
+- cashflow   : For ANY questions, reasons, or explanations about cash flow, inflows, outflows, income, expenses, debits, credits, balances, or analyzing financial data trends.
 - rag        : For questions asking to read, analyze, or summarize uploaded documents, invoices, or past PDF reports.
 - investment : For questions about how to invest surplus money, risk management, or portfolio advice.
 - market     : For live stock market data, forex rates, or current economic news (e.g., Yahoo Finance, CSE).
