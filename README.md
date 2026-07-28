@@ -28,39 +28,57 @@
 ## 🏗️ System Architecture
 
 ```mermaid
-graph TD
-    User([SME User]) <--> |Voice / Text| Frontend[React / Tailwind]
-    Frontend <--> |WebRTC / HTTP API| Backend[FastAPI Backend]
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#ffffff', 'primaryBorderColor': '#cbd5e1', 'lineColor': '#94a3b8', 'fontFamily': 'Inter, sans-serif'}}}%%
+graph LR
+    %% Styling Classes
+    classDef user fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px,color:#fff,rx:20,ry:20,font-weight:bold
+    classDef frontend fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff,rx:8,ry:8,font-weight:bold
+    classDef backend fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff,rx:8,ry:8,font-weight:bold
+    classDef db fill:#f59e0b,stroke:#d97706,stroke-width:2px,color:#fff,rx:5,ry:5,font-weight:bold
+    classDef agent fill:#ef4444,stroke:#dc2626,stroke-width:2px,color:#fff,rx:8,ry:8,font-weight:bold
+    classDef pipeline fill:#64748b,stroke:#475569,stroke-width:2px,color:#fff,rx:8,ry:8
 
-    subgraph Data Ingestion Pipeline
-        RawFiles[PDF / CSV Invoices] --> Ingester[Ingester]
-        Ingester --> |pymupdf4llm| Chunker[Semantic Chunkers]
-        Chunker --> |JSON / Parent-Child| Embedder[HuggingFace Embeddings]
-        Embedder --> |1024d Vectors| Qdrant[(Qdrant Cloud)]
+    %% Core Flow
+    User((🧑‍💼 SME User)):::user <-->|Voice & Text| UI[💻 React + Tailwind]:::frontend
+    UI <-->|WebRTC / HTTP| API[⚙️ FastAPI Backend]:::backend
+
+    %% Data Pipeline
+    subgraph Data Ingestion
+        direction TB
+        Raw[📄 PDF/CSV] --> Ingest[Ingester]:::pipeline
+        Ingest --> Chunk[✂️ Semantic Chunkers]:::pipeline
+        Chunk --> Embed[🧠 HF Embeddings]:::pipeline
+        Embed --> Qdrant1[(Qdrant Cloud)]:::db
     end
 
-    subgraph AI Brain
-        Backend --> Orchestrator[LangGraph Orchestrator]
+    %% AI Brain & Agents
+    subgraph AI Brain & Routing
+        direction TB
+        Orchestrator[🧠 LangGraph Orchestrator]:::agent
         
+        %% Memory Subsystem
         subgraph Memory Subsystem
-            Orchestrator --> MemManager[Memory Manager]
-            MemManager --> ST[(Supabase: chat_messages)]
-            MemManager --> LT[(pgvector: mem_vectors)]
-            MemManager --> Episodic[(pgvector: mem_episodes)]
+            MemMgr[💾 Memory Manager]:::pipeline
+            MemMgr --> ST[(Supabase: chat_messages)]:::db
+            MemMgr --> LT[(pgvector: mem_vectors)]:::db
         end
         
-        Orchestrator <--> |OpenAI| LLM[LLM: GPT-4o / GPT-4o-mini]
-        Orchestrator <--> Agent1[Document Agent: CAG + CRAG]
-        Orchestrator <--> Agent2[Cash Flow Forecast Agent]
-        Orchestrator <--> Agent3[Market Research Agent]
-        Orchestrator <--> Agent4[Investment Advisor Agent]
-        Agent1 --> |Cache Hit| CAGCache[(Qdrant: CAG Cache)]
-        Agent1 --> |Cache Miss| Qdrant
+        Orchestrator --> MemMgr
+        Orchestrator <-->|OpenAI API| LLM[🤖 GPT-4o / Mini]:::agent
+        
+        Orchestrator <--> A1[📄 Document Agent]:::agent
+        Orchestrator <--> A2[📈 Cash Flow Agent]:::agent
+        Orchestrator <--> A3[🌍 Market Agent]:::agent
+        Orchestrator <--> A4[💼 Investment Agent]:::agent
     end
 
-    Agent1 <--> Qdrant
-    Agent2 <--> Supabase[(Supabase PostgreSQL)]
-    Agent3 <--> ExternalAPIs[External APIs: Yahoo/CSE]
+    API --> Data Ingestion
+    API --> AI Brain & Routing
+    
+    %% External Connections
+    A1 <--> Qdrant1
+    A2 <--> Supabase2[(🐘 Supabase PostgreSQL)]:::db
+    A3 <--> ExtAPI[🌐 CSE/Yahoo APIs]:::backend
 ```
 ## 🛠️ Technology Stack
 
