@@ -50,10 +50,10 @@ CRITICAL: If routing to data-driven tools (cashflow, market, investment), you MU
 
 Valid Routes:
 - general    : For greetings, small talk, non-financial queries, or if the user is just answering a simple question. DO NOT use this for ANY financial explanations.
-- cashflow   : For ANY questions about cash flow, ledgers, inflows, outflows, income, expenses, debits, credits, balances, or calculating category totals over time (e.g., "total salary", "total retainer fee") from the SQL database. DO NOT use RAG for these general aggregations.
-- rag        : For questions about specific entities, vendors, policies, contracts, or specific bills/invoices (e.g., "How much was the LankaTech bill?", "Who is our cloud provider?", "What are the payment terms?"). You can route to RAG even if the user doesn't say "document", as long as the question requires extracting specific details, text, or vendor data that isn't just a high-level category total.
+- cashflow   : For ANY questions about datasets, CSV tables, cash flow, ledgers, inflows, outflows, or SQL calculations. CRITICAL: Default to this route for ANY analytical questions about companies, Earnings Per Share (EPS), Market Cap, or other financial metrics, as these should be queried from the user's uploaded SQL datasets.
+- rag        : For questions about specific entities, vendors, policies, contracts, or specific bills/invoices. DO NOT route here if the user is asking about a structured CSV dataset or table. Use this mainly for PDFs, documents, or knowledge retrieval.
 - investment : For questions about how to invest surplus money, risk management, or portfolio advice.
-- market     : For live stock market data, forex rates, or current economic news (e.g., Yahoo Finance, CSE).
+- market     : STRICTLY ONLY for explicitly requested LIVE stock prices, current exchange rates (forex), gold prices, or breaking news from the internet (e.g., "What is the live price of Apple?", "Current USD to LKR rate?"). DO NOT route general questions about company EPS or Market Cap here; those belong in cashflow.
 
 {format_instructions}
 
@@ -77,6 +77,7 @@ Analyze the message and context, then output the routes, rewritten queries, and 
         Routes the query to the appropriate agent and rewrites the query using memory context.
         """
         from datetime import datetime
+        
         try:
             chain = self.prompt | self.llm | self.parser
             result: RouteDecision = chain.invoke({

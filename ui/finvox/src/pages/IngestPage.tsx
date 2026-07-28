@@ -217,19 +217,19 @@ const IngestPage: React.FC = () => {
           <h3 className="section-title">Or connect your accounting & BI software</h3>
           <div className="integrations-grid">
             <div className="integration-card">
+              <div className="integration-logo" style={{ background: '#f2c811', color: 'black' }}>BI</div>
+              <div className="integration-name">Power BI</div>
+              <div className="integration-status">Connect</div>
+            </div>
+            <div className="integration-card">
               <div className="integration-logo" style={{ background: '#2ca01c' }}>qb</div>
               <div className="integration-name">QuickBooks</div>
-              <div className="integration-status">Connect</div>
+              <div className="integration-status muted">Coming soon</div>
             </div>
             <div className="integration-card">
               <div className="integration-logo" style={{ background: '#13b5ea' }}>X</div>
               <div className="integration-name">Xero</div>
-              <div className="integration-status">Connect</div>
-            </div>
-            <div className="integration-card">
-              <div className="integration-logo" style={{ background: '#f2c811', color: 'black' }}>BI</div>
-              <div className="integration-name">Power BI</div>
-              <div className="integration-status">Connect</div>
+              <div className="integration-status muted">Coming soon</div>
             </div>
             <div className="integration-card">
               <div className="integration-logo" style={{ background: '#fce7f3', color: '#f472b6' }}>•••</div>

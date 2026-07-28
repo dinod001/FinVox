@@ -85,6 +85,8 @@ class IngestFile:
             raw = f.read(10_000)
         result = chardet.detect(raw)
         encoding = result.get('encoding', 'utf-8') or 'utf-8'
+        if encoding.lower() == 'ascii':
+            encoding = 'utf-8'
         log.info(f"Detected file encoding: {encoding} (confidence: {result.get('confidence', 0):.0%})")
         return encoding
 
