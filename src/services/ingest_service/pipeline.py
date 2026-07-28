@@ -83,6 +83,14 @@ class IngestionPipeline:
             
             if not result.get("success"):
                 return {"success": False, "error": result.get("error")}
+            
+            # Invalidate the CashflowTool schema cache so next query picks up the new table
+            try:
+                from src.agents.tools.cashflow_tools import invalidate_table_context_cache
+                invalidate_table_context_cache()
+            except Exception:
+                pass
+
                 
             return {
                 "success": True,

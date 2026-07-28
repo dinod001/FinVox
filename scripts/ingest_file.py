@@ -215,10 +215,17 @@ class IngestFile:
                     continue
                 if sample.apply(lambda x: bool(_DATE_PATTERN.match(str(x)))).any():
                     try:
-                        df[col] = pd.to_datetime(df[col], errors='coerce', dayfirst=True)
-                        log.info(f"Parsed date column: '{col}'")
-                    except Exception:
-                        pass
+                        # Check if the date starts with 4 digits (YYYY-MM-DD)
+                        starts_with_year = sample.iloc[0][:4].isdigit() and len(sample.iloc[0]) >= 4 and sample.iloc[0][4] in ['-', '/']
+                        
+                        if starts_with_year:
+                            df[col] = pd.to_datetime(df[col], errors='coerce')
+                        else:
+                            df[col] = pd.to_datetime(df[col], errors='coerce', dayfirst=True)
+                            
+                        log.info(f"Parsed date column: '{col}' (starts_with_year={starts_with_year})")
+                    except Exception as e:
+                        log.warning(f"Failed to parse date column '{col}': {e}")
 
             # Pass 3: Currency detection and cleaning
             for col in text_cols:

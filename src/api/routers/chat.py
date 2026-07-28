@@ -83,6 +83,11 @@ async def _run_chat_pipeline(
         await emit({"type": "tool_invoke", "route": "out_of_scope", "action": None, "label": tool_label("out_of_scope")})
         await emit({"type": "tool_done", "route": "out_of_scope", "action": None, "ms": 0, "summary": "Declined by guardrail"})
         
+        # Emitting tokens for the frontend to show the message immediately
+        for word in OUT_OF_SCOPE_REPLY.split(" "):
+            await emit({"type": "token", "content": word + " "})
+            await asyncio.sleep(0.02)  # Tiny delay for smooth typing effect
+            
         # Background Memory Save
         background.add_task(_save_memory_bg, orchestrator, req.user_id, req.session_id, req.message, OUT_OF_SCOPE_REPLY)
         background.add_task(touch_session_sync, req.user_id, req.session_id)
@@ -180,10 +185,10 @@ Valid types: "bar", "line", "pie". The "name" field is the label.
     system_prompt = (
         "You are FinVox, an expert SME Financial Assistant.\n"
         "IMPORTANT FORMATTING RULES: Whenever you present numerical data, breakdowns, financial projections, or comparative information, ALWAYS format it using clean Markdown Tables to make it easy for the user to read.\n\n"
-        f"=== MEMORY CONTEXT ===\n{memory_context}\n{kpi_context}\n\n{chart_instruction}"
+        f"=== MEMORY CONTEXT ===\n{memory_context}{kpi_context}\n\n{chart_instruction}"
     )
     if tool_output:
-        system_prompt += f"\n\n=== TOOL OUTPUT ===\n{tool_output}\n\nUse the tool output above to accurately answer the user's query."
+        system_prompt += f"\n\n=== TOOL OUTPUT ===\n{tool_output}\n\nCRITICAL RULE: Use the tool output above to accurately answer the user's query. If the TOOL OUTPUT contradicts any information found in the MEMORY CONTEXT (e.g. from previous chat history), ALWAYS trust the TOOL OUTPUT. The tool output is the absolute ground truth. Do not combine old numbers from memory with new numbers from the tool output."
         
     messages = [
         SystemMessage(content=system_prompt),

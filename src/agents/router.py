@@ -50,8 +50,8 @@ CRITICAL: If routing to data-driven tools (cashflow, market, investment), you MU
 
 Valid Routes:
 - general    : For greetings, small talk, non-financial queries, or if the user is just answering a simple question. DO NOT use this for ANY financial explanations.
-- cashflow   : For ANY questions, reasons, or explanations about cash flow, inflows, outflows, income, expenses, debits, credits, balances, or analyzing financial data trends. (DO NOT use for math/calculations if the numbers come exclusively from an uploaded document/invoice).
-- rag        : For questions asking to read, analyze, summarize, OR calculate/compare values strictly from uploaded documents, invoices, or past PDF reports.
+- cashflow   : For ANY questions about cash flow, ledgers, inflows, outflows, income, expenses, debits, credits, balances, or calculating category totals over time (e.g., "total salary", "total retainer fee") from the SQL database. DO NOT use RAG for these general aggregations.
+- rag        : For questions about specific entities, vendors, policies, contracts, or specific bills/invoices (e.g., "How much was the LankaTech bill?", "Who is our cloud provider?", "What are the payment terms?"). You can route to RAG even if the user doesn't say "document", as long as the question requires extracting specific details, text, or vendor data that isn't just a high-level category total.
 - investment : For questions about how to invest surplus money, risk management, or portfolio advice.
 - market     : For live stock market data, forex rates, or current economic news (e.g., Yahoo Finance, CSE).
 
