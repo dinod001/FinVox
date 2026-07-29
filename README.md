@@ -25,6 +25,9 @@
   - **Short-Term Memory (Working Memory):** High-speed ring buffer maintaining immediate conversation context (last 30 turns).
   - **Long-Term Memory (Factual Recall):** Extracts and persists core user facts seamlessly into Supabase `pgvector` using a hyper-efficient Vector-First Overwrite logic (0 LLM overhead for updates).
   - **Episodic Memory (Session Summaries):** Distills complete conversations into semantic episodes with automatic time-decay (TTL).
+- **Business Intelligence & Analytics UI:**
+  - **KPI Management:** Custom interface to create, track, and evaluate financial KPIs using dynamic SQL formulas.
+  - **Power BI Integration:** A dedicated full-screen Visualization module for embedding Power BI "Publish to Web" dashboards seamlessly within the FinVox platform. Includes a built-in guide for PDF exporting bypassing CORS limitations.
 ## 🏗️ System Architecture
 
 ```mermaid
@@ -72,9 +75,8 @@ graph LR
         Orchestrator <--> A4[💼 Investment Agent]:::agent
     end
 
-    API --> Data Ingestion
-    API --> AI Brain & Routing
-    
+    API --> Raw
+    API --> Orchestrator
     %% External Connections
     A1 <--> Qdrant1
     A2 <--> Supabase2[(🐘 Supabase PostgreSQL)]:::db
