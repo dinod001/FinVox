@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, MessageSquare, Database, LogOut, PanelLeftClose, PanelLeft, TrendingUp } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, Database, LogOut, PanelLeftClose, PanelLeft, TrendingUp, BarChart2 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import './AppLayout.css';
 
@@ -41,6 +41,10 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, sidebarContent }) => {
           <NavLink to="/ingest" className={({ isActive }) => `primary-nav-link ${isActive ? 'active' : ''}`} title="Data Ingest">
             <Database size={22} />
             <span>Ingest</span>
+          </NavLink>
+          <NavLink to="/visualize" className={({ isActive }) => `primary-nav-link ${isActive ? 'active' : ''}`} title="Visualize">
+            <BarChart2 size={22} />
+            <span>Visualize</span>
           </NavLink>
         </div>
 
