@@ -6,6 +6,9 @@ import { useIngestion } from '../contexts/IngestionContext';
 import './IngestPage.css';
 
 const IngestPage: React.FC = () => {
+  const [showPbiModal, setShowPbiModal] = useState(false);
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
+  const [pbiUrl, setPbiUrl] = useState(localStorage.getItem('powerbi_embed_url') || '');
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [description, setDescription] = useState('');
@@ -216,10 +219,12 @@ const IngestPage: React.FC = () => {
 
           <h3 className="section-title">Or connect your accounting & BI software</h3>
           <div className="integrations-grid">
-            <div className="integration-card">
+            <div className="integration-card" style={{ cursor: 'pointer', border: pbiUrl ? '1px solid #10b981' : undefined }} onClick={() => setShowPbiModal(true)}>
               <div className="integration-logo" style={{ background: '#f2c811', color: 'black' }}>BI</div>
               <div className="integration-name">Power BI</div>
-              <div className="integration-status">Connect</div>
+              <div className="integration-status" style={{ color: pbiUrl ? '#10b981' : undefined }}>
+                {pbiUrl ? 'Connected' : 'Connect'}
+              </div>
             </div>
             <div className="integration-card">
               <div className="integration-logo" style={{ background: '#2ca01c' }}>qb</div>
@@ -237,6 +242,72 @@ const IngestPage: React.FC = () => {
               <div className="integration-status muted">Coming soon</div>
             </div>
           </div>
+          
+          {/* Power BI Connection Modal */}
+          {showPbiModal && (
+            <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
+              <div style={{ background: 'white', padding: '2rem', borderRadius: '16px', width: '90%', maxWidth: '500px', boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)' }}>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#111827', marginBottom: '1rem' }}>Connect Power BI</h3>
+                <p style={{ color: '#6b7280', fontSize: '0.95rem', marginBottom: '1.5rem' }}>Paste your Power BI "Publish to Web" Embed URL below to display your dashboard in FinVox.</p>
+                <input 
+                  type="text" 
+                  placeholder="https://app.powerbi.com/view?r=..." 
+                  value={pbiUrl}
+                  onChange={(e) => setPbiUrl(e.target.value)}
+                  style={{ width: '100%', padding: '0.75rem 1rem', border: '1px solid #e5e7eb', borderRadius: '8px', marginBottom: '1.5rem', outline: 'none', fontSize: '0.95rem' }}
+                />
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  {localStorage.getItem('powerbi_embed_url') ? (
+                    <button 
+                      onClick={() => {
+                        localStorage.removeItem('powerbi_embed_url');
+                        setPbiUrl('');
+                        setShowPbiModal(false);
+                      }}
+                      style={{ padding: '0.5rem 1rem', background: '#fee2e2', border: '1px solid #f87171', borderRadius: '6px', color: '#b91c1c', cursor: 'pointer', fontWeight: 600, fontSize: '0.9rem' }}
+                    >
+                      Remove Connection
+                    </button>
+                  ) : (
+                    <div></div>
+                  )}
+                  <div style={{ display: 'flex', gap: '1rem' }}>
+                    <button 
+                      onClick={() => setShowPbiModal(false)}
+                      style={{ padding: '0.5rem 1.25rem', background: 'transparent', border: '1px solid #e5e7eb', borderRadius: '6px', color: '#374151', cursor: 'pointer', fontWeight: 600 }}
+                    >
+                      Cancel
+                    </button>
+                    <button 
+                      onClick={() => {
+                        localStorage.setItem('powerbi_embed_url', pbiUrl);
+                        setShowPbiModal(false);
+                        setShowSuccessToast(true);
+                        setTimeout(() => setShowSuccessToast(false), 2500);
+                      }}
+                      style={{ padding: '0.5rem 1.25rem', background: '#111827', border: 'none', borderRadius: '6px', color: 'white', cursor: 'pointer', fontWeight: 600 }}
+                    >
+                      Connect
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Success Toast Overlay */}
+          {showSuccessToast && (
+            <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, background: 'rgba(248, 250, 252, 0.4)', zIndex: 1999, backdropFilter: 'blur(8px)' }}>
+              <div className="success-toast">
+                <div className="success-icon-wrapper">
+                  <CheckCircle2 size={44} strokeWidth={2.5} />
+                </div>
+                <h2 style={{ color: '#064e3b', fontSize: '1.75rem', fontWeight: 800, margin: '0 0 0.5rem 0', letterSpacing: '-0.5px' }}>Integration Successful</h2>
+                <p style={{ color: '#059669', fontSize: '1.05rem', margin: 0, fontWeight: 500 }}>Your Power BI Dashboard is now connected.</p>
+              </div>
+            </div>
+          )}
+
         </div>
 
       </div>

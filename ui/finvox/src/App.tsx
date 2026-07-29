@@ -7,6 +7,8 @@ import DashboardPage from './pages/DashboardPage';
 import IngestPage from './pages/IngestPage';
 import { AuthProvider } from './contexts/AuthContext';
 import { IngestionProvider } from './contexts/IngestionContext';
+import VisualizePage from './pages/VisualizePage';
+import PrintDashboardPage from './pages/PrintDashboardPage';
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/chat" element={<ChatPage />} />
             <Route path="/ingest" element={<IngestPage />} />
+            <Route path="/visualize" element={<VisualizePage />} />
+            <Route path="/print-dashboard" element={<PrintDashboardPage />} />
             {/* Redirect unknown routes to home */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
