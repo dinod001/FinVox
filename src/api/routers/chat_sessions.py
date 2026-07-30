@@ -63,10 +63,12 @@ def touch_session_sync(user_id: str, session_id: str) -> None:
 
 @router.get("", response_model=ChatSessionListResponse)
 async def list_sessions(
+    request: Request,
     user_id: str = Query(..., min_length=1, description="Username/user_id"),
     limit: int = Query(100, ge=1, le=500),
 ) -> ChatSessionListResponse:
     """List a user's chat sessions, newest activity first."""
+    engine = request.app.state.db_engine
     def _query():
         with engine.connect() as conn:
             sql = """
@@ -84,8 +86,9 @@ async def list_sessions(
 
 
 @router.post("", response_model=ChatSessionMeta, status_code=201)
-async def create_session(req: ChatSessionCreateRequest) -> ChatSessionMeta:
+async def create_session(request: Request, req: ChatSessionCreateRequest) -> ChatSessionMeta:
     """Create a new session row. A UUID is auto-generated."""
+    engine = request.app.state.db_engine
     def _insert():
         sid = _gen_session_id()
         title = req.title or _default_title()
@@ -113,8 +116,9 @@ async def create_session(req: ChatSessionCreateRequest) -> ChatSessionMeta:
 
 
 @router.patch("/{session_id}", response_model=ChatSessionMeta)
-async def update_session(session_id: str, req: ChatSessionUpdateRequest) -> ChatSessionMeta:
+async def update_session(request: Request, session_id: str, req: ChatSessionUpdateRequest) -> ChatSessionMeta:
     """Rename a chat session."""
+    engine = request.app.state.db_engine
     def _update():
         with engine.begin() as conn:
             sql = """
@@ -136,8 +140,9 @@ async def update_session(session_id: str, req: ChatSessionUpdateRequest) -> Chat
 
 
 @router.delete("/{session_id}")
-async def delete_session(session_id: str) -> dict:
+async def delete_session(request: Request, session_id: str) -> dict:
     """Hard-delete a session. Associated chat_messages are dropped via CASCADE."""
+    engine = request.app.state.db_engine
     def _delete():
         with engine.begin() as conn:
             sql = "DELETE FROM chat_sessions WHERE id = :sid"
@@ -152,8 +157,9 @@ async def delete_session(session_id: str) -> dict:
 
 
 @router.get("/{session_id}/messages")
-async def get_session_messages(session_id: str, limit: int = Query(100, ge=1, le=500)):
+async def get_session_messages(request: Request, session_id: str, limit: int = Query(100, ge=1, le=500)):
     """Fetch chat history for a session."""
+    engine = request.app.state.db_engine
     def _query():
         with engine.connect() as conn:
             sql = """

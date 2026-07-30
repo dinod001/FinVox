@@ -3,10 +3,9 @@ import time
 import os
 import jwt
 import bcrypt
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from sqlalchemy import text
 
-from src.infrastructure.db.crm_client import engine
 from src.api.schemas import UserRegisterRequest, UserLoginRequest, AuthResponse
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
@@ -39,8 +38,9 @@ def create_access_token(data: dict):
 # ── Endpoints ───────────────────────────────────────────────────────
 
 @router.post("/register", response_model=AuthResponse)
-async def register(req: UserRegisterRequest):
+async def register(request: Request, req: UserRegisterRequest):
     """Register a new user and return an access token."""
+    engine = request.app.state.db_engine
     hashed_password = get_password_hash(req.password)
     
     def _insert_user():
@@ -73,8 +73,9 @@ async def register(req: UserRegisterRequest):
 
 
 @router.post("/login", response_model=AuthResponse)
-async def login(req: UserLoginRequest):
+async def login(request: Request, req: UserLoginRequest):
     """Authenticate a user and return an access token."""
+    engine = request.app.state.db_engine
     def _verify_user():
         with engine.connect() as conn:
             # Check for matching username or email

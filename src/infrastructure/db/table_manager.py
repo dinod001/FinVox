@@ -79,6 +79,32 @@ def ensure_kpi_registry():
     except Exception as e:
         log.error(f"Failed to ensure kpi_registry: {e}")
 
+def ensure_deadline_registry():
+    """
+    Ensure the regulatory_deadlines table exists in Supabase.
+    This stores upcoming payment deadlines like EPF, ETF, VAT.
+    """
+    if not engine:
+        log.error("Database engine not initialized. Cannot create regulatory_deadlines.")
+        return
+        
+    create_table_sql = """
+    CREATE TABLE IF NOT EXISTS regulatory_deadlines (
+        id UUID PRIMARY KEY,
+        title TEXT NOT NULL,
+        due_date DATE NOT NULL,
+        recurring_type TEXT DEFAULT 'none',
+        description TEXT,
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
+    """
+    try:
+        with engine.begin() as conn:
+            conn.execute(text(create_table_sql))
+        log.info("✓ regulatory_deadlines checked/created successfully.")
+    except Exception as e:
+        log.error(f"Failed to ensure regulatory_deadlines: {e}")
+
 def save_dataframe_to_supabase(df: pd.DataFrame, filename: str, description: str = "") -> dict:
     """
     Save a pandas DataFrame directly as a native PostgreSQL table.

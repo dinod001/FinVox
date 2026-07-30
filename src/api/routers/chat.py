@@ -16,7 +16,7 @@ from src.api.event_labs import stage_label, tool_label
 
 router = APIRouter(prefix="/chat", tags=["Chat & Agents"])
 
-OUT_OF_SCOPE_REPLY = "I'm a specialized financial assistant for FinVox. I can help you with cash flow, investments, market data, and business documents. I cannot help with that request."
+OUT_OF_SCOPE_REPLY = "I'm a specialized financial assistant for FinVox. I can help you with cash flow, investments, market data, tax regulations, and business documents. I cannot help with that request."
 
 # Type alias for the event emitter
 EmitFn = Callable[[Dict[str, Any]], Awaitable[None]]
@@ -129,6 +129,12 @@ async def _run_chat_pipeline(
                 out = str(await asyncio.to_thread(orchestrator.market_tool.fetch_data, ["^GSPC", "LKR=X"]))
             elif route == "investment" and orchestrator.investment_tool:
                 out = str(await asyncio.to_thread(orchestrator.investment_tool.search, query))
+            elif route == "tax" and orchestrator.tax_tool:
+                results = await asyncio.to_thread(orchestrator.tax_tool.search, query)
+                out = "\n\n".join([
+                    f"Source: {r.get('url', 'Official Source')}\n{r.get('content', '')}"
+                    for r in results if not r.get("error")
+                ]) or "No results from official tax portals."
         except Exception as e:
             logger.warning(f"Tool dispatch failed for route {route}: {e}")
             out = f"Error running tool: {e}"
@@ -187,6 +193,13 @@ Valid types: "bar", "line", "pie". The "name" field is the label.
         "IMPORTANT FORMATTING RULES: Whenever you present numerical data, breakdowns, financial projections, or comparative information, ALWAYS format it using clean Markdown Tables to make it easy for the user to read.\n\n"
         f"=== MEMORY CONTEXT ===\n{memory_context}{kpi_context}\n\n{chart_instruction}"
     )
+    if "tax" in active_routes and tool_output:
+        system_prompt += (
+            "\n\n=== TAX COMPLIANCE INSTRUCTIONS ===\n"
+            "You have been provided with LIVE, OFFICIAL data fetched directly from the Sri Lanka Inland Revenue Department (ird.gov.lk) and other government tax portals. "
+            "Always cite the source URL when referencing a specific rate or rule. "
+            "If the data does not contain a direct answer, say so clearly and direct the user to https://www.ird.gov.lk."
+        )
     if tool_output:
         system_prompt += f"\n\n=== TOOL OUTPUT ===\n{tool_output}\n\nCRITICAL RULE: Use the tool output above to accurately answer the user's query. If the TOOL OUTPUT contradicts any information found in the MEMORY CONTEXT (e.g. from previous chat history), ALWAYS trust the TOOL OUTPUT. The tool output is the absolute ground truth. Do not combine old numbers from memory with new numbers from the tool output."
         

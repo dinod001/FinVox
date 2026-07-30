@@ -25,6 +25,33 @@ async def lifespan(app: FastAPI):
     Concurrently warms up DB, Embeddings, LLMs (Chat & Router), and Qdrant Vector DB 
     to eliminate cold-start latency for incoming user queries.
     """
+import asyncio
+import uuid
+from contextlib import asynccontextmanager
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy import text
+from loguru import logger
+
+# Import Core Infrastructure
+from src.infrastructure.db.crm_client import engine
+from src.infrastructure.db.qdrant_client import get_qdrant_client
+from src.infrastructure.llm.embeddings import get_embeddings
+from src.infrastructure.llm.llm_provider import get_chat_llm, get_router_llm
+from src.agents.orchestrator import AgentOrchestrator
+
+# Import Routers and Middleware
+from src.api.middleware import ProcessTimeMiddleware
+from src.api.routers import health, auth, chat_sessions, ingestion, chat
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """
+    Startup (Warmup) and Shutdown events.
+    Concurrently warms up DB, Embeddings, LLMs (Chat & Router), and Qdrant Vector DB 
+    to eliminate cold-start latency for incoming user queries.
+    """
     logger.info("Initializing FinVox Server Concurrent Warmup Sequence...")
 
     async def _warmup_db():
@@ -32,9 +59,10 @@ async def lifespan(app: FastAPI):
             with engine.connect() as conn:
                 conn.execute(text("SELECT 1"))
             # Ensure core utility tables exist
-            from src.infrastructure.db.table_manager import ensure_table_registry, ensure_kpi_registry
+            from src.infrastructure.db.table_manager import ensure_table_registry, ensure_kpi_registry, ensure_deadline_registry
             ensure_table_registry()
             ensure_kpi_registry()
+            ensure_deadline_registry()
             
         try:
             await asyncio.to_thread(_exec)
@@ -147,7 +175,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 # ── Routers Configuration ───────────────────────────────────────────
 
-from src.api.routers import health, auth, chat_sessions, ingestion, chat, management, kpis
+from src.api.routers import health, auth, chat_sessions, ingestion, chat, management, kpis, deadlines
 
 app.include_router(health.router)
 app.include_router(auth.router)
@@ -156,3 +184,4 @@ app.include_router(ingestion.router)
 app.include_router(chat.router)
 app.include_router(kpis.router)
 app.include_router(management.router)
+app.include_router(deadlines.router)

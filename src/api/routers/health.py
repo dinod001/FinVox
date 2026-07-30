@@ -1,14 +1,13 @@
 import asyncio
 import time
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from sqlalchemy import text
-from src.infrastructure.db.crm_client import engine
 from src.infrastructure.log import log
 
 router = APIRouter(prefix="/health", tags=["Health"])
 
 @router.get("")
-async def health_check():
+async def health_check(request: Request):
     """
     Basic health check endpoint.
     Verifies that the API is running and checks the database connection.
@@ -34,6 +33,7 @@ async def health_check():
         status["system"] = f"Error fetching system metrics: {str(e)}"
     
     # ── 2. Check Database Connection ───────────────────────────────────────
+    engine = request.app.state.db_engine
     def _check_db():
         if not engine:
             return "uninitialized"
@@ -54,7 +54,7 @@ async def health_check():
     return status
 
 @router.get("/metrics")
-async def get_dashboard_metrics():
+async def get_dashboard_metrics(request: Request):
     """
     Fetch live system metrics for the UI Dashboard:
     - Qdrant Vector Count
@@ -75,6 +75,7 @@ async def get_dashboard_metrics():
             return {"status": "unhealthy", "points_count": 0}
 
     async def _get_supabase_metrics():
+        engine = request.app.state.db_engine
         try:
             def _fetch():
                 if not engine:
