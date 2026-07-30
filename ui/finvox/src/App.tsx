@@ -9,27 +9,30 @@ import { AuthProvider } from './contexts/AuthContext';
 import { IngestionProvider } from './contexts/IngestionContext';
 import VisualizePage from './pages/VisualizePage';
 import PrintDashboardPage from './pages/PrintDashboardPage';
+import ServerBootScreen from './components/ServerBootScreen';
 
 function App() {
   return (
-    <AuthProvider>
-      <IngestionProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/chat" element={<ChatPage />} />
-            <Route path="/ingest" element={<IngestPage />} />
-            <Route path="/visualize" element={<VisualizePage />} />
-            <Route path="/print-dashboard" element={<PrintDashboardPage />} />
-            {/* Redirect unknown routes to home */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </Router>
-      </IngestionProvider>
-    </AuthProvider>
+    <ServerBootScreen>
+      <AuthProvider>
+        <IngestionProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/chat" element={<ChatPage />} />
+              <Route path="/ingest" element={<IngestPage />} />
+              <Route path="/visualize" element={<VisualizePage />} />
+              <Route path="/print-dashboard" element={<PrintDashboardPage />} />
+              {/* Redirect unknown routes to home */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Router>
+        </IngestionProvider>
+      </AuthProvider>
+    </ServerBootScreen>
   );
 }
 
