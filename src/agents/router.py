@@ -5,11 +5,11 @@ from src.infrastructure.llm.llm_provider import get_router_llm
 from src.infrastructure.log import log
 
 # Define valid routes
-VALID_ROUTES = ["general", "cashflow", "rag", "investment", "market"]
+VALID_ROUTES = ["general", "cashflow", "rag", "investment", "market", "tax"]
 
 class RouteItem(BaseModel):
     """A single routing decision for a specific agent."""
-    route: Literal["general", "cashflow", "rag", "investment", "market"] = Field(
+    route: Literal["general", "cashflow", "rag", "investment", "market", "tax"] = Field(
         description="The agent to route the query to. Use 'general' for normal conversation."
     )
     rewritten_query: str = Field(
@@ -54,6 +54,7 @@ Valid Routes:
 - rag        : For questions about specific entities, vendors, policies, contracts, or specific bills/invoices. DO NOT route here if the user is asking about a structured CSV dataset or table. Use this mainly for PDFs, documents, or knowledge retrieval.
 - investment : For questions about how to invest surplus money, risk management, or portfolio advice.
 - market     : STRICTLY ONLY for explicitly requested LIVE stock prices, current exchange rates (forex), gold prices, or breaking news from the internet (e.g., "What is the live price of Apple?", "Current USD to LKR rate?"). DO NOT route general questions about company EPS or Market Cap here; those belong in cashflow.
+- tax        : STRICTLY for any questions about tax rates, VAT, income tax, corporate tax, withholding tax, customs duties, tax compliance, tax filing deadlines, or tax regulations in Sri Lanka or any other country. This searches official government tax portals (ird.gov.lk, treasury.gov.lk, customs.gov.lk) for live, accurate tax data.
 
 {format_instructions}
 

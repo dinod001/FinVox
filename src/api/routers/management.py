@@ -1,20 +1,20 @@
 import asyncio
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from sqlalchemy import text
 from typing import List, Dict, Any
 
 from src.infrastructure.log import log
 from src.infrastructure.db.table_manager import delete_supabase_table
 from src.infrastructure.db.qdrant_client import delete_chunks_by_document_id, get_unique_documents
-from src.infrastructure.db.crm_client import engine
 
 router = APIRouter(prefix="/management", tags=["Data Management"])
 
 @router.get("/datasets")
-async def get_all_datasets():
+async def get_all_datasets(request: Request):
     """
     Fetch all user-uploaded datasets from both Supabase (Structured) and Qdrant (Unstructured).
     """
+    engine = request.app.state.db_engine
     async def _get_sql():
         try:
             def _fetch_sql():
@@ -53,10 +53,11 @@ async def get_all_datasets():
     }
 
 @router.delete("/sql/{table_id}")
-async def delete_sql_dataset(table_id: str):
+async def delete_sql_dataset(request: Request, table_id: str):
     """
     Delete a structured dataset (SQL Table) and its registry entry by ID.
     """
+    engine = request.app.state.db_engine
     result = await asyncio.to_thread(delete_supabase_table, table_id)
     if not result.get("success"):
         raise HTTPException(status_code=500, detail=result.get("error"))

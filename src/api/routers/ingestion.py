@@ -6,12 +6,11 @@ from pathlib import Path
 import tempfile
 import aiofiles
 
-from fastapi import APIRouter, UploadFile, File, Form, HTTPException
+from fastapi import APIRouter, UploadFile, File, Form, HTTPException, Request
 from sqlalchemy import text
 from src.services.ingest_service.pipeline import IngestionPipeline
 from src.api.schemas import IngestionResponse
 from src.infrastructure.log import log
-from src.infrastructure.db.crm_client import engine
 from src.infrastructure.db.table_manager import sanitize_table_name
 from src.infrastructure.db.qdrant_client import get_unique_documents
 
@@ -31,6 +30,7 @@ def get_pipeline() -> IngestionPipeline:
 
 @router.post("/upload", response_model=IngestionResponse)
 async def upload_file(
+    request: Request,
     file: UploadFile = File(...),
     user_id: str = Form(..., description="User uploading the file"),
     description: str = Form(..., description="Description of the file contents")
@@ -43,6 +43,7 @@ async def upload_file(
     
     # 0. Check if a dataset with this filename already exists
     filename = file.filename
+    engine = request.app.state.db_engine
     try:
         # Check Structured (Supabase)
         table_name = sanitize_table_name(filename)

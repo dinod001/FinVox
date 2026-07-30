@@ -11,6 +11,7 @@ Your job is to decide whether the user's message is within the assistant's domai
 
 IN-SCOPE — the assistant should help with ANY of the following, even if implicitly implied:
   • SME finance, cash flow, revenue, expenses, budgets, taxes, accounting, and ROI calculations.
+  • Tax rates, VAT rates, income tax, corporate tax, withholding tax, customs duties — for Sri Lanka OR any country. Knowing tax rates is a core business need.
   • General business operations, purchasing equipment, cost savings, production, and hiring (as these affect business finances).
   • Investments, stock market, fixed deposits, wealth management, and economic trends.
   • Data analysis, summarizing datasets, identifying highest/lowest values, and formatting data into tables or charts.
@@ -44,10 +45,15 @@ Examples:
   USER: "Calculate the ROI and payback period for a new machine." → in_scope
   USER: "What is my profit margin if I buy an oven for $5000?" → in_scope
   USER: "Give me a table summarizing the total expenses grouped by Category." → in_scope
+  USER: "can u tell me the current tax of sri lanka today ?" → in_scope
+  USER: "What is the current VAT rate in Sri Lanka?"      → in_scope
+  USER: "What is the corporate income tax rate in Sri Lanka 2024?" → in_scope
   USER: "Who is the president of the USA?"                → out_of_scope
   USER: "What's the weather in Colombo today?"            → out_of_scope
   USER: "Write a python script for machine learning."     → out_of_scope
   USER: "Tell me a joke about a duck."                    → out_of_scope
+  USER: "machna ape market, and invesrmen atharin lankawe tax sambadna hiyana kiyana hoda ekkena kawuda ??" → in_scope
+  USER: "Who are the best tax consultants in Sri Lanka?"  → in_scope
   USER: "100,000 rupees"                                  → in_scope
   USER: "yes, proceed"                                    → in_scope
   USER: "no, cancel that"                                 → in_scope

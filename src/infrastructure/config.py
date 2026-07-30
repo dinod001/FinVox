@@ -259,6 +259,14 @@ INVESTMENT_DOMAINS = _get_nested(_PARAMS, "investment", "allowed_domains", defau
     "economynext.com"           # Economy Next - Financial news
 ])
 
+# Allowed domains for Tavily tax search - IRD is the primary official source
+TAX_DOMAINS = _get_nested(_PARAMS, "tax", "allowed_domains", default=[
+    "ird.gov.lk",               # Inland Revenue Department - Primary official tax source
+    "treasury.gov.lk",          # Ministry of Finance / Department of Fiscal Policy
+    "customs.gov.lk",           # Sri Lanka Customs (Import/Export Duties)
+    "cbsl.gov.lk",              # Central Bank (Tax-related monetary policy)
+])
+
 # ========================================
 # Helper Functions
 # ========================================

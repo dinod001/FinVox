@@ -15,6 +15,7 @@ from src.agents.tools.cashflow_tools import CashflowTool
 from src.agents.tools.rag_tools import RAGTool
 from src.agents.tools.market_tools import MarketTool
 from src.agents.tools.investment_tools import InvestmentTool
+from src.agents.tools.tax_tools import TaxTool
 from src.agents.decision_graph import build_decision_graph
 
 class AgentOrchestrator:
@@ -36,6 +37,7 @@ class AgentOrchestrator:
         self.rag_tool = RAGTool(embedder=get_embeddings(), llm=self.llm_chat)
         self.market_tool = MarketTool()
         self.investment_tool = InvestmentTool()
+        self.tax_tool = TaxTool()
         
         self.graph = self._build_graph()
 
@@ -50,6 +52,7 @@ class AgentOrchestrator:
         workflow.add_node("investment_agent", self.investment_agent)
         workflow.add_node("market_agent", self.market_agent)
         workflow.add_node("general_agent", self.general_agent)
+        workflow.add_node("tax_agent", self.tax_agent)
         workflow.add_node("merge_responses", self.merge_responses_node)
         workflow.add_node("save_memory", self.save_memory_node)
 
@@ -65,12 +68,13 @@ class AgentOrchestrator:
                 "rag": "rag_agent",
                 "investment": "investment_agent",
                 "market": "market_agent",
-                "general": "general_agent"
+                "general": "general_agent",
+                "tax": "tax_agent"
             }
         )
 
         # All agents converge to merge_responses (fan-in point)
-        for agent_node in ["cashflow_agent", "rag_agent", "investment_agent", "market_agent", "general_agent"]:
+        for agent_node in ["cashflow_agent", "rag_agent", "investment_agent", "market_agent", "general_agent", "tax_agent"]:
             workflow.add_edge(agent_node, "merge_responses")
 
         # Merge -> Save -> END
@@ -113,7 +117,7 @@ class AgentOrchestrator:
         routes = []
         for d in decisions:
             route = d.get("route", "general")
-            if route not in ["cashflow", "rag", "investment", "market", "general"]:
+            if route not in ["cashflow", "rag", "investment", "market", "general", "tax"]:
                 route = "general"
             if route not in routes:
                 routes.append(route)
@@ -242,6 +246,38 @@ Valid types: "bar", "line", "pie". The "name" field is the label.
         answer = self._generate_agent_response(state, system_prompt, "general", "")
         return {
             "agent_outputs": [{"route": "general", "tool_output": "", "answer": answer}]
+        }
+
+    def tax_agent(self, state: AgentState) -> Dict:
+        """Specialized Agent for Sri Lankan Tax & Regulatory queries using live IRD data."""
+        decisions = state.get("route_decisions", [])
+        decision = next((d for d in decisions if d.get("route") == "tax"), {})
+        query = decision.get("rewritten_query", state["messages"][0].content)
+        
+        try:
+            results = self.tax_tool.search(query)
+            # Format the search results nicely
+            tool_output = "\n\n".join([
+                f"Source: {r.get('url', 'Official Source')}\n{r.get('content', '')}"
+                for r in results if not r.get("error")
+            ])
+            if not tool_output:
+                tool_output = "No results found from official tax portals."
+        except Exception as e:
+            logger.error(f"Tax tool error: {e}")
+            tool_output = "Unable to fetch tax data from official sources."
+
+        system_prompt = (
+            "You are FinVox, a financial AI assistant specializing in Sri Lankan tax and regulatory compliance. "
+            "You have been provided with LIVE, OFFICIAL data fetched directly from government tax portals "
+            "(Inland Revenue Department - ird.gov.lk, Treasury, and Customs). "
+            "Use this data to answer the user's question accurately. "
+            "Always cite the source URL when mentioning a specific rate or regulation. "
+            "If the data does not contain a direct answer, say so clearly and direct the user to ird.gov.lk."
+        )
+        answer = self._generate_agent_response(state, system_prompt, "tax", tool_output)
+        return {
+            "agent_outputs": [{"route": "tax", "tool_output": tool_output, "answer": answer}]
         }
 
     def merge_responses_node(self, state: AgentState) -> Dict:
