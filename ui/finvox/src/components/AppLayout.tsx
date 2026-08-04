@@ -50,9 +50,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, sidebarContent }) => {
 
         <div className="sidebar-footer">
           {sidebarContent && !isSidebarOpen && (
-            <button 
-              className="btn-logout-icon" 
-              onClick={() => setIsSidebarOpen(true)} 
+            <button
+              className="btn-logout-icon"
+              onClick={() => setIsSidebarOpen(true)}
               title="Open Sidebar"
               style={{ marginBottom: '0.5rem' }}
             >
@@ -71,15 +71,15 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, sidebarContent }) => {
       {sidebarContent && isSidebarOpen && (
         <aside className="secondary-sidebar">
           <div className="secondary-sidebar-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-             <span className="sidebar-brand-text">FinVox</span>
-             <button 
-               onClick={() => setIsSidebarOpen(false)} 
-               style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', display: 'flex', padding: '0.25rem', borderRadius: '6px' }}
-               onMouseOver={(e) => e.currentTarget.style.color = 'var(--text-main)'}
-               onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
-             >
-               <PanelLeftClose size={20} />
-             </button>
+            <span className="sidebar-brand-text">FinVox</span>
+            <button
+              onClick={() => setIsSidebarOpen(false)}
+              style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', display: 'flex', padding: '0.25rem', borderRadius: '6px' }}
+              onMouseOver={(e) => e.currentTarget.style.color = 'var(--text-main)'}
+              onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
+            >
+              <PanelLeftClose size={20} />
+            </button>
           </div>
           <div className="secondary-sidebar-content">
             {sidebarContent}
