@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { TrendingUp, Mail, Lock, ShieldCheck, Zap, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { authApi } from '../api/auth';
 import { useAuth } from '../contexts/AuthContext';
+import BrandLogo from '../components/BrandLogo';
 import './Auth.css';
 
 const LoginPage: React.FC = () => {
@@ -18,12 +19,12 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMsg('');
-    
+
     try {
       const response = await authApi.login(username, password);
       // Save token and user id via Context
       login(response.access_token, response.user_id);
-      
+
       // Navigate to chat
       navigate('/chat');
     } catch (err: any) {
@@ -38,10 +39,10 @@ const LoginPage: React.FC = () => {
     <div className="auth-container">
       {/* Left Side - Marketing Info */}
       <div className="auth-left-content">
-        <Link to="/" className="auth-brand-left">
-          <img src="/logo.png" alt="FinVox Logo" className="brand-logo-img" style={{ height: '40px' }} />
+        <Link to="/" className="auth-brand-left" style={{ textDecoration: 'none', marginBottom: '2rem', display: 'inline-block' }}>
+          <BrandLogo size="large" />
         </Link>
-        
+
         <h1 className="auth-left-title">
           AI-Powered Financial<br />
           Intelligence <span className="text-crimson">for SMEs</span>
@@ -77,7 +78,7 @@ const LoginPage: React.FC = () => {
         {/* Dashboard Sidebar Mockup */}
         <div className="auth-mockup-app">
           <div className="ama-sidebar">
-            <div className="ama-nav-item active" style={{ marginTop: '1rem'}}></div>
+            <div className="ama-nav-item active" style={{ marginTop: '1rem' }}></div>
             <div className="ama-nav-item"></div>
             <div className="ama-nav-item"></div>
             <div className="ama-nav-item"></div>
@@ -114,8 +115,8 @@ const LoginPage: React.FC = () => {
       <div className="auth-right-content">
         <div className="auth-card">
           <div className="auth-header">
-            <div className="auth-logo-circle">
-              <img src="/logo.png" alt="FinVox Logo" className="brand-logo-img" style={{ height: '32px' }} />
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+              <BrandLogo size="medium" />
             </div>
             <h2>Welcome Back</h2>
             <p className="text-muted">Log in to your FinVox account</p>
@@ -127,7 +128,7 @@ const LoginPage: React.FC = () => {
                 <AlertCircle size={16} /> {errorMsg}
               </div>
             )}
-            
+
             <div className="input-group">
               <label>Username or Email</label>
               <div className="input-wrapper">
@@ -155,8 +156,8 @@ const LoginPage: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   className="password-toggle"
                   onClick={() => setShowPassword(!showPassword)}
                 >
@@ -166,12 +167,12 @@ const LoginPage: React.FC = () => {
             </div>
 
             <div className="auth-options">
-               <label className="remember-me">
-                  <input type="checkbox" defaultChecked />
-                  <span className="checkbox-custom"></span>
-                  Remember me
-               </label>
-               <a href="#" className="forgot-password text-crimson">Forgot password?</a>
+              <label className="remember-me">
+                <input type="checkbox" defaultChecked />
+                <span className="checkbox-custom"></span>
+                Remember me
+              </label>
+              <a href="#" className="forgot-password text-crimson">Forgot password?</a>
             </div>
 
             <button type="submit" className="btn-primary w-full sign-in-btn" disabled={isLoading}>

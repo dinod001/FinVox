@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { TrendingUp, Mail, Lock, User, ShieldCheck, Zap, Eye, EyeOff, AlertCircle } from 'lucide-react';
 import { authApi } from '../api/auth';
 import { useAuth } from '../contexts/AuthContext';
+import BrandLogo from '../components/BrandLogo';
 import './Auth.css';
 
 const RegisterPage: React.FC = () => {
@@ -19,12 +20,12 @@ const RegisterPage: React.FC = () => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMsg('');
-    
+
     try {
       const response = await authApi.register(username, email, password);
       // Save token and user id via context
       login(response.access_token, response.user_id);
-      
+
       // Navigate to chat
       navigate('/chat');
     } catch (err: any) {
@@ -39,10 +40,10 @@ const RegisterPage: React.FC = () => {
     <div className="auth-container">
       {/* Left Side - Marketing Info */}
       <div className="auth-left-content">
-        <Link to="/" className="auth-brand-left">
-          <img src="/logo.png" alt="FinVox Logo" className="brand-logo-img" style={{ height: '40px' }} />
+        <Link to="/" className="auth-brand-left" style={{ textDecoration: 'none', marginBottom: '2rem', display: 'inline-block' }}>
+          <BrandLogo size="large" />
         </Link>
-        
+
         <h1 className="auth-left-title">
           Join FinVox<br />
           Intelligence <span className="text-crimson">for SMEs</span>
@@ -80,8 +81,8 @@ const RegisterPage: React.FC = () => {
       <div className="auth-right-content">
         <div className="auth-card">
           <div className="auth-header">
-            <div className="auth-logo-circle">
-              <img src="/logo.png" alt="FinVox Logo" className="brand-logo-img" style={{ height: '32px' }} />
+            <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem' }}>
+              <BrandLogo size="medium" />
             </div>
             <h2>Create Account</h2>
             <p className="text-muted">Start your AI financial journey</p>
@@ -93,7 +94,7 @@ const RegisterPage: React.FC = () => {
                 <AlertCircle size={16} /> {errorMsg}
               </div>
             )}
-            
+
             <div className="input-group">
               <label>Full Name</label>
               <div className="input-wrapper">
@@ -136,8 +137,8 @@ const RegisterPage: React.FC = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   className="password-toggle"
                   onClick={() => setShowPassword(!showPassword)}
                 >

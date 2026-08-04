@@ -66,150 +66,161 @@ const IngestPage: React.FC = () => {
         {/* Main Upload Card */}
         <div className="card-container">
           {!isUploading && !response && (
-            <div 
-              className={`upload-dropzone ${isDragging ? 'dragging' : ''}`}
-              onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
-              onDragLeave={() => setIsDragging(false)}
-              onDrop={handleDrop}
-              onClick={() => !selectedFile && fileInputRef.current?.click()}
-            >
-              <input 
-                type="file" 
-                ref={fileInputRef} 
-                style={{ display: 'none' }} 
-                onChange={(e) => {
-                  if (e.target.files && e.target.files.length > 0) {
-                    handleFileSelect(e.target.files[0]);
-                  }
-                }}
-                accept=".csv,.xlsx,.pdf"
-              />
+            <>
+              {/* Compact horizontal drop zone */}
+              <div
+                className={`upload-dropzone ${isDragging ? 'dragging' : ''}`}
+                onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+                onDragLeave={() => setIsDragging(false)}
+                onDrop={handleDrop}
+                onClick={() => !selectedFile && fileInputRef.current?.click()}
+              >
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  style={{ display: 'none' }}
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files.length > 0) {
+                      handleFileSelect(e.target.files[0]);
+                    }
+                  }}
+                  accept=".csv,.xlsx,.pdf"
+                />
 
-              <img 
-                src="/pink_folder.png" 
-                alt="Folder Illustration" 
-                className="illustration-right" 
-                onError={(e) => e.currentTarget.style.display = 'none'}
-              />
+                <img
+                  src="/pink_folder.png"
+                  alt="Folder Illustration"
+                  className="illustration-right"
+                  onError={(e) => e.currentTarget.style.display = 'none'}
+                />
 
-              {!selectedFile ? (
-                <>
-                  <div className="upload-icon-circle">
-                    <UploadCloud size={28} />
-                  </div>
-                  <h2>Drag & drop your files here</h2>
-                  <p>Supports CSV, XLSX, and PDF invoices up to 50MB</p>
-                  
-                  <button 
+                {/* Icon */}
+                <div className="upload-icon-circle">
+                  {selectedFile ? <FileText size={26} /> : <UploadCloud size={26} />}
+                </div>
+
+                {/* Text */}
+                <div className="dropzone-text-block">
+                  {!selectedFile ? (
+                    <>
+                      <h2>Drag & drop your files here</h2>
+                      <p>Supports CSV, XLSX and PDF invoices up to 50 MB</p>
+                    </>
+                  ) : (
+                    <>
+                      <h2>{selectedFile.name}</h2>
+                      <p>{(selectedFile.size / 1024).toFixed(2)} KB — ready to upload</p>
+                    </>
+                  )}
+                </div>
+
+                {/* Right: CTA */}
+                <div className="dropzone-actions" onClick={(e) => e.stopPropagation()}>
+                  {!selectedFile ? (
+                    <>
+                      <button
+                        className="btn-upload"
+                        onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
+                      >
+                        <UploadCloud size={16} /> Browse Files
+                      </button>
+                      <div className="secure-badge">
+                        <CheckCircle2 size={13} /> Encrypted & secure
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        className="btn-learn-more"
+                        style={{ marginBottom: '0.25rem' }}
+                        onClick={() => { setSelectedFile(null); resetState(); }}
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* Description + upload row — shown only when file is selected */}
+              {selectedFile && (
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.75rem',
+                  marginTop: '0.85rem',
+                  padding: '1rem 1.25rem',
+                  background: '#f8fafc',
+                  borderRadius: '12px',
+                  border: '1px solid #e2e8f0',
+                }}>
+                  <input
+                    type="text"
+                    placeholder="Brief description — e.g. 'January 2026 Cashflow'"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="description-input"
+                    style={{ flex: 1, minWidth: 0 }}
+                  />
+                  <button
                     className="btn-upload"
-                    onClick={(e) => { e.stopPropagation(); fileInputRef.current?.click(); }}
+                    onClick={handleUpload}
+                    disabled={!description.trim()}
                   >
-                    <UploadCloud size={18} /> Browse Files
+                    Upload & Process
                   </button>
-
-                  <div className="secure-badge">
-                    <CheckCircle2 size={14} /> Your data is secure and encrypted
-                  </div>
-                </>
-              ) : (
-                <div style={{ textAlign: 'center', zIndex: 10 }}>
-                  <div className="upload-icon-circle" style={{ margin: '0 auto 1rem auto' }}>
-                    <FileText size={28} />
-                  </div>
-                  <h2>{selectedFile.name}</h2>
-                  <p>{(selectedFile.size / 1024).toFixed(2)} KB</p>
-
-                  <div style={{ marginBottom: '1.5rem', marginTop: '1rem' }}>
-                    <input
-                      type="text"
-                      placeholder="Enter a brief description (e.g. 'January 2026 Cashflow')"
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                      onClick={(e) => e.stopPropagation()}
-                      style={{
-                        width: '100%',
-                        minWidth: '300px',
-                        padding: '0.75rem 1rem',
-                        borderRadius: '8px',
-                        border: '1px solid #e2e8f0',
-                        fontSize: '0.9rem',
-                        outline: 'none',
-                        color: '#1e293b'
-                      }}
-                    />
-                  </div>
-
-                  <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-                    <button 
-                      className="btn-learn-more"
-                      onClick={(e) => { e.stopPropagation(); setSelectedFile(null); resetState(); }}
-                    >
-                      Cancel
-                    </button>
-                    <button 
-                      className="btn-upload"
-                      onClick={(e) => { e.stopPropagation(); handleUpload(); }}
-                      disabled={!description.trim()}
-                      style={{ 
-                        opacity: description.trim() ? 1 : 0.5, 
-                        cursor: description.trim() ? 'pointer' : 'not-allowed' 
-                      }}
-                    >
-                      Upload & Process
-                    </button>
-                  </div>
                 </div>
               )}
-            </div>
+            </>
           )}
 
           {/* Loading State */}
           {isUploading && (
-            <div className="upload-dropzone" style={{ border: 'none', background: '#fdf2f8' }}>
-              <Loader2 size={48} className="spin text-crimson" style={{ marginBottom: '1.5rem' }} />
-              <h2>Processing Document...</h2>
+            <div className="state-box state-box--loading">
+              <Loader2 size={40} className="spin text-crimson" />
+              <h2>Processing Document…</h2>
               <p>Extracting data and generating embeddings securely.</p>
             </div>
           )}
 
           {/* Error State */}
           {uploadError && !isUploading && (
-            <div style={{ background: '#fff1f2', padding: '1.5rem', borderRadius: '12px', border: '1px solid #fda4af', display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '2rem' }}>
-              <AlertCircle size={24} color="#e11d48" style={{ flexShrink: 0 }} />
+            <div className="error-box" style={{ marginBottom: '1rem' }}>
+              <AlertCircle size={22} color="#e11d48" style={{ flexShrink: 0 }} />
               <div>
-                <h3 style={{ color: '#be123c', marginBottom: '0.25rem' }}>Upload Failed</h3>
-                <p style={{ color: '#9f1239', fontSize: '0.9rem' }}>{uploadError}</p>
+                <h3>Upload Failed</h3>
+                <p>{uploadError}</p>
               </div>
             </div>
           )}
 
           {/* Success State */}
           {response && !isUploading && (
-            <div className="upload-dropzone" style={{ border: 'none', background: '#f0fdf4', padding: '3rem 2rem' }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '64px', height: '64px', borderRadius: '50%', background: '#dcfce7', color: '#166534', marginBottom: '1.5rem' }}>
-                <CheckCircle2 size={32} />
+            <div className="state-box state-box--success">
+              <div className="success-icon-ring">
+                <CheckCircle2 size={28} />
               </div>
               <h2 style={{ color: '#166534' }}>Upload Successful!</h2>
-              <p style={{ color: '#15803d', marginBottom: '2rem' }}>Your data has been securely ingested.</p>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', textAlign: 'left', background: 'white', padding: '1.5rem', borderRadius: '12px', border: '1px solid #bbf7d0', width: '100%', maxWidth: '500px', marginBottom: '2.5rem' }}>
+              <p style={{ color: '#15803d' }}>Your data has been securely ingested and is ready to query.</p>
+
+              <div className="success-details-grid">
                 <div>
-                  <span style={{ fontSize: '0.8rem', color: '#166534', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>File Name</span>
-                  <div style={{ fontWeight: 600, color: '#1e293b', marginTop: '0.25rem', wordBreak: 'break-all' }}>{response.file_name}</div>
+                  <div className="success-detail-label">File Name</div>
+                  <div className="success-detail-value">{response.file_name}</div>
                 </div>
                 <div>
-                  <span style={{ fontSize: '0.8rem', color: '#166534', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>Processing Time</span>
-                  <div style={{ fontWeight: 600, color: '#1e293b', marginTop: '0.25rem' }}>{(response.time_taken_ms / 1000).toFixed(2)}s</div>
+                  <div className="success-detail-label">Processing Time</div>
+                  <div className="success-detail-value">{(response.time_taken_ms / 1000).toFixed(2)}s</div>
                 </div>
-                <div style={{ gridColumn: 'span 2' }}>
-                  <span style={{ fontSize: '0.8rem', color: '#166534', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600 }}>Details</span>
-                  <div style={{ fontWeight: 500, color: '#1e293b', marginTop: '0.25rem' }}>{response.message || 'Completed'}</div>
+                <div>
+                  <div className="success-detail-label">Status</div>
+                  <div className="success-detail-value">{response.message || 'Completed'}</div>
                 </div>
               </div>
 
-              <button 
+              <button
                 className="btn-upload"
-                style={{ background: '#166534' }}
+                style={{ background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)', marginTop: '0.5rem' }}
                 onClick={() => { resetState(); setSelectedFile(null); setDescription(''); }}
               >
                 Upload Another File
