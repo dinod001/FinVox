@@ -9,8 +9,8 @@ VALID_ROUTES = ["general", "cashflow", "rag", "investment", "market", "tax"]
 
 class RouteItem(BaseModel):
     """A single routing decision for a specific agent."""
-    route: Literal["general", "cashflow", "rag", "investment", "market", "tax"] = Field(
-        description="The agent to route the query to. Use 'general' for normal conversation."
+    route: str = Field(
+        description="CRITICAL: The agent to route the query to. MUST BE EXACTLY ONE OF: 'general', 'cashflow', 'rag', 'investment', 'market', 'tax'. DO NOT use table names like 'gusto_payroll'."
     )
     rewritten_query: str = Field(
         description="The contextualized, standalone query optimized specifically for the target agent. "
@@ -50,7 +50,7 @@ CRITICAL: If routing to data-driven tools (cashflow, market, investment), you MU
 
 Valid Routes:
 - general    : For greetings, small talk, non-financial queries, or if the user is just answering a simple question. DO NOT use this for ANY financial explanations.
-- cashflow   : For ANY questions about datasets, CSV tables, cash flow, ledgers, inflows, outflows, or SQL calculations. CRITICAL: Default to this route for ANY analytical questions about companies, Earnings Per Share (EPS), Market Cap, or other financial metrics, as these should be queried from the user's uploaded SQL datasets.
+- cashflow   : For ANY questions about datasets, CSV tables, cash flow, ledgers, inflows, outflows, or SQL calculations. CRITICAL: Default to this route for ANY analytical questions about companies, EPS, or if you need to query a table. DO NOT output table names as routes (e.g. use 'cashflow', not 'gusto_payroll').
 - rag        : For questions about specific entities, vendors, policies, contracts, or specific bills/invoices. DO NOT route here if the user is asking about a structured CSV dataset or table. Use this mainly for PDFs, documents, or knowledge retrieval.
 - investment : For questions about how to invest surplus money, risk management, or portfolio advice.
 - market     : STRICTLY ONLY for explicitly requested LIVE stock prices, current exchange rates (forex), gold prices, or breaking news from the internet (e.g., "What is the live price of Apple?", "Current USD to LKR rate?"). DO NOT route general questions about company EPS or Market Cap here; those belong in cashflow.
@@ -90,12 +90,16 @@ Analyze the message and context, then output the routes, rewritten queries, and 
             # Fallback check just in case LLM hallucinates a route
             final_decisions = []
             for item in result.routes:
-                if item.route in VALID_ROUTES:
-                    final_decisions.append({
-                        "route": item.route,
-                        "rewritten_query": item.rewritten_query,
-                        "reasoning": item.reasoning
-                    })
+                route_name = item.route.lower().strip()
+                if route_name not in VALID_ROUTES:
+                    log.warning(f"LLM hallucinated route '{route_name}'. Defaulting to 'cashflow'.")
+                    route_name = "cashflow"
+                
+                final_decisions.append({
+                    "route": route_name,
+                    "rewritten_query": item.rewritten_query,
+                    "reasoning": item.reasoning
+                })
             
             if not final_decisions:
                 final_decisions = [{"route": "general", "rewritten_query": user_message, "reasoning": "Fallback"}]

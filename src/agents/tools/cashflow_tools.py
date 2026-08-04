@@ -48,19 +48,29 @@ IMPORTANT RULES:
 1. ONLY return the raw SQL query. Do not include markdown formatting like ```sql. Do not include any explanations.
 2. The query MUST start with SELECT.
 3. Be mindful of PostgreSQL syntax for casting strings to numeric if necessary.
-4. When searching for specific categories or types (e.g. 'salary', 'rent'), ALWAYS check the appropriate categorical columns (like `category`, `transaction_type`, `type`, `status`) using ILIKE (e.g. `category ILIKE '%salary%'`).
+4. When searching for specific categories or types (e.g. 'salary', 'rent'), ALWAYS check the appropriate categorical columns (like `category`, `transaction_type`, `type`, `status`) using ILIKE.
+   - IF UNSURE ABOUT CATEGORIES: If you are not completely sure which category correctly matches the user's request, DO NOT guess. Instead, first write a query to get the relevant categories (e.g., `SELECT DISTINCT category FROM table WHERE category ILIKE '%keyword%'`) to find the exact matches, and then you can construct the final answer query. This reduces the probability of errors.
    - CRITICAL SQL SYNTAX: If you use multiple `OR` conditions for categories, you MUST wrap them in parentheses BEFORE applying `AND` conditions like dates. Example: `WHERE (category ILIKE '%a%' OR category ILIKE '%b%') AND date >= ...`
+   - For 'payroll', you can use a common keyword like `ILIKE '%pay%'` to catch 'Employee Pay', 'Contractor Pay', etc. HOWEVER, do not blindly force this. If the user explicitly asks for 'salaries' or another specific term, or if the schema explicitly has a 'salary' category, match that exact term.
 5. DO NOT search in free-text `description` columns unless the user explicitly asks to search by description or note. Rely on the categorical columns to filter data.
-6. CRITICAL DATE RULE: If the user asks for a specific year, month, or date range (e.g., 'for the year 2026', 'in Jan 2026'), you MUST apply a DATE filter using `>=` and `<` (e.g., `WHERE date >= '2026-01-01' AND date < '2027-01-01'`). NEVER assume the data is already filtered for that year.
+6. CRITICAL DATE RULE: If the user asks for a specific year, month, or date range, you MUST apply a DATE filter using `>=` and `<`. NEVER assume the data is already filtered for that year.
+   - VERY IMPORTANT: Many date columns (like `date`, `pay_date`) are stored as `text`. If you compare them against PostgreSQL functions like `current_date`, `date_trunc`, or `interval`, you MUST explicitly cast the column to a date using `::date` (e.g., `pay_date::date >= date_trunc('month', current_date)`). Failure to cast will result in a 'operator does not exist: text >= timestamp' error!
 7. DO NOT return thousands of raw rows. ALWAYS aggregate data (e.g. SUM, COUNT, GROUP BY) when analyzing large periods, or use LIMIT for top N queries.
 8. NEVER calculate totals or perform arithmetic yourself! You MUST write SQL to do the math.
-   - Carefully inspect the schema and data types.
-   - When ordering to find the 'top' or 'highest' expenses (which are stored as negative numbers), you MUST use `ORDER BY SUM(amount_column) ASC`.
 9. CRITICAL KPI RULE: If the user asks about a business metric or KPI, you MUST use the exact formula provided in the 'COMPANY KPIs' section above.
    - VERY IMPORTANT: If a formula instructs you to subtract expenses (e.g. `Total Income - Total Expenses`), you MUST translate the minus sign (`-`) to a plus sign (`+`) in your SQL logic (e.g. `SUM(Income) + SUM(Expenses)`) because expenses are already stored as NEGATIVE numbers. If you use a minus sign, you will double-subtract!
    - The easiest way to calculate Net Profit or Net Income is to just use `SUM([amount_column])` across all rows without splitting by Credit/Debit.
 10. COMPOUND KPI FORMULAS: If a KPI formula uses other business terms (e.g. `(Operating Income / Total Revenue)`), you MUST look for the definitions of those terms in the 'COMPANY KPIs' section. Do not guess what 'Operating Income' means—find its formula in the list and substitute it. 
     - For example, if Operating Income is defined as `Total Income - Total Expenses`, substitute that as `(SUM(Credit) + SUM(Debit))` (Note the PLUS sign, as per Rule 9).
+11. CRITICAL ORDERING RULE:
+    - For queries asking for "top", "highest", "most", "largest", "biggest", or "maximum", ALWAYS order using DESC (e.g., ORDER BY SUM(...) DESC).
+    - For queries asking for "bottom", "lowest", "least", "fewest", or "minimum", ALWAYS order using ASC (e.g., ORDER BY SUM(...) ASC).
+12. FUTURE DATE ESTIMATES: When asked about future periods (e.g., "next month", "January 2026") where exact records do not exist:
+    - DO NOT query the future date directly (which would return 0 rows).
+    - Instead, compute the Historical Average or Recent Trend.
+    - CRITICAL: Do NOT use `current_date` to find recent trends, as the dataset may end years ago (e.g., 2023). Always use `(SELECT MAX(date_column::date) FROM table)` to find the most recent data.
+    - To estimate a monthly average (e.g., "next month's payroll"), sum the total over the last available year and divide by 12. Example: `SELECT SUM(amount)/12 AS estimated_monthly FROM t WHERE date::date >= (SELECT MAX(date::date) - interval '1 year' FROM t)`
+    - You must return this historical benchmark as an ESTIMATE so the advisor can answer the runway/cashflow query.
 """
         )
 
@@ -76,6 +86,7 @@ Based on these results, provide a clear, natural, and concise answer to the user
 IMPORTANT RULES:
 1. If the results say "No data found", inform the user politely. Do not mention SQL or databases.
 2. If the result contains financial amounts, ALWAYS format them using 'LKR' or 'Rs.' (e.g., LKR 150,000). DO NOT use the $ symbol unless explicitly asked.
+3. If the user asks about a future period (e.g. "next month") and the database provided a historical average or recent trend, explain that the answer is an ESTIMATE based on historical data. Advise them naturally on their runway/cashflow based on this estimate.
 """
         )
 

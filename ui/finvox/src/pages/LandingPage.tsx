@@ -48,6 +48,11 @@ const LandingPage: React.FC = () => {
 
       {/* Hero Section */}
       <section className="hero-section">
+        {/* Decorative Background Elements */}
+        <div className="hero-bg-grid"></div>
+        <div className="hero-blob-1"></div>
+        <div className="hero-blob-2"></div>
+        
         <div className="hero-content-left">
           <div className="hero-badge text-crimson">
             <Zap size={14} />
@@ -182,11 +187,12 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Features Grid */}
-      <section className="features-section" id="features">
-        <div className="section-header">
-          <h2>Powerful Features to Grow Your Business</h2>
-          <p>Everything you need to manage your finances intelligently.</p>
-        </div>
+      <div className="features-section-wrapper">
+        <section className="features-section" id="features">
+          <div className="section-header">
+            <h2>Everything you need to scale smarter</h2>
+            <p>Powerful tools designed specifically for modern founders and finance teams.</p>
+          </div>
         
         <div className="features-grid-6">
           <div className="f-card">
@@ -225,8 +231,9 @@ const LandingPage: React.FC = () => {
             <p>Your data is encrypted and protected with enterprise-level security.</p>
             <a href="#" className="f-link text-crimson">Learn More →</a>
           </div>
-        </div>
-      </section>
+          </div>
+        </section>
+      </div>
 
       {/* Split Section */}
       <section className="split-section">
