@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
   Send, TrendingUp, History, LogOut, CheckCircle2, Loader2, Play,
-  ChevronDown, Bell, Crown, Wallet, PieChart, Target, Sparkles, Lock, Trash2, Download
+  ChevronDown, Bell, Crown, Wallet, PieChart, Target, Sparkles, Lock, Trash2, Download, Mic
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -17,6 +17,7 @@ import 'katex/dist/katex.min.css';
 import AppLayout from '../components/AppLayout';
 import DynamicChart from '../components/DynamicChart';
 import type { ChartConfig } from '../components/DynamicChart';
+import VoiceAgentModal from '../components/VoiceAgentModal';
 import './ChatPage.css';
 
 interface TimelineEvent {
@@ -143,6 +144,7 @@ const ChatPage: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
 
   // Session State
   const [sessions, setSessions] = useState<ChatSessionMeta[]>([]);
@@ -513,13 +515,38 @@ const ChatPage: React.FC = () => {
               <button className="btn-smart-sugg">
                 <Sparkles size={14} className="text-crimson" /> Smart Suggestions
               </button>
-              <button
-                className="btn-send-message"
-                onClick={handleSend}
-                disabled={!inputValue.trim() || isTyping}
-              >
-                {isTyping ? <Loader2 className="spin" size={18} /> : <Send size={18} />}
-              </button>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <button 
+                  className="btn-voice-chat"
+                  onClick={() => setIsVoiceModalOpen(true)}
+                  title="Start Voice Chat"
+                  style={{
+                    background: 'linear-gradient(135deg, var(--crimson), #ff4d6d)',
+                    border: 'none', 
+                    borderRadius: '50%', width: '42px', height: '42px', 
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: 'white', cursor: 'pointer', transition: 'all 0.3s ease',
+                    boxShadow: '0 4px 12px rgba(220, 20, 60, 0.3)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.08)';
+                    e.currentTarget.style.boxShadow = '0 6px 16px rgba(220, 20, 60, 0.5)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(220, 20, 60, 0.3)';
+                  }}
+                >
+                  <Mic size={20} />
+                </button>
+                <button
+                  className="btn-send-message"
+                  onClick={handleSend}
+                  disabled={!inputValue.trim() || isTyping}
+                >
+                  {isTyping ? <Loader2 className="spin" size={18} /> : <Send size={18} />}
+                </button>
+              </div>
             </div>
           </div>
           <div className="chat-disclaimer">
@@ -527,6 +554,13 @@ const ChatPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <VoiceAgentModal 
+        isOpen={isVoiceModalOpen} 
+        onClose={() => setIsVoiceModalOpen(false)} 
+        userId={userId || undefined}
+        roomName={activeSessionId || undefined}
+      />
     </AppLayout>
   );
 };

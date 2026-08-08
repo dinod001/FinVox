@@ -228,6 +228,32 @@ INGESTION_MAX_FILE_SIZE_MB = _get_nested(_PARAMS, "ingestion", "max_file_size_mb
 INGESTION_SUPPORTED_FORMATS = _get_nested(_PARAMS, "ingestion", "supported_formats", default=["csv", "xlsx", "xls", "pdf"])
 
 # ========================================
+# Voice Configuration (LiveKit)
+# ========================================
+
+VOICE_STT_PROVIDER = _get_nested(_PARAMS, "voice", "stt_provider", default="deepgram")
+VOICE_STT_MODEL = _get_nested(_PARAMS, "voice", "stt_model", default="nova-3")
+VOICE_STT_LANGUAGE = _get_nested(_PARAMS, "voice", "stt_language", default="en")
+
+VOICE_LLM_PROVIDER = _get_nested(_PARAMS, "voice", "llm_provider", default="openai")
+VOICE_LLM_MODEL = _get_nested(_PARAMS, "voice", "llm_model", default="gpt-4o-mini")
+
+VOICE_TTS_PROVIDER = _get_nested(_PARAMS, "voice", "tts_provider", default="elevenlabs")
+VOICE_TTS_MODEL = _get_nested(_PARAMS, "voice", "tts_model", default="eleven_turbo_v2_5")
+VOICE_TTS_VOICE_ID = _get_nested(_PARAMS, "voice", "tts_voice_id", default="21m00Tcm4TlvDq8ikWAM")
+
+VOICE_VAD_THRESHOLD = _get_nested(_PARAMS, "voice", "vad_threshold", default=0.5)
+VOICE_SILENCE_THRESHOLD_MS = _get_nested(_PARAMS, "voice", "silence_threshold_ms", default=300)
+VOICE_MIN_ENDPOINTING_DELAY = _get_nested(_PARAMS, "voice", "min_endpointing_delay", default=0.3)
+VOICE_INTERRUPTION_ENABLED = _get_nested(_PARAMS, "voice", "interruption_enabled", default=True)
+VOICE_SAMPLE_RATE = _get_nested(_PARAMS, "voice", "sample_rate", default=16000)
+
+LIVEKIT_URL = os.getenv("LIVEKIT_URL", None)
+LIVEKIT_API_KEY = os.getenv("LIVEKIT_API_KEY", None)
+LIVEKIT_API_SECRET = os.getenv("LIVEKIT_API_SECRET", None)
+ELEVEN_API_KEY = os.getenv("ELEVEN_API_KEY", None)
+
+# ========================================
 # FAQ Loading
 # ========================================
 
