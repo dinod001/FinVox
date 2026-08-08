@@ -79,9 +79,14 @@ voice:
   stt_model: nova-3
   stt_language: en
 
+  # LLM: Fast model for voice conversations
+  llm_provider: openai
+  llm_model: gpt-4o-mini
+
   # TTS: Deepgram or ElevenLabs
   tts_provider: deepgram
-  tts_model: aura-2-andromeda-en
+  tts_model: aura-asteria-en
+  tts_voice_id: "" 
 
   # VAD + Endpointing Policy (Tuned for low latency interruptions)
   vad_threshold: 0.5
