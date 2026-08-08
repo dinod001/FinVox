@@ -197,6 +197,7 @@ IMPORTANT RULES:
             return "Security Error: Only SELECT queries are permitted."
 
         # ── Step 3: Execute SQL ───────────────────────────────────────────────
+        max_rows = 50
         try:
             with self.engine.connect() as conn:
                 conn.execute(text("SET TRANSACTION READ ONLY;"))
@@ -206,7 +207,6 @@ IMPORTANT RULES:
                     db_results = "No data found matching the query."
                 else:
                     columns = result.keys()
-                    max_rows = 50
                     dict_rows = [dict(zip(columns, row)) for row in rows[:max_rows]]
                     db_results = str(dict_rows)
                     if len(rows) > max_rows:

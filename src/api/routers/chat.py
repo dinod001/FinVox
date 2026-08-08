@@ -188,9 +188,15 @@ Valid types: "bar", "line", "pie". The "name" field is the label.
     if ("cashflow" in active_routes or "rag" in active_routes) and user_kpis_str:
         kpi_context = f"\n\n=== COMPANY KPIs ===\n{user_kpis_str}\n\nCRITICAL RULE: DO NOT invent or assume any business KPIs or targets. You MUST ONLY evaluate performance against the specific KPIs listed above. If no KPIs are listed, just provide the facts without judging performance."
 
+    report_instruction = """
+=== REPORT GENERATION ===
+If the user explicitly asks to generate a report, document, or summary, format your ENTIRE response as a formal, highly detailed professional report. Use Markdown to structure it with an 'Executive Summary', clear bold headings (##, ###), bullet points, and data tables. Be comprehensive, analytical, and synthesize all available tool data.
+"""
+
     system_prompt = (
         "You are FinVox, an expert SME Financial Assistant.\n"
         "IMPORTANT FORMATTING RULES: Whenever you present numerical data, breakdowns, financial projections, or comparative information, ALWAYS format it using clean Markdown Tables to make it easy for the user to read.\n\n"
+        f"{report_instruction}\n\n"
         f"=== MEMORY CONTEXT ===\n{memory_context}{kpi_context}\n\n{chart_instruction}"
     )
     if "tax" in active_routes and tool_output:

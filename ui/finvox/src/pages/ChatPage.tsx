@@ -431,8 +431,9 @@ const ChatPage: React.FC = () => {
                   <div className="message-content">
                     {msg.content ? (
                       msg.role === 'assistant' ? (
-                        <ReactMarkdown 
-                          remarkPlugins={[remarkGfm, remarkBreaks, remarkMath]}
+                        <div id={`report-${msg.id}`} style={{ width: '100%' }}>
+                          <ReactMarkdown 
+                            remarkPlugins={[remarkGfm, remarkBreaks, remarkMath]}
                           rehypePlugins={[rehypeKatex]}
                           components={{
                             pre({ children, ...props }: any) {
@@ -458,7 +459,8 @@ const ChatPage: React.FC = () => {
                           }}
                         >
                           {preprocessMath(msg.content)}
-                        </ReactMarkdown>
+                          </ReactMarkdown>
+                        </div>
                       ) : (
                         <span style={{ whiteSpace: 'pre-wrap' }}>{msg.content}</span>
                       )
@@ -468,6 +470,95 @@ const ChatPage: React.FC = () => {
                         <span>FinVox is thinking...</span>
                       </div>
                     ))}
+
+                    {/* Download Report Button */}
+                    {msg.role === 'assistant' && !msg.isStreaming && msg.content && msg.content.length > 50 && (
+                      <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-start' }}>
+                        <button 
+                          onClick={() => {
+                            const element = document.getElementById(`report-${msg.id}`);
+                            if (element) {
+                              // @ts-ignore
+                              import('html2pdf.js').then((module) => {
+                                const html2pdf = module.default || module;
+                                html2pdf().from(element).set({
+                                  margin: 15,
+                                  filename: `FinVox_Report_${new Date().toISOString().slice(0,10)}.pdf`,
+                                  image: { type: 'jpeg', quality: 0.98 },
+                                  html2canvas: { 
+                                    scale: 2, 
+                                    useCORS: true,
+                                    onclone: (clonedDoc: Document) => {
+                                      const clonedEl = clonedDoc.getElementById(`report-${msg.id}`);
+                                      if (clonedEl) {
+                                        clonedEl.style.width = '800px';
+                                        clonedEl.style.padding = '20px';
+                                        clonedEl.style.background = 'white';
+                                        clonedEl.style.color = 'black';
+                                        
+                                        const style = clonedDoc.createElement('style');
+                                        style.innerHTML = `
+                                          * { color: black !important; font-family: sans-serif; }
+                                          table { width: 100% !important; border-collapse: collapse; margin-bottom: 20px; overflow: visible !important; }
+                                          th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+                                          th { background-color: #f5f5f5 !important; font-weight: bold; }
+                                          pre { white-space: pre-wrap; word-wrap: break-word; background: #f8f9fa !important; padding: 15px; border-radius: 5px; border: 1px solid #ddd; }
+                                          code { color: #d63384 !important; background: none !important; }
+                                          h1, h2, h3, h4, h5 { color: #1a1a1a !important; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-top: 25px; margin-bottom: 15px; }
+                                          p, li { line-height: 1.6; margin-bottom: 10px; }
+                                          
+                                          /* CRITICAL: Prevent elements from slicing horizontally across pages */
+                                          h1, h2, h3, h4, h5, p, li, tr, pre, img {
+                                            page-break-inside: avoid !important;
+                                            break-inside: avoid !important;
+                                          }
+                                        `;
+                                        clonedEl.appendChild(style);
+                                      }
+                                    }
+                                  },
+                                  jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                                  pagebreak: { mode: ['css', 'legacy'], avoid: ['tr', 'h1', 'h2', 'h3', 'h4', 'h5', 'p', 'li', 'pre', 'strong'] }
+                                }).save();
+                              }).catch((err: any) => {
+                                console.error("Failed to load html2pdf", err);
+                              });
+                            }
+                          }}
+                          style={{
+                            background: 'var(--bg-main)',
+                            border: '1px solid var(--border-light)',
+                            borderRadius: '8px',
+                            padding: '6px 14px',
+                            fontSize: '0.8rem',
+                            fontWeight: 500,
+                            color: 'var(--text-main)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease',
+                            boxShadow: '0 2px 5px rgba(0,0,0,0.05)'
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.borderColor = 'var(--crimson)';
+                            e.currentTarget.style.color = 'var(--crimson)';
+                            e.currentTarget.style.transform = 'translateY(-1px)';
+                            e.currentTarget.style.boxShadow = '0 4px 8px rgba(220,20,60,0.1)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.borderColor = 'var(--border-light)';
+                            e.currentTarget.style.color = 'var(--text-main)';
+                            e.currentTarget.style.transform = 'translateY(0)';
+                            e.currentTarget.style.boxShadow = '0 2px 5px rgba(0,0,0,0.05)';
+                          }}
+                          title="Download as Markdown"
+                        >
+                          <Download size={14} /> Download Report
+                        </button>
+                      </div>
+                    )}
+
 
                     {/* Render Timeline (Hidden as per user request) 
                     {msg.timeline && msg.timeline.length > 0 && (
