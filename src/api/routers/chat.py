@@ -13,6 +13,8 @@ from src.api.deps import get_orchestrator
 from src.agents.orchestrator import AgentOrchestrator
 from src.api.routers.chat_sessions import touch_session_sync
 from src.api.event_labs import stage_label, tool_label
+from src.infrastructure.observability import observe, update_current_trace, update_current_observation
+from langfuse.langchain import CallbackHandler
 
 router = APIRouter(prefix="/chat", tags=["Chat & Agents"])
 
@@ -36,12 +38,19 @@ def _save_memory_bg(orchestrator: AgentOrchestrator, user_id: str, session_id: s
     except Exception as e:
         logger.error(f"Failed to save memory in background: {e}")
 
+@observe(name="chat_pipeline")
 async def _run_chat_pipeline(
     req: ChatRequest,
     orchestrator: AgentOrchestrator,
     background: BackgroundTasks,
     emit: EmitFn,
 ) -> ChatResponse:
+    update_current_trace(
+        user_id=req.user_id,
+        session_id=req.session_id,
+        tags=["chat"]
+    )
+
     t_total = time.perf_counter()
     timings: Dict[str, int] = {}
     
@@ -66,10 +75,14 @@ async def _run_chat_pipeline(
     await emit({"type": "stage_start", "stage": "router", "label": stage_label("router")})
     
     # Run the decision graph parallel nodes
-    decision_state = await orchestrator.decision_graph.ainvoke({
-        "message": req.message,
-        "memory_context": memory_context
-    })
+    handler = CallbackHandler()
+    decision_state = await orchestrator.decision_graph.ainvoke(
+        {
+            "message": req.message,
+            "memory_context": memory_context
+        },
+        config={"callbacks": [handler]}
+    )
     
     verdict = decision_state.get("verdict", "proceed")
     primary_route = decision_state.get("primary_route", "general")
@@ -188,9 +201,15 @@ Valid types: "bar", "line", "pie". The "name" field is the label.
     if ("cashflow" in active_routes or "rag" in active_routes) and user_kpis_str:
         kpi_context = f"\n\n=== COMPANY KPIs ===\n{user_kpis_str}\n\nCRITICAL RULE: DO NOT invent or assume any business KPIs or targets. You MUST ONLY evaluate performance against the specific KPIs listed above. If no KPIs are listed, just provide the facts without judging performance."
 
+    report_instruction = """
+=== REPORT GENERATION ===
+If the user explicitly asks to generate a report, document, or summary, format your ENTIRE response as a formal, highly detailed professional report. Use Markdown to structure it with an 'Executive Summary', clear bold headings (##, ###), bullet points, and data tables. Be comprehensive, analytical, and synthesize all available tool data.
+"""
+
     system_prompt = (
         "You are FinVox, an expert SME Financial Assistant.\n"
         "IMPORTANT FORMATTING RULES: Whenever you present numerical data, breakdowns, financial projections, or comparative information, ALWAYS format it using clean Markdown Tables to make it easy for the user to read.\n\n"
+        f"{report_instruction}\n\n"
         f"=== MEMORY CONTEXT ===\n{memory_context}{kpi_context}\n\n{chart_instruction}"
     )
     if "tax" in active_routes and tool_output:
@@ -211,7 +230,8 @@ Valid types: "bar", "line", "pie". The "name" field is the label.
     answer_chunks = []
     try:
         # astream allows us to yield tokens as they arrive
-        async for chunk in orchestrator.llm_chat.astream(messages):
+        handler = CallbackHandler()
+        async for chunk in orchestrator.llm_chat.astream(messages, config={"callbacks": [handler]}):
             content = chunk.content if hasattr(chunk, "content") else str(chunk)
             if content:
                 answer_chunks.append(content)

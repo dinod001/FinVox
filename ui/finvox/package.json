@@ -13,6 +13,7 @@
     "@livekit/components-react": "^2.9.23",
     "@livekit/components-styles": "^1.2.0",
     "html-to-image": "^1.11.13",
+    "html2pdf.js": "^0.14.0",
     "katex": "^0.18.1",
     "livekit-client": "^2.21.0",
     "lucide-react": "^1.26.0",
