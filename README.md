@@ -4,26 +4,26 @@
 
 ## 🚀 Key Features
 
-- **Voice & Chat Interface:** Communicate naturally via text or voice (powered by OpenAI Whisper / Deepgram STT and ElevenLabs TTS). Built with support for code-mixed Sri Lankan English.
-- **Multi-Agent AI Core (Fan-Out Architecture):** Powered by a custom LangGraph state machine supporting parallel execution for compound queries:
+- **Voice & Chat Interface:** Communicate naturally via text or voice (powered by **LiveKit WebRTC**, **Deepgram STT**, **ElevenLabs TTS**, and **Silero VAD** for rapid voice-activity detection). Built with support for code-mixed Sri Lankan English.
+- **Multi-Agent AI Core (Fan-Out Architecture):** Powered by a custom **LangGraph** state machine supporting parallel execution for compound queries:
   - 🧠 *Router Node:* Analyzes user intent, splits compound queries into multiple routes, and injects memory context.
-  - ⚙️ *Parallel Sub-Agents:* Executes specialized agents simultaneously based on routing decisions:
+  - ⚙️ *Parallel Sub-Agents & Custom Tools:* Executes specialized agents simultaneously based on routing decisions, armed with custom LangChain tools:
     - 📄 *Document RAG Agent:* Analyzes internal knowledge and extracts data from uploaded documents.
-    - 📈 *Cash Flow Agent:* Analyzes past and present cashflow using dynamic SQL queries.
-    - 🌍 *Market Agent:* Fetches real-time stock market data (e.g., CSE) via API.
-    - 💼 *Investment Agent:* Provides targeted financial advice for surplus capital.
-    - 💬 *General Agent:* Handles natural conversation and fallback queries.
+    - 📈 *Cash Flow Agent:* Uses the `SQL Generator` and `Chart Generator` tools to dynamically analyze and visualize past/present cash flow.
+    - 🌍 *Market Agent:* Fetches real-time Sri Lankan stock market data via the custom `CSE API Tool`.
+    - 💼 *Investment Agent:* Provides targeted financial advice using the `Financial Calculator` tool.
+    - 🔌 *MCP Integration:* Seamlessly integrates with external third-party tools via the `Model Context Protocol (FastMCP)`.
   - 🔄 *Merge Responses (Fan-In):* Automatically synthesizes parallel agent outputs into a single, cohesive user response.
 - **Data Intelligence & Data Privacy (RAG + Text-to-SQL):** Securely processes uploaded financial documents using advanced architectures:
-  - **Dynamic SQL Tables (Text-to-SQL):** Automatically converts structured tabular data (CSV/Excel) into native dynamic PostgreSQL tables in Supabase. By passing vector similarity entirely, this enables the AI to execute 100% accurate native SQL queries on user-uploaded data.
-  - **Privacy-First Embeddings:** Uses 100% local, free Sentence Transformers (`BAAI/bge-large-en-v1.5`) so sensitive SME financial data never leaves the network for embedding generation.
-  - **Advanced Chunking Strategies:** Employs *Parent-Child Chunking* for Markdown PDFs (preserving semantic hierarchies) and *JSON Row-Level Chunking* for unstructured extraction.
-  - **Vector Storage:** Anchored by Qdrant Cloud for ultra-fast cosine similarity search for PDF reports.
-  - **CAG (Cache-Augmented Generation):** Implements a zero-latency semantic cache using Qdrant to store and instantly serve identical or highly similar queries, significantly reducing latency and LLM API costs.
-  - **CRAG (Corrective RAG):** Employs confidence-gated self-correction using a fast extractor model. If initial retrieved documents lack context, it automatically restructures the query and fetches better context before generating the answer.
-- **Advanced Memory Subsystem:** Equips the AI with human-like memory capabilities:
-  - **Short-Term Memory (Working Memory):** High-speed ring buffer maintaining immediate conversation context (last 30 turns).
-  - **Long-Term Memory (Factual Recall):** Extracts and persists core user facts seamlessly into Supabase `pgvector` using a hyper-efficient Vector-First Overwrite logic (0 LLM overhead for updates).
+  - **Dynamic SQL Tables (Text-to-SQL):** Automatically converts structured tabular data (CSV/Excel) into native dynamic PostgreSQL tables in Supabase via the `table_manager`.
+  - **Privacy-First Embeddings:** Uses 100% local, free Sentence Transformers (`BAAI/bge-large-en-v1.5`) so sensitive SME financial data never leaves the network.
+  - **Advanced Chunking Strategies:** Employs *Parent-Child Chunking* for Markdown PDFs and *JSON Row-Level Chunking* for unstructured extraction via `ingest_service`.
+  - **Vector Storage:** Anchored by Qdrant Cloud for ultra-fast cosine similarity search.
+  - **CAG (Cache-Augmented Generation):** Implements a zero-latency semantic cache using Qdrant to instantly serve highly similar queries, significantly reducing latency and LLM API costs.
+  - **CRAG (Corrective RAG):** Employs confidence-gated self-correction using a fast extractor model to fetch better context before generating the answer.
+- **Advanced Memory Subsystem (Background Processed):** Equips the AI with human-like memory capabilities, processed entirely asynchronously via **ARQ + Redis** background workers to ensure zero latency for the user:
+  - **Short-Term Memory (Working Memory):** High-speed ring buffer maintaining immediate conversation context.
+  - **Long-Term Memory (Factual Recall):** Extracts and persists core user facts into Supabase `pgvector` using a hyper-efficient Vector-First Overwrite logic.
   - **Episodic Memory (Session Summaries):** Distills complete conversations into semantic episodes with automatic time-decay (TTL).
 - **Business Intelligence & Analytics UI:**
   - **KPI Management:** Custom interface to create, track, and evaluate financial KPIs using dynamic SQL formulas.
@@ -195,19 +195,22 @@ Full step-by-step deployment instructions are in [`docs/deployment_guide.md`](do
 
 | Layer | Technology |
 |---|---|
-| **Frontend** | React.js + Tailwind CSS (Vite) |
-| **Backend** | FastAPI (Python 3.11) |
-| **Voice** | LiveKit Agents + Deepgram STT + ElevenLabs TTS |
-| **AI Framework** | LangChain & LangGraph |
-| **LLM** | OpenAI GPT-4o / GPT-4o-mini |
-| **Embeddings** | HuggingFace `BAAI/bge-large-en-v1.5` (local) |
-| **Vector DB** | Qdrant Cloud |
-| **State DB** | Supabase (PostgreSQL + pgvector) |
-| **Compute** | AWS ECS Fargate (ARM64 / Graviton) |
-| **Registry** | Amazon ECR |
-| **Secrets** | AWS SSM Parameter Store |
-| **CI/CD** | GitHub Actions (OIDC + Copilot CLI) |
-| **Networking** | AWS ALB + VPC Public Subnets |
+| **Frontend UI** | React 19 + TypeScript + Tailwind CSS (Vite) |
+| **Frontend Libraries** | Recharts (Analytics), React Markdown/KaTeX (Math), LiveKit React |
+| **Backend API** | FastAPI (Python 3.11) + Uvicorn + Server-Sent Events (SSE) |
+| **Voice Pipeline** | LiveKit Agents + Deepgram STT + ElevenLabs TTS + Silero VAD |
+| **AI Framework** | LangChain & LangGraph (Multi-Agent Orchestration) |
+| **LLM & Search** | OpenAI GPT-4o / GPT-4o-mini, Tavily (Web Search), Yahoo Finance |
+| **Tool Integration** | Model Context Protocol (MCP) via FastMCP |
+| **Embeddings** | HuggingFace `BAAI/bge-large-en-v1.5` (100% local) |
+| **Vector DB / Cache** | Qdrant Cloud (Semantic Cache-Augmented Generation) |
+| **State & Memory DB** | Supabase (PostgreSQL + pgvector) |
+| **Background Workers** | ARQ + Redis (Async memory distillation & task processing) |
+| **Observability** | LangFuse (Tracing, prompt versioning, cost tracking) |
+| **Cloud Compute** | AWS ECS Fargate (ARM64 / Graviton) |
+| **Cloud Storage/Secrets**| Amazon ECR & AWS SSM Parameter Store |
+| **CI/CD & Deploy** | GitHub Actions (OIDC) + AWS Copilot CLI |
+| **Networking** | AWS ALB + VPC Public Subnets (NAT Gateway bypassed) |
 
 ---
 
