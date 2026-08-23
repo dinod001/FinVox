@@ -1,0 +1,63 @@
+# =============================================================================
+# FinVox — Voice Worker Service (AWS Copilot Manifest)
+# Type: Worker Service (NO public endpoint — connects OUT to LiveKit Cloud)
+# =============================================================================
+#
+# HOW TO DEPLOY:
+#   copilot svc deploy --name voice --env dev
+#
+# NOTE: Voice agent does NOT need an ALB or public port.
+#       It makes outbound connections to LiveKit Cloud via WebSocket.
+#       Copilot 'Worker Service' type = ECS task with no inbound traffic.
+# =============================================================================
+
+name: voice
+type: Worker Service
+
+# ── Container Image ────────────────────────────────────────────────────────────
+image:
+  # OPTION A: Build from source
+  build:
+    dockerfile: docker/voice/Dockerfile
+    context: .
+  platform: linux/arm64                   # AWS Graviton (ARM64)
+
+  # OPTION B: Use pre-pushed ECR image
+  # location: <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/finvox/voice:latest
+
+# ── Compute ────────────────────────────────────────────────────────────────────
+# Voice agent is CPU/memory intensive due to Silero VAD and audio processing.
+cpu: 1024                                 # 1 vCPU
+memory: 2048                             # 2 GB RAM
+count: 1
+
+# ── Network ────────────────────────────────────────────────────────────────────
+network:
+  vpc:
+    placement: 'public'                   # Run in public subnet (Avoids NAT Gateway fee)
+
+# ── Environment Variables ──────────────────────────────────────────────────────
+variables:
+  PYTHONUNBUFFERED: "1"
+  HF_HOME: "/app/.hf_cache"
+
+# ── Secrets (from AWS SSM Parameter Store) ────────────────────────────────────
+secrets:
+  LIVEKIT_URL:              /finvox/dev/LIVEKIT_URL
+  LIVEKIT_API_KEY:          /finvox/dev/LIVEKIT_API_KEY
+  LIVEKIT_API_SECRET:       /finvox/dev/LIVEKIT_API_SECRET
+  DEEPGRAM_API_KEY:         /finvox/dev/DEEPGRAM_API_KEY
+  ELEVENLABS_API_KEY:       /finvox/dev/ELEVENLABS_API_KEY
+  OPENAI_API_KEY:           /finvox/dev/OPENAI_API_KEY
+  GROQ_API_KEY:             /finvox/dev/GROQ_API_KEY
+  SUPABASE_URL:             /finvox/dev/SUPABASE_URL
+  SUPABASE_KEY:             /finvox/dev/SUPABASE_KEY
+  DATABASE_URL:             /finvox/dev/DATABASE_URL
+  QDRANT_URL:               /finvox/dev/QDRANT_URL
+  QDRANT_API_KEY:           /finvox/dev/QDRANT_API_KEY
+
+# ── Environment Overrides ──────────────────────────────────────────────────────
+environments:
+  dev:
+    cpu: 1024
+    memory: 2048

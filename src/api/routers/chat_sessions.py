@@ -59,6 +59,47 @@ def touch_session_sync(user_id: str, session_id: str) -> None:
     except Exception as exc:
         logger.warning(f"touch_session failed for {user_id}/{session_id}: {exc}")
 
+def maybe_auto_title_sync(session_id: str, user_id: str, st_store, llm) -> None:
+    """
+    Check if a session still uses the default 'Conversation YYYY-MM-DD...' title,
+    and has at least 5 messages. If so, generate a short summary title via LLM.
+    
+    This is synchronous because it's executed in FastAPI's BackgroundTasks threadpool
+    or an Arq worker thread, so it naturally won't block the main event loop.
+    """
+    try:
+        with engine.connect() as conn:
+            current_title = conn.execute(
+                text("SELECT title FROM chat_sessions WHERE id = :sid"),
+                {"sid": session_id}
+            ).scalar()
+            
+        if not current_title or not current_title.startswith("Conversation "):
+            return  # Already custom titled or doesn't exist
+
+        recent_msgs = st_store.recent(user_id, session_id, k=5)
+        if len(recent_msgs) < 5:
+            return  # Need more context
+
+        # Format prompt
+        chat_text = "\n".join([f"{m.role}: {m.content}" for m in recent_msgs])
+        prompt = f"Generate a short, concise 3-4 word title for this chat based on the conversation below. Do not use quotes.\n\n{chat_text}\n\nTitle:"
+        
+        from langchain_core.messages import HumanMessage
+        response = llm.invoke([HumanMessage(content=prompt)])
+        new_title = response.content.replace('"', '').strip()
+
+        if new_title:
+            with engine.begin() as conn:
+                conn.execute(
+                    text("UPDATE chat_sessions SET title = :title WHERE id = :sid"),
+                    {"title": new_title, "sid": session_id}
+                )
+            logger.info(f"Auto-titled session {session_id} -> '{new_title}'")
+            
+    except Exception as exc:
+        logger.warning(f"Auto-titling failed for {session_id}: {exc}")
+
 # ── Endpoints ───────────────────────────────────────────────────────
 
 @router.get("", response_model=ChatSessionListResponse)

@@ -1,0 +1,124 @@
+# =============================================================================
+# FinVox — Production Docker Compose
+# =============================================================================
+# Usage:
+#   Build + Start:   docker compose -f docker-compose.prod.yml up -d --build
+#   Logs:            docker compose -f docker-compose.prod.yml logs -f
+#   Stop:            docker compose -f docker-compose.prod.yml down
+#   Rebuild one:     docker compose -f docker-compose.prod.yml up -d --build backend
+# =============================================================================
+
+services:
+
+  # ---------------------------------------------------------------------------
+  # Redis — Background Worker Queue (arq) + Short-term Memory
+  # ---------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: finvox-redis
+    restart: unless-stopped
+    # Persist data to disk so queue survives restarts
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - finvox-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Backend — FastAPI + LangGraph Agents
+  # ---------------------------------------------------------------------------
+  backend:
+    build:
+      context: .                          # Project root (so COPY src/ works)
+      dockerfile: docker/backend/Dockerfile
+    container_name: finvox-backend
+    restart: unless-stopped
+    env_file:
+      - .env                              # Root .env — all secrets loaded here
+    environment:
+      HOST: "0.0.0.0"                    # Override localhost → listen on all interfaces
+      PORT: "8000"
+      DEV_MODE: "0"
+      LOG_LEVEL: "info"
+      REDIS_URL: "redis://redis:6379"    # Use Docker service name, not localhost
+    ports:
+      - "8000:8000"                      # Expose API to host machine
+    networks:
+      - finvox-network
+    depends_on:
+      redis:
+        condition: service_healthy       # Wait for Redis before starting
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 180s                 # HuggingFace model downloads on first boot — needs extra time
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Voice Worker — LiveKit Agent (persistent WebSocket worker)
+  # ---------------------------------------------------------------------------
+  voice:
+    build:
+      context: .                          # Project root (so COPY src/ works)
+      dockerfile: docker/voice/Dockerfile
+    container_name: finvox-voice
+    restart: unless-stopped
+    env_file:
+      - .env                              # Same secrets — LiveKit, Deepgram, ElevenLabs
+    environment:
+      REDIS_URL: "redis://redis:6379"
+    networks:
+      - finvox-network
+    depends_on:
+      redis:
+        condition: service_healthy
+      backend:
+        condition: service_started       # Don't wait for healthy — voice starts independently
+
+  # ---------------------------------------------------------------------------
+  # Frontend — Nginx serving built React app
+  # ---------------------------------------------------------------------------
+  frontend:
+    build:
+      context: .                          # Project root (nginx.conf is at docker/frontend/)
+      dockerfile: docker/frontend/Dockerfile
+      args:
+        # Backend URL baked into React at BUILD TIME via Vite
+        # Change this to your production domain before deploying
+        VITE_API_BASE_URL: "http://localhost:8000"
+    container_name: finvox-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"                         # Frontend available at http://localhost:3000
+    networks:
+      - finvox-network
+    depends_on:
+      backend:
+        condition: service_started       # Don't block on backend healthy — nginx serves static files independently
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/nginx-health"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
+
+# =============================================================================
+# Networks — All services share one internal network
+# =============================================================================
+networks:
+  finvox-network:
+    driver: bridge
+    name: finvox-network
+
+# =============================================================================
+# Volumes — Persistent storage
+# =============================================================================
+volumes:
+  redis_data:
+    name: finvox-redis-data

@@ -1,0 +1,72 @@
+# =============================================================================
+# .dockerignore — FinVox (Shared)
+# Keeps the Docker build context lean and prevents secrets from leaking
+# into the image layer cache.
+# =============================================================================
+
+# -- Version control ----------------------------------------------------------
+.git
+.gitignore
+.github
+
+# -- Secrets & local env (NEVER bake into image) ------------------------------
+.env
+.env.*
+*.env
+
+# -- Python artifacts ---------------------------------------------------------
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# -- Frontend source — KEPT in context for frontend Dockerfile ---------------
+# (Backend/Voice Dockerfiles do not COPY ui/ so it's harmless to include)
+# ui/node_modules only — exclude the heavy stuff
+ui/finvox/node_modules/
+
+# -- Notebooks & development docs ---------------------------------------------
+docs/
+*.ipynb
+.ipynb_checkpoints/
+
+# -- Logs & temporary files ---------------------------------------------------
+logs/
+*.log
+*.tmp
+*.swp
+
+# -- Tests (not needed at runtime) -------------------------------------------
+tests/
+
+# -- OS junk ------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# -- IDE files ----------------------------------------------------------------
+.vscode/
+.idea/
+*.code-workspace
+
+# -- Docker files themselves (avoid circular inclusion) -----------------------
+# NOTE: We exclude Dockerfiles but KEEP docker/frontend/nginx.conf
+# because the frontend Dockerfile COPYs it into the Nginx image at build time.
+Dockerfile*
+docker-compose*
+docker/backend/
+docker/voice/
+
+# -- Scripts (runtime dep — needed by ingest_service/pipeline.py) ------------
+# scripts/ingest_file.py is imported by src/services/ingest_service/pipeline.py
+# So we CANNOT exclude scripts/ from the build context.
+# scripts/setup/ contains DB setup tools (not needed at runtime but harmless)
