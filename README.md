@@ -27,8 +27,11 @@
   - **Episodic Memory (Session Summaries):** Distills complete conversations into semantic episodes with automatic time-decay (TTL).
 - **Business Intelligence & Analytics UI:**
   - **KPI Management:** Custom interface to create, track, and evaluate financial KPIs using dynamic SQL formulas.
-  - **Power BI Integration:** A dedicated full-screen Visualization module for embedding Power BI "Publish to Web" dashboards seamlessly within the FinVox platform. Includes a built-in guide for PDF exporting bypassing CORS limitations.
-## 🏗️ System Architecture
+  - **Power BI Integration:** A dedicated full-screen Visualization module for embedding Power BI "Publish to Web" dashboards seamlessly within the FinVox platform.
+
+---
+
+## 🏗️ Application Architecture
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#ffffff', 'primaryBorderColor': '#cbd5e1', 'lineColor': '#94a3b8', 'fontFamily': 'Inter, sans-serif'}}}%%
@@ -59,7 +62,6 @@ graph LR
         direction TB
         Orchestrator[🧠 LangGraph Orchestrator]:::agent
         
-        %% Memory Subsystem
         subgraph Memory Subsystem
             MemMgr[💾 Memory Manager]:::pipeline
             MemMgr --> ST[(Supabase: chat_messages)]:::db
@@ -77,21 +79,137 @@ graph LR
 
     API --> Raw
     API --> Orchestrator
-    %% External Connections
     A1 <--> Qdrant1
     A2 <--> Supabase2[(🐘 Supabase PostgreSQL)]:::db
     A3 <--> ExtAPI[🌐 CSE/Yahoo APIs]:::backend
 ```
+
+---
+
+## ☁️ AWS Cloud Architecture
+
+All services run on **AWS ECS Fargate** (ARM64 / Graviton) with zero server management. Secrets are injected at runtime via AWS SSM. The CI/CD pipeline is fully automated via GitHub Actions.
+
+```mermaid
+%%{init: {'theme': 'base'}}%%
+graph TB
+    classDef internet fill:#6366f1,stroke:#4f46e5,color:#fff,font-weight:bold
+    classDef aws fill:#ff9900,stroke:#e07b00,color:#fff,font-weight:bold
+    classDef ecs fill:#10b981,stroke:#059669,color:#fff,font-weight:bold
+    classDef managed fill:#3b82f6,stroke:#2563eb,color:#fff,font-weight:bold
+    classDef secret fill:#64748b,stroke:#475569,color:#fff,font-weight:bold
+    classDef cicd fill:#8b5cf6,stroke:#7c3aed,color:#fff,font-weight:bold
+
+    User((🌐 Browser)):::internet
+    GH[🐙 GitHub Actions]:::cicd
+
+    subgraph AWS Cloud
+        subgraph VPC - Public Subnet
+            ALB[⚖️ Application Load Balancer]:::aws
+            subgraph ECS Fargate Cluster
+                FE[💻 Frontend\nNginx/React\n0.25 vCPU / 512MB]:::ecs
+                BE[⚙️ Backend\nFastAPI\n1 vCPU / 2GB]:::ecs
+                VO[🎙️ Voice Worker\nLiveKit Agent\n1 vCPU / 2GB]:::ecs
+            end
+        end
+
+        ECR[📦 ECR\nContainer Registry]:::aws
+        SSM[🔐 SSM Parameter\nStore / Secrets]:::secret
+    end
+
+    subgraph Managed Cloud Services
+        Supabase[(🐘 Supabase\nPostgreSQL)]:::managed
+        Qdrant[(🔍 Qdrant\nVector DB)]:::managed
+        LiveKit[🎙️ LiveKit\nCloud]:::managed
+    end
+
+    User -->|HTTPS /| ALB
+    User -->|HTTPS /api| ALB
+    ALB -->|path: /| FE
+    ALB -->|path: /api| BE
+    VO -->|WebSocket| LiveKit
+    BE --> Supabase
+    BE --> Qdrant
+
+    GH -->|push image| ECR
+    GH -->|copilot svc deploy| ECS Fargate Cluster
+    SSM -.->|inject secrets at startup| BE
+    SSM -.->|inject secrets at startup| VO
+    ECR -.->|pull image| FE
+    ECR -.->|pull image| BE
+    ECR -.->|pull image| VO
+```
+
+---
+
+## 🔄 CI/CD Pipeline
+
+Every push to `main` triggers a fully automated 3-stage pipeline:
+
+```mermaid
+flowchart LR
+    A([🖊️ git push\nmain]) --> B
+
+    subgraph B[Job 1 — Test]
+        B1[Python Syntax\nCheck] --> B2[Run\ntest_ingest.py]
+    end
+
+    B --> C
+
+    subgraph C[Job 2 — Build & Push]
+        C1[OIDC AWS\nAuth] --> C2[QEMU ARM64\nSetup]
+        C2 --> C3[Build Backend\nImage]
+        C2 --> C4[Build Frontend\nImage + API URL]
+        C2 --> C5[Build Voice\nImage]
+        C3 & C4 & C5 --> C6[Push to ECR\nlatest + git-sha]
+    end
+
+    C --> D
+
+    subgraph D[Job 3 — Deploy]
+        D1[Install\nCopilot CLI] --> D2[copilot svc deploy\nbackend]
+        D2 --> D3[copilot svc deploy\nfrontend]
+        D3 --> D4[copilot svc deploy\nvoice]
+        D4 --> D5([✅ Live!])
+    end
+```
+
+---
+
+## 🚢 Deployment Guide
+
+Full step-by-step deployment instructions are in [`docs/deployment_guide.md`](docs/deployment_guide.md).
+
+**Quick summary:**
+
+1. **One-time setup:** Run `copilot app init finvox` + `copilot env init --name dev`
+2. **Add secrets** to AWS SSM (`/finvox/dev/OPENAI_API_KEY` etc.)
+3. **Deploy backend first** → get the ALB URL
+4. **Update** `VITE_API_BASE_URL` in `copilot/frontend/manifest.yml` with `<ALB_URL>/api`
+5. **Deploy frontend & voice** → everything is live!
+6. **All future deploys:** just `git push` to `main` — GitHub Actions handles the rest automatically.
+
+---
+
 ## 🛠️ Technology Stack
 
-- **Frontend:** React.js + Tailwind CSS
-- **Backend:** FastAPI (Python)
-- **AI Framework:** LangChain & LangGraph
-- **Vector Database:** Qdrant Cloud
-- **State Database:** Supabase (PostgreSQL)
-- **LLM Routing:** OpenAI (GPT-4o, GPT-4o-mini)
-- **Embeddings:** HuggingFace Sentence Transformers (`bge-large-en-v1.5`)
-- **Voice Pipeline:** LiveKit, Deepgram, ElevenLabs
+| Layer | Technology |
+|---|---|
+| **Frontend** | React.js + Tailwind CSS (Vite) |
+| **Backend** | FastAPI (Python 3.11) |
+| **Voice** | LiveKit Agents + Deepgram STT + ElevenLabs TTS |
+| **AI Framework** | LangChain & LangGraph |
+| **LLM** | OpenAI GPT-4o / GPT-4o-mini |
+| **Embeddings** | HuggingFace `BAAI/bge-large-en-v1.5` (local) |
+| **Vector DB** | Qdrant Cloud |
+| **State DB** | Supabase (PostgreSQL + pgvector) |
+| **Compute** | AWS ECS Fargate (ARM64 / Graviton) |
+| **Registry** | Amazon ECR |
+| **Secrets** | AWS SSM Parameter Store |
+| **CI/CD** | GitHub Actions (OIDC + Copilot CLI) |
+| **Networking** | AWS ALB + VPC Public Subnets |
+
+---
 
 ## 🔮 Future Enhancements
 

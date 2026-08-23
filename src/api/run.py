@@ -17,11 +17,13 @@ if __name__ == "__main__":
     reloader overhead on startup.
     """
     dev_mode = os.getenv("DEV_MODE", "0") == "1"
+    host = os.getenv("HOST", "127.0.0.1")
+    port = int(os.getenv("PORT", "8000"))
 
     uvicorn.run(
         "src.api.main:app", 
-        host="127.0.0.1", 
-        port=8000, 
+        host=host, 
+        port=port, 
         reload=dev_mode,        # False by default — removes reloader process overhead
         log_level="info"
     )

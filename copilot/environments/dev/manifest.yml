@@ -1,0 +1,35 @@
+# =============================================================================
+# FinVox — Development Environment (AWS Copilot Manifest)
+# =============================================================================
+#
+# This file configures the shared VPC, subnets, and networking for the 'dev'
+# environment. All services (backend, frontend, voice) share this environment.
+#
+# Create the environment:
+#   copilot env init --name dev --profile <AWS_PROFILE> --app finvox
+#   copilot env deploy --name dev
+# =============================================================================
+
+name: dev
+type: Environment
+
+# ── Network ────────────────────────────────────────────────────────────────────
+# Copilot auto-creates a VPC with:
+#   - 2 public subnets  (for ALB and our tasks)
+#   - 2 private subnets (unused in dev to save NAT Gateway costs)
+#
+# To use an existing VPC (e.g., if you already have one):
+# network:
+#   vpc:
+#     id: 'vpc-XXXXXXXXXXXXXXXXX'
+#     subnets:
+#       public:
+#         - id: 'subnet-XXXXXXXXXXXXXXXXX'
+#         - id: 'subnet-XXXXXXXXXXXXXXXXX'
+#       private:
+#         - id: 'subnet-XXXXXXXXXXXXXXXXX'
+#         - id: 'subnet-XXXXXXXXXXXXXXXXX'
+
+# ── Observability ──────────────────────────────────────────────────────────────
+observability:
+  container_insights: false              # Disabled to save CloudWatch costs in dev

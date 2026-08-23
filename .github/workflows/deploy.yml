@@ -1,4 +1,24 @@
-name: CI / Syntax Check
+# =============================================================================
+# FinVox — CI/CD Pipeline
+# Trigger: Push to main/master → Build images → Push to ECR → Deploy to ECS
+# =============================================================================
+#
+# GitHub Secrets required (Settings → Secrets and variables → Actions):
+#   AWS_ACCOUNT_ID     — Your 12-digit AWS account ID (e.g., 123456789012)
+#   VITE_API_BASE_URL  — Production API URL (e.g., https://api.finvox.io)
+#
+# GitHub Variables required (Settings → Secrets and variables → Actions → Variables):
+#   AWS_REGION         — AWS region (e.g., ap-southeast-1)
+#   ECS_CLUSTER        — ECS cluster name (e.g., finvox-dev)
+#
+# AWS IAM setup (one time):
+#   1. Create an OIDC Identity Provider in AWS IAM for token.actions.githubusercontent.com
+#   2. Create an IAM Role with trust policy allowing this repo to assume it
+#   3. Attach permissions: AmazonECS_FullAccess, AmazonEC2ContainerRegistryFullAccess
+#   Role ARN format: arn:aws:iam::<AWS_ACCOUNT_ID>:role/github-actions-finvox
+# =============================================================================
+
+name: Deploy to AWS ECS
 
 on:
   push:
@@ -6,29 +26,163 @@ on:
   pull_request:
     branches: [ "main", "master" ]
 
+env:
+  AWS_REGION:   ${{ vars.AWS_REGION }}
+  ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ vars.AWS_REGION }}.amazonaws.com
+
 jobs:
-  syntax-check:
+
+  # ── Job 1: Syntax & Test Check ───────────────────────────────────────────────
+  test:
+    name: Syntax & Tests
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Syntax check (compile all .py files)
+        run: python -m compileall -q .
+
+      - name: Run pipeline tests
+        run: python tests/test_ingest.py
+
+  # ── Job 2: Build & Push Images to ECR ───────────────────────────────────────
+  build-and-push:
+    name: Build & Push to ECR
+    runs-on: ubuntu-latest
+    needs: test                             # Only build if tests pass
+    if: github.event_name == 'push' && vars.AWS_REGION != '' # Skip if AWS is not configured yet
+
+    permissions:
+      id-token: write                       # Required for OIDC auth
+      contents: read
+
+    outputs:
+      image-tag: ${{ steps.meta.outputs.tag }}
 
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.11"
-        cache: 'pip'
+      - uses: actions/checkout@v4
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        
-    - name: Compile Python files (Check for syntax errors)
-      run: |
-        # This will compile all .py files in the project and fail if there are syntax errors.
-        python -m compileall -q .
+      # ── OIDC AWS Auth (no permanent credentials needed) ───────────────────
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-finvox
+          aws-region: ${{ vars.AWS_REGION }}
 
-    - name: Run Pipeline Tests
-      run: |
-        python tests/test_ingest.py
+      # ── Set image tag (git short SHA for traceability) ────────────────────
+      - name: Set image tag
+        id: meta
+        run: echo "tag=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      # ── Login to ECR ──────────────────────────────────────────────────────
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # ── Setup QEMU + Docker Buildx for ARM64 (Graviton) ──────────────────
+      - name: Set up QEMU (for ARM64 cross-compilation)
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: linux/arm64
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # ── Build & Push: Backend ─────────────────────────────────────────────
+      - name: Build & Push — Backend
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/backend/Dockerfile
+          platforms: linux/arm64
+          push: true
+          tags: |
+            ${{ env.ECR_REGISTRY }}/finvox/backend:latest
+            ${{ env.ECR_REGISTRY }}/finvox/backend:${{ steps.meta.outputs.tag }}
+          cache-from: type=gha,scope=backend
+          cache-to: type=gha,mode=max,scope=backend
+
+      # ── Build & Push: Frontend ────────────────────────────────────────────
+      - name: Build & Push — Frontend
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/frontend/Dockerfile
+          platforms: linux/arm64
+          push: true
+          build-args: |
+            VITE_API_BASE_URL=${{ secrets.VITE_API_BASE_URL }}
+          tags: |
+            ${{ env.ECR_REGISTRY }}/finvox/frontend:latest
+            ${{ env.ECR_REGISTRY }}/finvox/frontend:${{ steps.meta.outputs.tag }}
+          cache-from: type=gha,scope=frontend
+          cache-to: type=gha,mode=max,scope=frontend
+
+      # ── Build & Push: Voice ───────────────────────────────────────────────
+      - name: Build & Push — Voice
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/voice/Dockerfile
+          platforms: linux/arm64
+          push: true
+          tags: |
+            ${{ env.ECR_REGISTRY }}/finvox/voice:latest
+            ${{ env.ECR_REGISTRY }}/finvox/voice:${{ steps.meta.outputs.tag }}
+          cache-from: type=gha,scope=voice
+          cache-to: type=gha,mode=max,scope=voice
+
+  # ── Job 3: Deploy to ECS ─────────────────────────────────────────────────────
+  deploy:
+    name: Deploy to ECS
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    if: github.event_name == 'push'
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-finvox
+          aws-region: ${{ vars.AWS_REGION }}
+
+      # ── Install AWS Copilot CLI ────────────────────────────────────────────
+      - name: Install Copilot CLI
+        run: |
+          curl -Lo /usr/local/bin/copilot \
+            https://github.com/aws/copilot-cli/releases/latest/download/copilot-linux
+          chmod +x /usr/local/bin/copilot
+          copilot --version
+
+      # ── Deploy all services via Copilot ───────────────────────────────────
+      # Copilot handles: ECR image tag, ECS task definition update,
+      # rolling deployment, health checks, and rollback on failure.
+      - name: Deploy — Backend
+        run: copilot svc deploy --name backend --env dev --no-rollback
+
+      - name: Deploy — Frontend
+        run: copilot svc deploy --name frontend --env dev --no-rollback
+
+      - name: Deploy — Voice
+        run: copilot svc deploy --name voice --env dev --no-rollback
+
+      - name: ✅ Deployment Complete
+        run: |
+          echo "All services deployed successfully!"
+          echo "Image tag: ${{ needs.build-and-push.outputs.image-tag }}"

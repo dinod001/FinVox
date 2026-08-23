@@ -1,0 +1,63 @@
+# =============================================================================
+# FinVox — Frontend Service (AWS Copilot Manifest)
+# Type: Load Balanced Web Service (Nginx serving React SPA)
+# =============================================================================
+#
+# HOW TO DEPLOY:
+#   copilot svc deploy --name frontend --env dev
+#
+# NOTE: Build the React app first — Vite bakes VITE_API_BASE_URL at build time.
+#       For dev, set VITE_API_BASE_URL to your ALB URL + /api e.g.
+#       http://finvox-dev-xxx.elb.amazonaws.com/api
+# =============================================================================
+
+name: frontend
+type: Load Balanced Web Service
+
+# ── Container Image ────────────────────────────────────────────────────────────
+image:
+  # OPTION A: Build from source (Copilot builds + pushes to ECR automatically)
+  build:
+    dockerfile: docker/frontend/Dockerfile
+    context: .
+    args:
+      # IMPORTANT: Change this to your ALB DNS name + /api.
+      # e.g., http://finvox-alb-xxxx.ap-southeast-1.elb.amazonaws.com/api
+      VITE_API_BASE_URL: "http://REPLACE_WITH_YOUR_ALB_DNS/api"
+  platform: linux/arm64                   # AWS Graviton (ARM64)
+
+  # OPTION B: Use a pre-pushed ECR image
+  # location: <AWS_ACCOUNT_ID>.dkr.ecr.<AWS_REGION>.amazonaws.com/finvox/frontend:latest
+
+  port: 80
+
+# ── ALB Routing ────────────────────────────────────────────────────────────────
+http:
+  path: '/'
+  healthcheck:
+    path: '/nginx-health'
+    interval: 30s
+    timeout: 5s
+    healthy_threshold: 2
+    unhealthy_threshold: 3
+
+# ── Compute ────────────────────────────────────────────────────────────────────
+# Nginx is extremely lightweight — minimal resources needed.
+cpu: 256                                  # 0.25 vCPU
+memory: 512                              # 0.5 GB RAM
+count: 1
+
+# ── Network ────────────────────────────────────────────────────────────────────
+network:
+  vpc:
+    placement: 'public'                   # Run in public subnet
+
+# ── Environment Variables ──────────────────────────────────────────────────────
+# Frontend is a static SPA — no secrets needed at runtime.
+# API URL is baked into the JS bundle at build time via VITE_API_BASE_URL above.
+variables: {}
+
+# ── Environment Overrides ──────────────────────────────────────────────────────
+environments:
+  dev:
+    count: 1                              # 1 task in dev
