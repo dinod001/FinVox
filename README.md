@@ -103,10 +103,10 @@ graph TB
     User((🌐 Browser)):::internet
     GH[🐙 GitHub Actions]:::cicd
 
-    subgraph AWS Cloud
-        subgraph VPC - Public Subnet
+    subgraph AWSCloud [AWS Cloud]
+        subgraph VPC [VPC - Public Subnet]
             ALB[⚖️ Application Load Balancer]:::aws
-            subgraph ECS Fargate Cluster
+            subgraph ECSCluster [ECS Fargate Cluster]
                 FE[💻 Frontend\nNginx/React\n0.25 vCPU / 512MB]:::ecs
                 BE[⚙️ Backend\nFastAPI\n1 vCPU / 2GB]:::ecs
                 VO[🎙️ Voice Worker\nLiveKit Agent\n1 vCPU / 2GB]:::ecs
@@ -117,7 +117,7 @@ graph TB
         SSM[🔐 SSM Parameter\nStore / Secrets]:::secret
     end
 
-    subgraph Managed Cloud Services
+    subgraph ManagedServices [Managed Cloud Services]
         Supabase[(🐘 Supabase\nPostgreSQL)]:::managed
         Qdrant[(🔍 Qdrant\nVector DB)]:::managed
         LiveKit[🎙️ LiveKit\nCloud]:::managed
@@ -132,7 +132,7 @@ graph TB
     BE --> Qdrant
 
     GH -->|push image| ECR
-    GH -->|copilot svc deploy| ECS Fargate Cluster
+    GH -->|copilot svc deploy| ECSCluster
     SSM -.->|inject secrets at startup| BE
     SSM -.->|inject secrets at startup| VO
     ECR -.->|pull image| FE
