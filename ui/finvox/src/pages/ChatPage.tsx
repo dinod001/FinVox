@@ -34,6 +34,7 @@ interface Message {
   timestamp: string;
   isStreaming?: boolean;
   timeline?: TimelineEvent[];
+  download_report?: boolean;
 }
 
 const preprocessMath = (text: string) => {
@@ -292,9 +293,36 @@ const ChatPage: React.FC = () => {
           finalContent += token;
           setMessages(prev => prev.map(m => m.id === assistantMsgId ? { ...m, content: finalContent } : m));
         },
+        onFinal: (downloadReport) => {
+          setMessages(prev => prev.map(m =>
+            m.id === assistantMsgId ? {
+              ...m,
+              download_report: downloadReport,
+              // Strip the [REPORT:YES/NO] tag that was streamed as part of tokens
+              content: m.content.replace(/\[REPORT:(YES|NO)\]\s*$/i, '').trimEnd()
+            } : m
+          ));
+        },
         onDone: () => {
           setMessages(prev => prev.map(m => m.id === assistantMsgId ? { ...m, isStreaming: false } : m));
           setIsTyping(false);
+          // Refresh sessions list after a short delay to allow background auto-titling to finish
+          setTimeout(() => {
+            if (userId) {
+              chatSessionsApi.listSessions(userId).then(res => {
+                setSessions(res.sessions);
+              }).catch(console.error);
+            }
+          }, 3000);
+          
+          // Secondary fallback refresh in case the LLM takes longer
+          setTimeout(() => {
+            if (userId) {
+              chatSessionsApi.listSessions(userId).then(res => {
+                setSessions(res.sessions);
+              }).catch(console.error);
+            }
+          }, 8000);
         },
         onError: (error) => {
           console.error("Stream error:", error);
@@ -471,8 +499,8 @@ const ChatPage: React.FC = () => {
                       </div>
                     ))}
 
-                    {/* Download Report Button */}
-                    {msg.role === 'assistant' && !msg.isStreaming && msg.content && msg.content.length > 50 && (
+                    {/* Download Report Button - only shown when backend signals download_report: true */}
+                    {msg.role === 'assistant' && !msg.isStreaming && msg.download_report && (
                       <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-start' }}>
                         <button 
                           onClick={() => {

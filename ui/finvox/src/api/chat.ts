@@ -4,6 +4,7 @@ export interface ChatStreamCallbacks {
   onStageStart?: (stage: string, label: string) => void;
   onStageDone?: (stage: string, ms?: number) => void;
   onToken?: (token: string) => void;
+  onFinal?: (downloadReport: boolean) => void;
   onDone?: () => void;
   onError?: (error: Error) => void;
 }
@@ -79,6 +80,7 @@ export const chatApi = {
                 } else if (data.type === 'token') {
                   callbacks.onToken?.(data.content || data.token || "");
                 } else if (data.type === 'done' || data.type === 'final') {
+                  callbacks.onFinal?.(data.download_report ?? false);
                   callbacks.onDone?.();
                 }
               } catch (e) {

@@ -74,6 +74,10 @@ class ChatResponse(BaseModel):
         0,
         description="Total processing time in milliseconds"
     )
+    download_report: bool = Field(
+        False,
+        description="If True, the frontend should enable the Download Report button for this message"
+    )
 
 # ── Chat Session Metadata Schemas ─────────────────────────────────────────────
 

@@ -1,5 +1,6 @@
 import asyncio
 import json
+import re
 import time
 from typing import Any, Awaitable, Callable, Dict
 
@@ -11,7 +12,7 @@ from loguru import logger
 from src.api.schemas import ChatRequest, ChatResponse
 from src.api.deps import get_orchestrator
 from src.agents.orchestrator import AgentOrchestrator
-from src.api.routers.chat_sessions import touch_session_sync
+from src.api.routers.chat_sessions import touch_session_sync, maybe_auto_title_sync
 from src.api.event_labs import stage_label, tool_label
 from src.infrastructure.observability import observe, update_current_trace, update_current_observation
 from langfuse.langchain import CallbackHandler
@@ -29,6 +30,7 @@ async def _noop_emit(_event: Dict[str, Any]) -> None:
 
 def _ms(start: float) -> int:
     return int((time.perf_counter() - start) * 1000)
+
 
 def _save_memory_bg(orchestrator: AgentOrchestrator, user_id: str, session_id: str, message: str, answer: str) -> None:
     """Helper to save both user message and assistant reply to memory."""
@@ -104,13 +106,15 @@ async def _run_chat_pipeline(
         # Background Memory Save
         background.add_task(_save_memory_bg, orchestrator, req.user_id, req.session_id, req.message, OUT_OF_SCOPE_REPLY)
         background.add_task(touch_session_sync, req.user_id, req.session_id)
+        background.add_task(maybe_auto_title_sync, req.session_id, req.user_id, orchestrator.memory_manager.st_store, orchestrator.llm_chat)
         
         return ChatResponse(
             session_id=req.session_id,
             answer=OUT_OF_SCOPE_REPLY,
             routes=["out_of_scope"],
             tool_output=None,
-            latency_ms=_ms(t_total)
+            latency_ms=_ms(t_total),
+            download_report=False
         )
 
     # ── Phase 3: Tool Dispatch (Parallel Fan-Out) ─────────────────────────────
@@ -206,10 +210,19 @@ Valid types: "bar", "line", "pie". The "name" field is the label.
 If the user explicitly asks to generate a report, document, or summary, format your ENTIRE response as a formal, highly detailed professional report. Use Markdown to structure it with an 'Executive Summary', clear bold headings (##, ###), bullet points, and data tables. Be comprehensive, analytical, and synthesize all available tool data.
 """
 
+    download_signal_instruction = """
+=== DOWNLOAD SIGNAL (MANDATORY) ===
+At the very end of your response, on a brand new line, you MUST append exactly ONE of these two tags:
+- `[REPORT:YES]` — if your response contains financial data, calculations, tables, charts, a formal report, or any structured numerical analysis the user would benefit from downloading.
+- `[REPORT:NO]`  — if your response is conversational, a greeting, an explanation, or does not contain downloadable financial content.
+Do NOT explain the tag. Just append it silently on the last line.
+"""
+
     system_prompt = (
         "You are FinVox, an expert SME Financial Assistant.\n"
         "IMPORTANT FORMATTING RULES: Whenever you present numerical data, breakdowns, financial projections, or comparative information, ALWAYS format it using clean Markdown Tables to make it easy for the user to read.\n\n"
         f"{report_instruction}\n\n"
+        f"{download_signal_instruction}\n\n"
         f"=== MEMORY CONTEXT ===\n{memory_context}{kpi_context}\n\n{chart_instruction}"
     )
     if "tax" in active_routes and tool_output:
@@ -246,17 +259,27 @@ If the user explicitly asks to generate a report, document, or summary, format y
     timings["synth"] = _ms(t0)
     await emit({"type": "stage_done", "stage": "synth", "ms": timings["synth"]})
 
+    # ── Parse LLM download signal and strip from visible answer ───────────────
+    download_report = False
+    signal_match = re.search(r'\[REPORT:(YES|NO)\]\s*$', final_answer, re.IGNORECASE | re.MULTILINE)
+    if signal_match:
+        download_report = signal_match.group(1).upper() == "YES"
+        # Strip the tag from the answer so the user never sees it
+        final_answer = final_answer[:signal_match.start()].rstrip()
+
     # ── Phase 5: Background Tasks (Zero Latency Impact) ───────────────────────
     # Memory saving is completely offloaded to the background
     background.add_task(_save_memory_bg, orchestrator, req.user_id, req.session_id, req.message, final_answer)
     background.add_task(touch_session_sync, req.user_id, req.session_id)
+    background.add_task(maybe_auto_title_sync, req.session_id, req.user_id, orchestrator.memory_manager.st_store, orchestrator.llm_chat)
 
     return ChatResponse(
         session_id=req.session_id,
         answer=final_answer,
         routes=routes_taken,
         tool_output=tool_output if tool_output else None,
-        latency_ms=_ms(t_total)
+        latency_ms=_ms(t_total),
+        download_report=download_report
     )
 
 # ── POST /chat — non-streaming (sync contract) ────────────────────────────────
@@ -301,6 +324,7 @@ async def chat_stream(
                 "answer": final.answer,
                 "routes": final.routes,
                 "latency_ms": final.latency_ms,
+                "download_report": final.download_report,
             })
         except HTTPException as exc:
             await queue.put({"type": "error", "status": exc.status_code, "message": str(exc.detail)})
