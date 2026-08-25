@@ -218,13 +218,22 @@ At the very end of your response, on a brand new line, you MUST append exactly O
 Do NOT explain the tag. Just append it silently on the last line.
 """
 
-    system_prompt = (
-        "You are FinVox, an expert SME Financial Assistant.\n"
-        "IMPORTANT FORMATTING RULES: Whenever you present numerical data, breakdowns, financial projections, or comparative information, ALWAYS format it using clean Markdown Tables to make it easy for the user to read.\n\n"
-        f"{report_instruction}\n\n"
-        f"{download_signal_instruction}\n\n"
-        f"=== MEMORY CONTEXT ===\n{memory_context}{kpi_context}\n\n{chart_instruction}"
-    )
+    if req.is_voice:
+        system_prompt = (
+            "You are FinVox, an expert SME Financial Assistant.\n"
+            "You are communicating with the user through a VOICE INTERFACE. "
+            "Keep your answers conversational, concise, and easy to understand when spoken out loud. "
+            "Speak naturally. DO NOT use Markdown, tables, charts, or bullet points.\n\n"
+            f"=== MEMORY CONTEXT ===\n{memory_context}{kpi_context}\n\n"
+        )
+    else:
+        system_prompt = (
+            "You are FinVox, an expert SME Financial Assistant.\n"
+            "IMPORTANT FORMATTING RULES: Whenever you present numerical data, breakdowns, financial projections, or comparative information, ALWAYS format it using clean Markdown Tables to make it easy for the user to read.\n\n"
+            f"{report_instruction}\n\n"
+            f"{download_signal_instruction}\n\n"
+            f"=== MEMORY CONTEXT ===\n{memory_context}{kpi_context}\n\n{chart_instruction}"
+        )
     if "tax" in active_routes and tool_output:
         system_prompt += (
             "\n\n=== TAX COMPLIANCE INSTRUCTIONS ===\n"
@@ -260,12 +269,14 @@ Do NOT explain the tag. Just append it silently on the last line.
     await emit({"type": "stage_done", "stage": "synth", "ms": timings["synth"]})
 
     # ── Parse LLM download signal and strip from visible answer ───────────────
+    import re
     download_report = False
-    signal_match = re.search(r'\[REPORT:(YES|NO)\]\s*$', final_answer, re.IGNORECASE | re.MULTILINE)
-    if signal_match:
-        download_report = signal_match.group(1).upper() == "YES"
-        # Strip the tag from the answer so the user never sees it
-        final_answer = final_answer[:signal_match.start()].rstrip()
+    if not req.is_voice:
+        signal_match = re.search(r'\[REPORT:(YES|NO)\]\s*$', final_answer, re.IGNORECASE | re.MULTILINE)
+        if signal_match:
+            download_report = signal_match.group(1).upper() == "YES"
+            # Strip the tag from the answer so the user never sees it
+            final_answer = final_answer[:signal_match.start()].rstrip()
 
     # ── Phase 5: Background Tasks (Zero Latency Impact) ───────────────────────
     # Memory saving is completely offloaded to the background

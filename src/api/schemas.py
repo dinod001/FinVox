@@ -50,6 +50,10 @@ class ChatRequest(BaseModel):
         default_factory=dict, 
         description="Optional additional context (e.g., specific company context, UI state)"
     )
+    is_voice: bool = Field(
+        False,
+        description="If True, indicates the request is from the voice assistant, so formatting like Markdown or JSON charts should be omitted."
+    )
 
 
 class ChatResponse(BaseModel):

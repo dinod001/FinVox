@@ -154,6 +154,7 @@ class LangGraphLLMStream(LLMStream):
                 message=user_text,
                 user_id=self._user_id,
                 session_id=self._session_id,
+                is_voice=True
             )
             bg_tasks = BackgroundTasks()
 
