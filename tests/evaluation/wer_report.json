@@ -1,0 +1,56 @@
+{
+  "timestamp": "2026-08-24T10:57:06.414553",
+  "overall_wer": 0.1448375,
+  "english_wer": 0.051739999999999994,
+  "singlish_wer": 0.3,
+  "results": [
+    {
+      "label": "Standard cashflow query",
+      "wer": 0.0,
+      "cer": 0.0,
+      "wer_percent": 0.0
+    },
+    {
+      "label": "Tax query",
+      "wer": 0.0,
+      "cer": 0.0,
+      "wer_percent": 0.0
+    },
+    {
+      "label": "Investment query",
+      "wer": 0.0,
+      "cer": 0.0,
+      "wer_percent": 0.0
+    },
+    {
+      "label": "Singlish cashflow query",
+      "wer": 0.5,
+      "cer": 0.075,
+      "wer_percent": 50.0
+    },
+    {
+      "label": "Singlish tax query",
+      "wer": 0.2,
+      "cer": 0.0357,
+      "wer_percent": 20.0
+    },
+    {
+      "label": "Singlish investment query",
+      "wer": 0.2,
+      "cer": 0.0351,
+      "wer_percent": 20.0
+    },
+    {
+      "label": "Fast speech - revenue query",
+      "wer": 0.0769,
+      "cer": 0.0143,
+      "wer_percent": 7.69
+    },
+    {
+      "label": "Mixed language financial",
+      "wer": 0.1818,
+      "cer": 0.0333,
+      "wer_percent": 18.18
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-08-24T11:08:18.937480",
+  "overall_avg_ms": 15070,
+  "results": [
+    {
+      "label": "cashflow",
+      "avg_ms": 12699,
+      "median_ms": 12368,
+      "min_ms": 10923,
+      "max_ms": 14808
+    },
+    {
+      "label": "rag",
+      "avg_ms": 16849,
+      "median_ms": 16598,
+      "min_ms": 15281,
+      "max_ms": 18669
+    },
+    {
+      "label": "tax",
+      "avg_ms": 14404,
+      "median_ms": 14797,
+      "min_ms": 10109,
+      "max_ms": 18307
+    },
+    {
+      "label": "investment",
+      "avg_ms": 20509,
+      "median_ms": 20509,
+      "min_ms": 18839,
+      "max_ms": 22180
+    },
+    {
+      "label": "general",
+      "avg_ms": 10890,
+      "median_ms": 10890,
+      "min_ms": 10036,
+      "max_ms": 11745
+    }
+  ]
+}

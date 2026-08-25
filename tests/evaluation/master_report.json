@@ -1,0 +1,152 @@
+{
+  "timestamp": "2026-08-24T11:08:18.948039",
+  "ragas": {
+    "timestamp": "2026-08-24T11:04:58.662235",
+    "scores": {},
+    "avg_latency_ms": 20375.6,
+    "results": [
+      {
+        "question": "What is the total net cashflow for July 2026?",
+        "answer": "The query for the total net cashflow for July 2026 returned a result of 'None'. This indicates that there is no available data for July 2026 in the current datasets. It could be due to the absence of recorded transactions for that period or the data not being updated to include future dates beyond the current year.",
+        "contexts": [
+          "The database successfully executed a query for: 'What is the total net cashflow for July 2026?'\nResult: [{'total_net_cashflow': None}]"
+        ],
+        "ground_truth": "The total net cashflow for July 2026 is LKR 2,450,000.",
+        "latency_ms": 36563
+      },
+      {
+        "question": "What are the VAT obligations for a Sri Lankan SME with revenue over LKR 60 million?",
+        "answer": "For a Sri Lankan SME with revenue exceeding LKR 60 million annually, VAT registration is mandatory. Once registered, the business must charge VAT at the standard rate of 18% on taxable supplies. This rate was increased from 15% to 18% effective 1 January 2024 as part of the IMF-supported economic stabilization program.\n\nThe business will also need to comply with VAT filing and payment obligations, which typically involve submitting periodic VAT returns and remitting the collected VAT to the Inland Revenue Department.\n\nFor more detailed information, you can refer to the official guidelines on the Inland Revenue Department's website: [ird.gov.lk](https://www.ird.gov.lk).\n\nSources:\n- [Taxdo](https://taxdo.com/resources/countries/ap/sri-lanka)\n- [LinkedIn](https://www.linkedin.com/posts/azwar-ziyad-a89587287_here-are-the-vat-registration-threshold-changes-activity-7436880269971722240-Xew4)",
+        "contexts": [
+          "Source: https://taxdo.com/resources/countries/ap/sri-lanka\n## Local Sri Lankan Business\n\nIf your business is established in Sri Lanka, the question of whether VAT applies has a clean structural answer: above LKR 60 million annual turnover (or LKR 15 million quarterly), VAT registration is mandatory. Below the cap, businesses operate outside the VAT system. The 2024 rate change from 15% to 18% was the most consequential VAT reform in over a decade under the IMF-supported economic stabilisation programme. The bigger 2026 questions for Sri Lankan-resident businesses are about continued tax administration modernisation under the IMF programme and SSCL (Social Security Contribution Levy) interactions for specified businesses.\n\n### When the cap kicks in [...] ## Do I need to comply? \u2014 60-second check\n\nThree numbers tell you whether you need to register for Sri Lanka VAT. LKR 60 million is the annual turnover cap that triggers mandatory VAT registration for resident businesses (or LKR 15 million per quarter). LKR zero is the effective floor for foreign suppliers under evolving cross-border frameworks \u2014 historically operating through buyer-side withholding rather than direct registration. And 18% is the standard rate (raised from 15% to 18% effective 1 January 2024 under the IMF-supported economic stabilisation programme \u2014 one of the most consequential VAT rate changes globally in 2024).\n\nFour questions, in order. By the end of them, you will know which compliance path applies: [...] Sri Lankan-resident business? Whether you register depends on annual turnover crossing LKR 60 million (or quarterly LKR 15 million). The Local Sri Lankan Business track covers the full picture including SSCL interactions.\n Overseas business supplying digital services or SaaS to Sri Lankan customers? Foreign SaaS / Digital Services Seller track. Historical withholding-based mechanism continues with evolving direct registration alternatives.\n Overseas business shipping physical goods to Sri Lankan consumers \u2014 Daraz Sri Lanka, your own store, marketplace-routed? Foreign E-commerce Seller track. Import VAT at 18% applies at customs alongside Customs Duty, CESS, and PAL (Ports and Airports Development Levy).\n\nSource: https://www.linkedin.com/posts/azwar-ziyad-a89587287_here-are-the-vat-registration-threshold-changes-activity-7436880269971722240-Xew4\nLKR 60 million per year. A business must register for VAT if: Annual turnover exceeds LKR 60 million, OR Quarterly turnover exceeds. Charge 18%\n\nSource: https://www.facebook.com/groups/1009095396580032/posts/2189369485219278\nA non-resident digital service provider may be required to register for VAT when supplies to Sri Lankan customers exceed: \ud83d\udccc LKR 60 million\n\nSource: https://www.facebook.com/numbers.lk/posts/sri-lanka-decided-keeps-vat-and-sscl-threshold-at-rs-60-million-the-government-h/1639624634834062\nNon-resident providers must register for VAT if their services to Sri Lankan consumers exceed LKR 60 million (approx. US$ 195,000) in the last"
+        ],
+        "ground_truth": "Sri Lankan SMEs with annual revenue exceeding LKR 60 million are required to register for VAT with the Inland Revenue Department (IRD) and charge 18% VAT on taxable supplies.",
+        "latency_ms": 18925
+      },
+      {
+        "question": "What is the invoice INV-2026-0842 net payable amount and due date?",
+        "answer": "The net payable amount for invoice INV-2026-0842 is LKR 1,136,780.00, and the due date for payment is 29 July 2026.",
+        "contexts": [
+          "1. **Key Insights**:\n   - The invoice INV-2026-0842 has a subtotal of LKR 1,006,000.00.\n   - VAT at 18% amounts to LKR 181,080.00.\n   - A withholding tax of 5% is applied, amounting to LKR 50,300.00.\n   - The net payable amount after taxes is LKR 1,136,780.00.\n\n2. **Analysis/Answer**: The net payable amount for invoice INV-2026-0842 is LKR 1,136,780.00, and the due date for payment is 29 July 2026 [Source: sample_invoice.pdf].\n\n3. **Recommendation**: Ensure timely payment by the due date to avoid a 2% monthly interest charge on late payments. Consider setting up a reminder or automatic payment to manage cash flow efficiently [Source: sample_invoice.pdf]."
+        ],
+        "ground_truth": "Invoice INV-2026-0842 has a net payable amount of LKR 1,136,780 and is due on 29 July 2026.",
+        "latency_ms": 15814
+      },
+      {
+        "question": "What are the best short-term investment options for an SME with LKR 1 million surplus?",
+        "answer": "For an SME with a surplus of LKR 1 million looking for short-term investment options, it's important to consider both the potential returns and the associated risks. Here are some options that could be suitable:\n\n1. **Fixed Deposits (FDs):**\n   - **Pros:** Fixed deposits offer a secure investment with guaranteed returns. They are ideal for risk-averse investors.\n   - **Cons:** The returns are generally lower compared to other investment options.\n   - **Risk Assessment:** Low risk.\n\n2. **Treasury Bills:**\n   - **Pros:** Treasury bills are government-backed securities with short maturities, typically ranging from a few weeks to a year. They offer a safe investment with predictable returns.\n   - **Cons:** The returns might be lower than other market-linked investments.\n   - **Risk Assessment:** Very low risk.\n\n3. **Money Market Funds:**\n   - **Pros:** These funds invest in short-term, high-quality investments issued by government and corporate entities. They offer liquidity and slightly higher returns than savings accounts.\n   - **Cons:** Returns can fluctuate based on market conditions.\n   - **Risk Assessment:** Low to moderate risk.\n\n4. **Corporate Bonds:**\n   - **Pros:** Investing in short-term corporate bonds can offer higher returns compared to government securities.\n   - **Cons:** There is a higher risk compared to government securities, depending on the creditworthiness of the issuing company.\n   - **Risk Assessment:** Moderate risk.\n\n5. **Short-term Investment Plans by Insurance Companies:**\n   - **Pros:** Some insurance companies offer short-term investment plans that combine investment with insurance benefits. These can provide a balance of risk and return.\n   - **Cons:** The terms and conditions can be complex, and there might be penalties for early withdrawal.\n   - **Risk Assessment:** Low to moderate risk.\n\n6. **Colombo Stock Exchange (CSE) Short-term Investments:**\n   - **Pros:** Investing in stocks or exchange-traded funds (ETFs) on the CSE can offer higher returns.\n   - **Cons:** The stock market is volatile, and there is a risk of losing the principal amount.\n   - **Risk Assessment:** High risk.\n\nBefore making any investment, it's crucial to assess the SME's risk tolerance, liquidity needs, and investment horizon. Diversifying the investment across different options can also help mitigate risks. Consulting with a financial advisor to tailor the investment strategy to the specific needs and goals of the SME is advisable.",
+        "contexts": [
+          "[{'title': 'PROSPECTUS', 'url': 'https://cdn.cse.lk/cmt/upload_report_file/2512_1761628670204.pdf', 'content': '(e) A finance Company licensed by the Central Bank of Sri Lanka in terms of the Finance Business Act. No. 42 of 2011 (as amended).\\n(f) A Company licensed by the Central Bank of Sri Lanka to carry on finance leasing business under the Finance Leasing Act, No. 56 of 2000 (as amended).\\n(g) A Company licensed by the Insurance Board of Sri Lanka to carry on insurance business in terms of the Regulation of the Insurance Industry Act, No. 43 of 2000 (as amended).\\n(h) A corporate (listed or unlisted) which does not fall under the above categories and is incorporated under the Companies Act No. 7 of 2007.\\n(i) An investment trust or investment Company.\\n(j) A Non-Resident institutional investor.\\n(k) An individual with a minimum initial investment amount of LKR 5,000,000/-. [...] Systems (Private) Limited CEFTS Common Electronic Fund Transfer Switch CSE Colombo Stock Exchange EBITDA Earnings Before Interest, Tax, Depreciation and Amortization FATCA Foreign Account Tax Compliance Act HNB Hatton National Bank PLC HNBIB HNB Investment Bank (Pvt) Limited IIA Inward Investment Account LCB/Company/Issuer Lanka Credit and Business Finance PLC LKR/Rs. [...] As such a maximum amount of Rupees One Thousand Five Hundred Million (LKR 1,500,000,000/-) would be raised by the issue of a maximum of Fifteen Million (15,000,000) Bonds each with the Par Value of LKR 100/-.', 'score': 0.42892754}, {'title': 'Sri Lanka Insurance Life Wealth Plus - A short term investment, for a long term protection | Daily FT', 'url': 'https://www.ft.lk/tactical_investor_2025/Sri-Lanka-Insurance-Life-Wealth-Plus-A-short-term-investment-for-a-long-term-protection/10604-777053', 'content': 'May 29, 2025 - One of the plans Sri Lanka Insurance Life has introduced in the recent times to the market is the Sri Lanka Insurance Life Wealth Plus plan. It is an ideal insurance solution for a customer who is looking for a short term investment plan with', 'score': 0.31504065}, {'title': 'www.cds.lk cds.info@cse.lk', 'url': 'https://cdn.cse.lk/pdf/investor-portal/invest-sri-lanka.pdf', 'content': 'S&P : Standard and Poor\u2019s SEC : Securities and Exchange Commission SET : Stock exchange of Thailand STI : Straits Times Index TRI : Total Return Index TWSE : Taiwan Stock Exchange VNINDEX : Vietnam Ho Chi Minh Stock Index List of Acronyms 01 COLOMBO STOCK EXCHANGE 1. An attractive long term investment destination The CSE\u2019s benchmark index, the All Share Price Index (Bloomberg: CSEALL) has performed better (since June 2009) than major global indices (Exhibit 1) and some of the best-performing regional indices. [...] Transfer of proceeds of foreign currency loans (including debt securities) to an outward Investment Account of the borrower, where such loans have been obtained for the purpose of financing an overseas capital transaction (i.e., an outward investment) permitted under the provisions of the Foreign Exchange Act, No.12 of 2017. vii. Transfers to Diplomatic Foreign Currency Accounts and Diplomatic Rupee Accounts of the same account holder. viii. Transfers to an Inward Investment Account of another person (i.e., seller) in respect of the purchase of any permitted investment from such seller by the account holder. Transactions or transfers to any other category of accounts that may be permitted to maintain by the Central Bank from time to time, to the extent such transactions or transfers have [...] 1. S&P/CSE Automobiles & Components 2. S&P/CSE Banks 3. S&P/CSE Capital Goods 4. S&P/CSE Commercial & Professional Services 5. S&P/CSE Consumer Durables & Apparel 6. S&P/CSE Consumer Services 7. S&P/CSE Diversified Financials 8. S&P/CSE Energy 9. S&P/CSE Food & Staples Retailing 10. S&P/CSE Food, Beverage & Tobacco 11. S&P/CSE Health Care Equipment & Services 12. S&P/CSE Household & Personal Products 13. S&P/CSE Insurance 14. S&P/CSE Materials 15. S&P/CSE Pharmaceuticals, Biotechnology & Life Sciences 16. S&P/CSE Real Estate 17. S&P/CSE Retailing 18. S&P/CSE Telecommunication Services 19. S&P/CSE Transportation 20. S&P/CSE Utilities 05 COLOMBO STOCK EXCHANGE COLOMBO STOCK EXCHANGE The CSE is a company limited by guarantee, established under the Companies Act No. 17 of 1982 and is licensed', 'score': 0.2830753}]"
+        ],
+        "ground_truth": "For a Sri Lankan SME with a LKR 1 million surplus, recommended short-term options include Treasury Bills, Fixed Deposits with licensed commercial banks, and money market funds.",
+        "latency_ms": 18978
+      },
+      {
+        "question": "How much did we spend on salaries in July 2026?",
+        "answer": "The query for the total amount spent on salaries in July 2026 returned a result of 'None'. This indicates that there is no available data for July 2026 in the current datasets. It could be due to the absence of recorded transactions for that period or the data not being updated to include future dates beyond the current year.",
+        "contexts": [
+          "The database successfully executed a query for: 'What was the total amount spent on salaries in July 2026?'\nResult: [{'total_salaries': None}]"
+        ],
+        "ground_truth": "The total salary expenditure for July 2026 was LKR 850,000.",
+        "latency_ms": 11598
+      }
+    ]
+  },
+  "wer": {
+    "timestamp": "2026-08-24T10:57:06.414553",
+    "overall_wer": 0.1448375,
+    "english_wer": 0.051739999999999994,
+    "singlish_wer": 0.3,
+    "results": [
+      {
+        "label": "Standard cashflow query",
+        "wer": 0.0,
+        "cer": 0.0,
+        "wer_percent": 0.0
+      },
+      {
+        "label": "Tax query",
+        "wer": 0.0,
+        "cer": 0.0,
+        "wer_percent": 0.0
+      },
+      {
+        "label": "Investment query",
+        "wer": 0.0,
+        "cer": 0.0,
+        "wer_percent": 0.0
+      },
+      {
+        "label": "Singlish cashflow query",
+        "wer": 0.5,
+        "cer": 0.075,
+        "wer_percent": 50.0
+      },
+      {
+        "label": "Singlish tax query",
+        "wer": 0.2,
+        "cer": 0.0357,
+        "wer_percent": 20.0
+      },
+      {
+        "label": "Singlish investment query",
+        "wer": 0.2,
+        "cer": 0.0351,
+        "wer_percent": 20.0
+      },
+      {
+        "label": "Fast speech - revenue query",
+        "wer": 0.0769,
+        "cer": 0.0143,
+        "wer_percent": 7.69
+      },
+      {
+        "label": "Mixed language financial",
+        "wer": 0.1818,
+        "cer": 0.0333,
+        "wer_percent": 18.18
+      }
+    ]
+  },
+  "latency": {
+    "timestamp": "2026-08-24T11:08:18.937480",
+    "overall_avg_ms": 15070,
+    "results": [
+      {
+        "label": "cashflow",
+        "avg_ms": 12699,
+        "median_ms": 12368,
+        "min_ms": 10923,
+        "max_ms": 14808
+      },
+      {
+        "label": "rag",
+        "avg_ms": 16849,
+        "median_ms": 16598,
+        "min_ms": 15281,
+        "max_ms": 18669
+      },
+      {
+        "label": "tax",
+        "avg_ms": 14404,
+        "median_ms": 14797,
+        "min_ms": 10109,
+        "max_ms": 18307
+      },
+      {
+        "label": "investment",
+        "avg_ms": 20509,
+        "median_ms": 20509,
+        "min_ms": 18839,
+        "max_ms": 22180
+      },
+      {
+        "label": "general",
+        "avg_ms": 10890,
+        "median_ms": 10890,
+        "min_ms": 10036,
+        "max_ms": 11745
+      }
+    ]
+  }
+}

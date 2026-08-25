@@ -155,3 +155,10 @@ pytest-asyncio>=0.23.0            # Async test support
 # ========================================
 passlib[bcrypt]>=1.7.4            # Password hashing
 bcrypt>=4.0.0                     # Bcrypt backend for passlib
+
+# ========================================
+# Evaluation & Testing Metrics
+# ========================================
+ragas>=0.1.0                      # RAGAS: RAG pipeline evaluation (faithfulness, relevance, context precision)
+jiwer>=3.0.0                      # WER/CER: Word/Character Error Rate for STT voice evaluation
+datasets>=2.18.0                  # HuggingFace datasets (required by ragas evaluate())
